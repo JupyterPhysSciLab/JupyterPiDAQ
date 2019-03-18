@@ -3,13 +3,25 @@
 # license GPL V3 or greater
 import time
 import numpy as np
-import Adafruit_ADS1x15
+#We may be running on a machine with out a functional analog to digital converter.
+class dummyClass(): #dummy routine(s) if the adc routines cannot be loaded.
+    def __init__(self):
+        pass
+    def read_adc(self,chan,gain, data_rate):
+        return(1.00) #should never get called
+adc=None
+try:
+    import Adafruit_ADS1x15
+    # Create an ADS1115 ADC (16-bit) instance.
+    adc = Adafruit_ADS1x15.ADS1115()           
+except ImportError:
+    adc=dummyClass()
+    warnstr='Warning: No analog to digital converter driver found. Using dummy '
+    warnstr+='function to allow loading. Code should use alternative Demo function.'
+    print(warnstr)
 # Optimized for Pi 3B+
 RATE = 475 # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
            # other rates 8, 16, 32, 64, 128, 250, 475, 860 in Hz.
-
-# Create an ADS1115 ADC (16-bit) instance.
-adc = Adafruit_ADS1x15.ADS1115()           
 
 def V_oversampchan(chan, gain, avg_sec, data_rate = RATE):
     '''
@@ -126,26 +138,3 @@ def V_sampchan(chan, gain, data_rate = RATE):
     time_stamp = (start+end)/2
     V = value*4.096/gain/32767
     return (V, time_stamp)
-'''
-V,time_stamp=V_sampchan(0, 2)
-print ('Single read time: '+str(time.localtime(time_stamp))+' Voltage: '+str(V))
-V_avg,V_min, V_max, time_stamp =V_oversampchan(0, 2, 2)
-valueR = V_avg*2.20e3/(3.30-V_avg)
-valueC = (valueR - 1023.537)/3.85
-valueF = 9*valueC/5 + 32
-print ('Time: '+str(time.localtime(time_stamp)))
-print ('Average deg C: '+str(valueC)+' Averge deg F: '+str(valueF))
-valueR = V_min*2.20e3/(3.30-V_min)
-valueC = (valueR - 1023.537)/3.85
-valueF = 9*valueC/5 + 32
-print ('Min deg C: '+str(valueC)+' Min deg F: '+str(valueF))
-valueR = V_max*2.20e3/(3.30-V_min)
-valueC = (valueR - 1023.537)/3.85
-valueF = 9*valueC/5 + 32
-print ('Max deg C: '+str(valueC)+' Max deg F: '+str(valueF))
-print ('Avg time of 0.05 sec: '+str(V_oversampchan(0,2,0.05)))
-print ('Avg time of 1 sec: '+str(V_oversampchan(0,2,1)))
-print ('Avg time of 2 sec: '+str(V_oversampchan(0,2,2)))
-print ('Avg time of 4 sec: '+str(V_oversampchan(0,2,4)))
-print ('Avg time of 8 sec: '+str(V_oversampchan(0,2,8)))
-'''
