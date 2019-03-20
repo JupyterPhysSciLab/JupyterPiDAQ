@@ -28,7 +28,7 @@ import time
 #Actually read the DAQ board on a different process.
 import threading 
 from multiprocessing import Process, Pipe
-import DAQProc
+from DAQProc import DAQProc
 
 #this import is being done to see if an actual analog-to-digital converter is
 # available. Used to decide if running in "Demo" mode or not.
@@ -52,6 +52,16 @@ runs = []
 ######
 #Interactive elements definitions
 ######
+
+#Add a "DAQ Menu" to the notebook.
+tempJSfile = open('JupyterPiDAQmnu.js')
+tempscript='<script type="text/javascript">'
+tempscript+=tempJSfile.read()+'</script>'
+tempJSfile.close()
+display(HTML(tempscript))
+display(JS('createCmdMenu()'))
+
+#Data Aquistion Instance (a run).
 class DAQinstance():
     def __init__(self, idno, title='None', nchannels=4):
         self.idno=idno
@@ -254,7 +264,7 @@ class DAQinstance():
         for i in range(self.nchannels):
             whichchn.append(self.whichchannels[i].value)
         #print(str(whichchn))
-        DAQ=Process(target=DAQProc,args=(whichchn,self.gain,self.averaging_time,self.delta,DAQconn,DAQCTL,mode=MODE))
+        DAQ=Process(target=DAQProc,args=(whichchn,self.gain,self.averaging_time,self.delta,DAQconn,DAQCTL,MODE))
         DAQ.start()
         for i in range(self.nchannels):
             if (self.whichchannels[i].value):
