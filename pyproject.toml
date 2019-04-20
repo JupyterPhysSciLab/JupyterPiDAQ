@@ -2,7 +2,7 @@
 name = "jupyterpidaq"
 version = "0.5.0"
 description = "Data Aquisition in Jupyter notebook on Raspberry Pi"
-authors = ["gutow <gutow@uwosh.edu>"]
+authors = ["Jonathan Gutow <jgutow@new.rr.com>"]
 license = "GPL-3.0+"
 
 [tool.poetry.dependencies]
