@@ -53,8 +53,11 @@ runs = []
 #Interactive elements definitions
 ######
 
+#Locate JupyterPiDAQ package directory
+mydir=os.path.dirname(__file__) #absolute path to directory containing this file.
+
 #Add a "DAQ Menu" to the notebook.
-tempJSfile = open('JupyterPiDAQmnu.js')
+tempJSfile = open(os.path.join(mydir,'javascript','JupyterPiDAQmnu.js'))
 tempscript='<script type="text/javascript">'
 tempscript+=tempJSfile.read()+'</script>'
 tempJSfile.close()
