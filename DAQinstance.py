@@ -1,4 +1,4 @@
-#Tools for using a Jupyter notbook as a lab notebook that collects and
+#Tools for using a Jupyter notebook as a lab notebook that collects and
 # displays data from an analog to digital converter in real time. The interface
 # also allows for annotation, analysis and display of the data using common
 # python tools. Common activities can be done using menus and buttons rather
@@ -9,6 +9,8 @@
 ######
 #Environment setup
 ######
+#Use os tools for file path and such
+import os
 # below is equivalent to %matplotlib notebook in a Jupyter cell
 from IPython import get_ipython
 ipython = get_ipython()
@@ -28,19 +30,19 @@ import time
 #Actually read the DAQ board on a different process.
 import threading 
 from multiprocessing import Process, Pipe
-from DAQProc import DAQProc
 
 #this import is being done to see if an actual analog-to-digital converter is
 # available. Used to decide if running in "Demo" mode or not.
 MODE = 'Demo'
 try:
     import Adafruit_ADS1x15
-except ImportError:
+except (ImportError, RuntimeError) as e:
     MODE='Demo'
     display(JS('alert("Running in Demo mode. No ADC detected.")'))
 else:
     MODE='ADS1115'
-    
+from DAQProc import DAQProc
+
 #globals to put stuff in from threads.
 data=[] #all data from DAQ tools avg_values
 stdev=[] #all standard deviations

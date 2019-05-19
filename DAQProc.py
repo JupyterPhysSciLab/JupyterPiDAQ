@@ -3,15 +3,20 @@
 # as necessary. The separate process takes advantage of timesliced multitasking
 # to get reasonably consistent time spacing between the datapoints even when
 # the drawing process gets bogged down.
-# J. Gutow <jgutow@new.rr.com> March 17, 2019
+# J. Gutow <jgutow@new.rr.com> May 19, 2019
 # license GPL V3 or greater.
 from collections import deque
 import time
-
-#DAQ tools
-import ADS1115_Utility as ADS1115
 import Demo
 
+#DAQ tools
+try:
+    import ADS1115_Utility as ADS1115
+except (ImportError, RuntimeError) as e:
+    MODE='Demo'
+else:
+    MODE='ADS1115'
+#MODE is just internal bookkeeping here.
 
 def DAQProc(whichchn,gains,avgtime,timedelta,DAQconn, DAQCTL,mode='Demo'):
     #f=open('daq.log','w')
