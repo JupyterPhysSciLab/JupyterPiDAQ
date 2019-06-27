@@ -13,7 +13,7 @@ setuptools.setup(
     license="GPL-3.0+",
     packages=setuptools.find_packages(),
     install_requires=[
-        #'python>=3.6',
+        # 'python>=3.6',
         'Adafruit-ADS1x15>=1.0.2',
         'numpy>=1.13',
         'matplotlib>=1.0',

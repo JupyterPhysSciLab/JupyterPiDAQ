@@ -1,1 +1,1 @@
-name="JupyterPiDAQ"
+name = "JupyterPiDAQ"

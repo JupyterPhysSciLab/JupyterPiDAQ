@@ -25,7 +25,7 @@ except (ImportError, RuntimeError) as e:
     raise ImportError(e)
 # Optimized for Pi 3B+
 RATE = 475  # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
-
+#     TODO: a more sophisticated initialization, which determines the loop time and optimal value for RATE.
 
 # other rates 8, 16, 32, 64, 128, 250, 475, 860 in Hz.
 
@@ -35,8 +35,7 @@ def V_oversampchan(chan, gain, avg_sec, data_rate=RATE):
     averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
     number of seconds. The 0.0012 is the required loop time
     on a RPI 3B+ in python.
-    TODO: a more sophisticated initialization, which determines
-    the loop time.
+
     Parameters
         chan    the channel number 0, 1, 2, 3
         gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
@@ -57,6 +56,7 @@ def V_oversampchan(chan, gain, avg_sec, data_rate=RATE):
     avgmax = adc.read_adc(chan, gain=gain, data_rate=data_rate)
     avgmin = avgmax
     start = time.time()
+    #TODO: more error checking as in stats below
     for k in range(n_samp):
         value[k] = adc.read_adc(chan, gain=gain, data_rate=data_rate)
     end = time.time()
@@ -72,8 +72,7 @@ def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
     This routine returns the average voltage for the channel
     averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
     number of seconds. The 0.0012 is the required loop time
-    on a RPI 3B+ in python3. The voltage is rounded to the number
-    of decimals indicated by the standard deviation. The standard
+    on a RPI 3B+ in python3. The standard
     deviation and the estimated deviation of the mean are also 
     returned.
     Parameters
@@ -114,15 +113,6 @@ def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
     V_avg = sum(value) * 4.096 / len(value) / gain / 32767
     stdev = np.std(value, ddof=1, dtype=np.float64) * 4.096 / gain / 32767
     stdev_avg = stdev / np.sqrt(float(len(value)))
-    decimals = 0
-    if (stdev_avg == 0):
-        decimals = 6
-    else:
-        if (stdev_avg != float('inf')) and (stdev_avg > 0):
-            decimals = -int(np.floor(np.log10(stdev_avg)))
-    V_avg = np.around(V_avg, decimals=decimals)
-    stdev = np.around(stdev, decimals=decimals)
-    stdev_avg = np.around(stdev_avg, decimals=decimals)
     return (V_avg, stdev, stdev_avg, time_stamp)
 
 
@@ -140,6 +130,8 @@ def V_sampchan(chan, gain, data_rate=RATE):
                 since the beginning of the epoch (OS dependent begin time).
         
     '''
+    #TODO: more error checking as in stats above
+
     start = time.time()
     value = adc.read_adc(chan, gain=gain, data_rate=data_rate)
     end = time.time()

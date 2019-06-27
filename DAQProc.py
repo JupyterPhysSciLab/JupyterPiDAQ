@@ -40,6 +40,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL, mode='Demo'):
         times = []
         values = []
         stdevs = []
+        avg_stdevs = []
         for i in range(len(whichchn)):
             if (whichchn[i]):
                 time.sleep(0.001)
@@ -49,9 +50,11 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL, mode='Demo'):
                 times.append(meastime - starttime)
                 values.append(v_avg)
                 stdevs.append(v_std)
+                avg_stdevs.append(avg_std)
         pkg.append(times)
         pkg.append(values)
         pkg.append(stdevs)
+        pkg.append(avg_stdevs)
         databuf.append(pkg)
         # f.write('Buffer length: '+str(len(databuf))+'\n')
         if DAQCTL.poll():
