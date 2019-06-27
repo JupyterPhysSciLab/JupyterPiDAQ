@@ -330,6 +330,12 @@ class BuiltInThermistor():
         A = 0.0009667974157916105
         B = 0.00024132572130718138
         C = 2.077144181533216e-07
+        #Need to stay in sensor range, if get bad voltage throw max or min possible value
+        # alternative for pegging would be to set to 1.649999 which gives < absolute zero.
+        if (volts <=0):
+            volts=1e-312 # gets about 0 K
+        if (volts >= 1.65):
+            volts = 1.649998411 #gets very high T in K
         R = self.Vdd * 1.0e4 / volts - 2.0e4
         tempK = _ntc_therm_RtoK(R, A, B, C)
         return (tempK)

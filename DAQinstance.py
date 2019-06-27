@@ -42,7 +42,8 @@ try:
     adc = Adafruit_ADS1x15.ADS1115()
 except (ImportError, RuntimeError) as e:
     MODE = 'Demo'
-    display(JS('alert("Running in Demo mode. No ADC detected.")'))
+    #display(JS('alert("Running in Demo mode. No ADC detected.")'))
+    print("Running in Demo mode. No ADC detected.")
 else:
     MODE = 'ADS1115'
 from DAQProc import DAQProc  # The separate process that talks to the A-to-D board asynchronously
