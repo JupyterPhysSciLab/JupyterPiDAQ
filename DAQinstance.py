@@ -274,7 +274,7 @@ class DAQinstance():
         DAQ.start()
         for i in range(self.nchannels):
             if (self.channels[i].isactive):
-                tempstr = self.channels[i].channellbl.value
+                tempstr = self.channels[i].channellbl.value+'('+self.channels[i].units.value+')'
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
