@@ -323,6 +323,16 @@ class DAQinstance():
             while PLTconn.poll():
                 pkg = PLTconn.recv()
                 # print(str(pkg))
+                # convert voltage to requested units.
+                for i in range(len(pkg[0])):
+                    avg = pkg[1][i]
+                    std = pkg[2][i]
+                    avg_std = pkg[3][i]
+                    avg, std, avg_std = self.channels[self.channelmap[i]].toselectedunits(avg, std, avg_std)
+                    avg, std, avg_std = to_reasonable_significant_figures_fast(avg, std, avg_std)
+                    pkg[1][i] = avg
+                    pkg[2][i] = std
+                    pkg[3][i] = avg_std
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
                 stdev.append(pkg[2])
