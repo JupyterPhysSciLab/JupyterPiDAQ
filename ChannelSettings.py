@@ -145,3 +145,11 @@ class ChannelSettings():
 
     def hideGUI(self):
         self.settings.close()
+        #Not sure any of the below is necessary. The DOM could use some cleanup. This may require supporting JS.
+        self.headbox.close()
+        self.parambox.close()
+        self.sensorchoice.close()
+        self.units.close()
+        self.checkbox.close()
+        self.channellbl.close()
+
