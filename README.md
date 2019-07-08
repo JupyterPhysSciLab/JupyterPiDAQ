@@ -46,18 +46,24 @@ inside the directory as described below:
         package depends upon. On a Raspberry Pi this will take
         a long time. It probably will not run without at least 1 GB of swap. See: 
 [Build Jupyter on a Pi](https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian).
-    1. Still within the environment shell test 
+    1. Still within the environment shell test
     this by starting jupyter `$ jupyter notebook`.
     Jupyter should launch in your browser.
         1. Open a new notebook using the default (Python 3) kernel.
         1. In the first cell import all from DAQinstance.py: `from DAQinstance import *`.
         When run this cell should load the DAQmenu at the end of the Jupyter notebook 
-    menu/icon bar. If you do not have an appropriate A-to-D
-    board installed you will get a message and the software
-    will default to demo mode, substituting a random number
-    generator for the A-to-D. Because of the demo mode it is
-    possible to run this on any computer, not just a Pi.
-1. Make this environment available to an alternate Jupyter
-install as a special kernel:...
-1. Installation as a PyCharm project is also possible...
+        menu/icon bar. If you do not have an appropriate A-to-D
+        board installed you will get a message and the software
+        will default to demo mode, substituting a random number
+        generator for the A-to-D. Because of the demo mode it is
+        possible to run this on any computer, not just a Pi.
+1. If you wish, you can make this environment available to an alternate Jupyter
+install as a special kernel when you are the user.
+    1. Make sure you are running in your virtual environment `$ pipenv shell` in the directory for  virtual
+    environment will do that.
+    1. Issue the command to add this as a kernel to your personal space: 
+    `$ python -m ipykernel --user --name=<name-you-want-for-kernel>`.
+    1. More information is available in the Jupyter/Ipython documentation. A simple tutorial from Nikolai Jankiev
+    (_Parametric Thoughts_) can be found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
+1. Installation as a PyCharm project is also possible. The git repository should contain the PyCharm project info.
 
