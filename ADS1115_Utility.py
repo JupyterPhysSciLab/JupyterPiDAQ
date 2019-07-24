@@ -20,7 +20,7 @@ try:
 
     # Create an ADS1115 ADC (16-bit) instance.
     adc = Adafruit_ADS1x15.ADS1115()
-except (ImportError, RuntimeError) as e:
+except (ImportError, RuntimeError, FileNotFoundError) as e:
     adc = dummyClass()
     raise ImportError(e)
 # Optimized for Pi 3B+

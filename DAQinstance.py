@@ -40,7 +40,7 @@ try:
 
     # Create an ADS1115 ADC (16-bit) instance to verify it worked.
     adc = Adafruit_ADS1x15.ADS1115()
-except (ImportError, RuntimeError) as e:
+except (ImportError, RuntimeError, FileNotFoundError) as e:
     MODE = 'Demo'
     #display(JS('alert("Running in Demo mode. No ADC detected.")'))
     print("Running in Demo mode. No ADC detected.")
