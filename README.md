@@ -62,7 +62,7 @@ install as a special kernel when you are the user.
     1. Make sure you are running in your virtual environment `$ pipenv shell` in the directory for  virtual
     environment will do that.
     1. Issue the command to add this as a kernel to your personal space: 
-    `$ python -m ipykernel --user --name=<name-you-want-for-kernel>`.
+    `$ python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
     1. More information is available in the Jupyter/Ipython documentation. A simple tutorial from Nikolai Jankiev
     (_Parametric Thoughts_) can be found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
 1. Installation as a PyCharm project is also possible. The git repository should contain the PyCharm project info.
