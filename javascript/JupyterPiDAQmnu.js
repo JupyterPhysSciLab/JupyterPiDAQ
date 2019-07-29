@@ -31,6 +31,8 @@ function createCmdMenu(){
     if(!document.getElementById('jupyterpiDAQcmdsmnu')){
         var newselect=document.createElement('select');
         newselect.id = 'jupyterpiDAQcmdsmnu';
+        newselect.classList.add('form-control'); //class to match notebook formatting
+        newselect.classList.add('select-xs'); //class to match notebook formatting
         newselect.onchange=function(){
             var lastvalue = this.value;
             this.value='DAQ Commands';
