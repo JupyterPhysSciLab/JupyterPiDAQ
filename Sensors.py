@@ -109,7 +109,8 @@ def listSensors():
     :return: list of classnames
     '''
     return ['RawAtoD',
-            'BuiltInThermistor', ]  # TODO: extend this list when each new sensor class is added. RawAtoD should
+            'BuiltInThermistor',
+            'VernierSSTemp',]  # TODO: extend this list when each new sensor class is added. RawAtoD should
     # always be first in the list.
 
 
@@ -337,5 +338,115 @@ class BuiltInThermistor():
         if (volts >= 1.65):
             volts = 1.649998411 #gets very high T in K
         R = self.Vdd * 1.0e4 / volts - 2.0e4
+        tempK = _ntc_therm_RtoK(R, A, B, C)
+        return (tempK)
+
+class VernierSSTemp():
+    '''
+    This class contains the definitions for Vernier Stainless Steel Temperature Probe. A 20K thermistor.
+    '''
+
+    def __init__(self):
+        self.name = 'Vernier SS Temperature Probe'
+        self.vendor = 'Vernier'
+        self.units = ['K', 'C', 'F']
+        self.Vdd = 3.3  # voltage provided to sensor
+        # print('Done initializing builtinthermistor class.')
+        pass
+
+    def getname(self):
+        '''
+        Provides a string name for the sensor
+        :return: string containing the sensor name
+        '''
+        return (self.name)
+
+    def getvendor(self):
+        '''
+        Provides a string name for the sensor vendor/manufacturer
+        :return: string containing the vendor/manufacturer name
+        '''
+        return (self.vendor)
+
+    def getunits(self):
+        '''
+        Provides the string names for the available units for this sensor. These string names are also the functions
+        within this class that return the measurement in those units.
+        :return: units a list of strings.
+        '''
+        return (self.units)
+
+    def K(self, v_avg, v_std, avg_std):
+        '''
+        The returned values are in K. It is assumed that the distribution is symmetric guassian even in K. This may
+        not be true, but still gives a reasonable estimate of the standard deviation.
+        :param v_avg: average voltage from sensor.
+        :param v_std: standard deviation of voltage from sensor.
+        :param avg_std: estimated standard deviation of the avg.
+        :return: list [K_avg, K_std, K_avg_std]: [average temperature in K, standard deviation of temperature in K,
+            estimated standard deviation of the average temperature].
+        '''
+        # v_avg to K
+        K_avg = self._VtoK(v_avg)
+        # standard deviation of temperature
+        v_max = v_avg + v_std
+        v_min = v_avg - v_std
+        K_max = self._VtoK(v_max)
+        K_min = self._VtoK(v_min)
+        K_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        # estimated standard deviation of the average temperature
+        v_max = v_avg + avg_std
+        v_min = v_avg - avg_std
+        K_max = self._VtoK(v_max)
+        K_min = self._VtoK(v_min)
+        K_avg_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        return (K_avg, K_std, K_avg_std)
+
+    def C(self, v_avg, v_std, avg_std):
+        '''
+        The returned values are in deg C. It is assumed that the distribution is symmetric guassian even in deg C.
+        This may not be true, but still gives a reasonable estimate of the standard deviation.
+        :param v_avg: average voltage from sensor.
+        :param v_std: standard deviation of voltage from sensor.
+        :param avg_std: estimated standard deviation of the avg.
+        :return:  list [C_avg, C_std, C_avg_std]: [average temperature in C, standard deviation of temperature in C,
+            estimated standard deviation of the average temperature].
+        '''
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        C_avg = _KtoC(K_avg)
+        return (C_avg, K_std, K_avg_std)
+
+    def F(self, v_avg, v_std, avg_std):
+        '''
+        The returned values are in deg F. It is assumed that the distribution is symmetric guassian even in deg F.
+        This may not be true, but still gives a reasonable estimate of the standard deviation.
+        :param v_avg: average voltage from sensor.
+        :param v_std: standard deviation of voltage from sensor.
+        :param avg_std: estimated standard deviation of the avg.
+        :return:  list [F_avg, F_std, F_avg_std]: [average temperature in F, standard deviation of temperature in F,
+            estimated standard deviation of the average temperature].
+        '''
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        F_avg = _CtoF(_KtoC(K_avg))
+        F_std = K_std * 9.0 / 5.0
+        F_avg_std = K_avg_std * 9.0 / 5.0
+        return (F_avg, F_std, F_avg_std)
+
+    def _VtoK(self, volts):
+        '''
+        :param volts: voltage measurement
+        :return: temperature in K.
+        '''
+        # Steinhart Hart coefficients for this thermistor
+        A = 0.00102119
+        B = 0.000222468
+        C = 1.33342e-07
+        #Need to stay in sensor range, if get bad voltage throw max or min possible value
+        # alternative for pegging would be to set to 1.649999 which gives < absolute zero.
+        if (volts <=0): #TODO: fix over and underflow for vernier thermistor sensors.
+            volts=1e-312 # gets high T
+        if (volts >= self.Vdd):
+            volts = self.Vdd-1e-10 #gets low T in K
+        R = volts* 1.5e4 / (self.Vdd - volts)
         tempK = _ntc_therm_RtoK(R, A, B, C)
         return (tempK)

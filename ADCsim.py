@@ -53,12 +53,12 @@ def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
         center = random.random()
         for k in range(n_samp):
             try:
-                # positive only to avoid problems mimicking some sensors
                 tempval = round((random.normal(center, center / 10)) * 32767)
-                if (tempval<0):
-                    tempval = -1*tempval
-                if (tempval == 0):
-                    tempval=1
+                # positive only to avoid problems mimicking some sensors
+                #if (tempval<0):
+                 #   tempval = -1*tempval
+                #if (tempval == 0):
+                 #   tempval=1
             except (ValueError, OverflowError):
                 print('Bad adc read.')
                 pass
