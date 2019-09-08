@@ -6,7 +6,8 @@
 # class for each sensor and some utility functions
 
 import math
-
+import logging
+logger = logging.getLogger(__name__)
 
 ###
 # Private Utility functions. WARNING: behavior may change
@@ -42,7 +43,9 @@ def _ntc_therm_RtoK(R, A, B, C):
     :param C: Steinhart Hart C coefficient
     :return: Temperature in K
     '''
-    return (1 / (A + B * math.log(R) + C * (math.log(R)) ** 3))
+    K = 1 / (A + B * math.log(R) + C * (math.log(R)) ** 3)
+    logger.debug('K: '+str(K))
+    return (K)
 
 
 ###
@@ -386,20 +389,22 @@ class VernierSSTemp():
         :return: list [K_avg, K_std, K_avg_std]: [average temperature in K, standard deviation of temperature in K,
             estimated standard deviation of the average temperature].
         '''
+        logger.debug('voltages in: '+str(v_avg)+' '+str(v_std)+' '+str(avg_std))
         # v_avg to K
         K_avg = self._VtoK(v_avg)
         # standard deviation of temperature
         v_max = v_avg + v_std
         v_min = v_avg - v_std
-        K_max = self._VtoK(v_max)
-        K_min = self._VtoK(v_min)
+        K_max = self._VtoK(v_min)
+        K_min = self._VtoK(v_max)
         K_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
         # estimated standard deviation of the average temperature
         v_max = v_avg + avg_std
         v_min = v_avg - avg_std
-        K_max = self._VtoK(v_max)
-        K_min = self._VtoK(v_min)
+        K_max = self._VtoK(v_min)
+        K_min = self._VtoK(v_max)
         K_avg_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        logger.debug('K out: '+str(K_avg)+' '+str(K_std)+' '+str(K_avg_std))
         return (K_avg, K_std, K_avg_std)
 
     def C(self, v_avg, v_std, avg_std):
@@ -447,6 +452,7 @@ class VernierSSTemp():
             volts=1e-312 # gets high T
         if (volts >= self.Vdd):
             volts = self.Vdd-1e-10 #gets low T in K
-        R = volts* 1.5e4 / (self.Vdd - volts)
+        R = volts * 1.5e4 / (self.Vdd - volts)
+        logger.debug('volts: '+str(volts)+' R: '+str(R))
         tempK = _ntc_therm_RtoK(R, A, B, C)
         return (tempK)
