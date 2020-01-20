@@ -47,8 +47,7 @@ inside the directory as described below:
         a long time. It probably will not run without at least 1 GB of swap. See: 
 [Build Jupyter on a Pi](https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian).
     1. Still within the environment shell test
-    this by starting jupyter `$ jupyter notebook`.
-    Jupyter should launch in your browser.
+    this by starting jupyter `$ jupyter notebook`. Jupyter should launch in your browser.
         1. Open a new notebook using the default (Python 3) kernel.
         1. In the first cell import all from DAQinstance.py: `from DAQinstance import *`.
         When run this cell should load the DAQmenu at the end of the Jupyter notebook 

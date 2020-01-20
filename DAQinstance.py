@@ -175,6 +175,7 @@ class DAQinstance():
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Title</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Units</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Sensor</td>'
+        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Gain</td>'
         self.defaultparamtxt += '</tr><tr>'
         for i in range(self.nchannels):
             if (self.channels[i].isactive):
@@ -184,6 +185,8 @@ class DAQinstance():
                 self.defaultparamtxt += '<td style="text-align:center;">' + self.channels[i].units.value + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + self.channels[
                     i].sensorchoice.value + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + str(self.channels[i
+                    ].gains.value) + '</td>'
             self.defaultparamtxt += '</tr><tr>'
             self.channels[i].hideGUI()
         self.defaultparamtxt += '</tr></table>'
@@ -272,7 +275,10 @@ class DAQinstance():
         whichchn = []
         for i in range(self.nchannels):
             whichchn.append(self.channels[i].isactive)
+            if (self.channels[i].isactive):
+                self.gain[i]=self.channels[i].toselectedgain
         # print(str(whichchn))
+        #print(str(self.gain))
         DAQ = Process(target=DAQProc,
                       args=(whichchn, self.gain, self.averaging_time, self.delta, DAQconn, DAQCTL, MODE))
         DAQ.start()

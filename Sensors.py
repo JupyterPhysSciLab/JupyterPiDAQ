@@ -133,6 +133,8 @@ def listSensors():
 #                                                             by the class. These must match the names of the functions
 #                                                             called to return the values and cannot contain spaces or
 #                                                             punctuation.
+#         self.gains = [2/3,1,2,4,8,16] a list of values for the ADC gains that can be used with this
+#                                         sensor. The values here are all that are available for an ADS1115.
 #         other internal values may be defined as needed.
 #         pass
 #
@@ -149,6 +151,14 @@ def listSensors():
 #        :return: string containing the vendor/manufacturer name
 #        '''
 #        return(self.vendor)
+#
+#    def getgains(self):
+#         '''
+#           Provides string values representing the ADC gains that can be used with this sensor. For the ADS1115
+#           the available gains are 2/3,1,2,4,8.
+#           :return: gains a list of strings.
+#          '''
+#           return(self.gains)
 #
 #    def getunits(self):
 #        '''
@@ -186,8 +196,8 @@ class RawAtoD():
         self.name = 'Volts at A-to-D'
         self.vendor = 'KNARCO'
         self.units = ['V', 'mV']
+        self.gains=[2/3,1,2,4,8,16]
         self.Vdd = 3.3  # voltage provided to sensor
-        # TODO: Add gain options...
         pass
 
     def getname(self):
@@ -203,6 +213,14 @@ class RawAtoD():
         :return: string containing the vendor/manufacturer name
         '''
         return (self.vendor)
+
+    def getgains(self):
+        """
+          Provides string values representing the ADC gains that can be used with this sensor. For the ADS1115
+          the available gains are 2/3,1,2,4,8,16.
+          :return: gains a list of strings.
+         """
+        return(self.gains)
 
     def getunits(self):
         '''
@@ -243,6 +261,7 @@ class BuiltInThermistor():
         self.name = 'Built-in Thermistor'
         self.vendor = 'KNARCO'
         self.units = ['K', 'C', 'F']
+        self.gains=[1]
         self.Vdd = 3.3  # voltage provided to sensor
         # print('Done initializing builtinthermistor class.')
         pass
@@ -353,7 +372,8 @@ class VernierSSTemp():
         self.name = 'Vernier SS Temperature Probe'
         self.vendor = 'Vernier'
         self.units = ['K', 'C', 'F']
-        self.Vdd = 3.3  # voltage provided to sensor
+        self.gains=[2/3,1]
+        self.Vdd = 5.10  # voltage provided to sensor. Vernier sensors designed to use 5 V
         # print('Done initializing builtinthermistor class.')
         pass
 

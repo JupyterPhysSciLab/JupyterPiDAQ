@@ -26,7 +26,8 @@ class ChannelSettings():
         self.sensor = None
         self.toselectedunits = None
         self.isactive = False
-        self.gain = 1
+        self.availablegains =[]
+        self.toselectedgain = None
         self.sensornames = []
         self.defaultunits = []
         self.defaultsensorname = None
@@ -35,6 +36,7 @@ class ChannelSettings():
             self.sensornames.append(self.sensor.getname())
             if k == 0:
                 self.defaultunits = self.sensor.getunits()
+                self.availablegains=self.sensor.getgains()
                 self.defaultsensorname = self.sensornames[0]
         self.sensor = None  # Set to nothing unless the channel is active.
         ###
@@ -63,6 +65,12 @@ class ChannelSettings():
             disabled=True)
         self.units.observe(self.unitschanged, names='value')
         # TODO: select gain
+        self.gains = widgets.Dropdown(
+            options=self.availablegains,
+            description='gains:',
+            disabled=True)
+        self.toselectedgain=self.gains.value
+        self.gains.observe(self.gainschanged, names='value')
 
     def activate(self):
         """
@@ -76,6 +84,7 @@ class ChannelSettings():
         self.channellbl.disabled = False
         self.sensorchoice.disabled = False
         self.units.disabled = False
+        self.gains.disabled = False
         self.isactive = True
         pass
 
@@ -91,6 +100,7 @@ class ChannelSettings():
         self.channellbl.disabled = True
         self.sensorchoice.disabled = True
         self.units.disabled = True
+        self.gains.disabled = True
         self.isactive = False
         pass
 
@@ -120,6 +130,9 @@ class ChannelSettings():
         self.units.options = self.sensor.getunits()
         # set the unit conversion function
         self.toselectedunits = getattr(self.sensor, self.units.value)
+        # Update the gain choices to match the chosen sensor
+        self.gains.options = self.sensor.getgains()
+        self.toselectedgain=self.gains.value
         pass
 
     def unitschanged(self, change):
@@ -132,13 +145,23 @@ class ChannelSettings():
         self.toselectedunits = getattr(self.sensor, self.units.value)
         pass
 
+    def gainschanged(self,change):
+        '''
+        Called by the observe function for the gains selector when the gain is changed.
+        :param self:
+        :param change: change object passed by the observe tool
+        :return:
+        '''
+        self.toselectedgain = self.gains.value
+        pass
+
     def setup(self):
         """
         Sets up the GUI and the necessary monitoring.
         :return: None
         """
         self.headbox = widgets.HBox([self.checkbox, self.channellbl])
-        self.parambox = widgets.HBox([self.sensorchoice, self.units])
+        self.parambox = widgets.HBox([self.sensorchoice, self.units, self.gains])
         self.settings = widgets.VBox([self.headbox, self.parambox])
         display(self.settings)
         pass
