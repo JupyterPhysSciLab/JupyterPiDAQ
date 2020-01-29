@@ -15,6 +15,7 @@ function addnewRun(){
         lastcell=Jupyter.notebook.get_cell(lastcellidx+1);
         lastcell.set_text('newRun()');
     }
+    lastcell.execute()
 }
 function showDataTable(){
     //find the currently active cell
@@ -26,6 +27,7 @@ function showDataTable(){
     }
     currentcelltxt+='showDataTable()';
     currentcell.set_text(currentcelltxt);
+    currentcell.execute()
 }
 function createCmdMenu(){
     if(!document.getElementById('jupyterpiDAQcmdsmnu')){
