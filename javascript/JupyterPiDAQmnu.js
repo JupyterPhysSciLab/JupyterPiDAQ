@@ -61,10 +61,16 @@ function createCmdMenu(){
             }
         }
         var optiontxt = '<option title="Insert data aquisition related command.">DAQ Commands</option>';
-        optiontxt+='<option title="Insert cell below selected and start new run.">Insert New Run after selection...</option>'
+        optiontxt+='<option title="Insert cell below selected and start new run.">Insert New Run after selection...</option>';
         optiontxt+='<option title="Add new run at end of notebook.">Append New Run to end...</option>';
         optiontxt+='<option title="Insert show data table command at end of current cell.">Show a data table...</option>';
         newselect.innerHTML=optiontxt;
         document.getElementById('maintoolbar-container').appendChild(newselect);
+    }
+}
+
+function deleteCmdMenu(){
+    if(document.getElementById('jupyterpiDAQcmdsmnu')){
+        document.getElementById('jupyterpiDAQcmdsmnu').remove();
     }
 }
