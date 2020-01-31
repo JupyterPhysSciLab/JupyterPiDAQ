@@ -154,8 +154,8 @@ def listSensors():
 #
 #    def getgains(self):
 #         '''
-#           Provides string values representing the ADC gains that can be used with this sensor. For the ADS1115
-#           the available gains are 2/3,1,2,4,8.
+#           Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
+#           the available gains are 2/3,1,2,4,8,16.
 #           :return: gains a list of strings.
 #          '''
 #           return(self.gains)
@@ -216,7 +216,7 @@ class RawAtoD():
 
     def getgains(self):
         """
-          Provides string values representing the ADC gains that can be used with this sensor. For the ADS1115
+          Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
           the available gains are 2/3,1,2,4,8,16.
           :return: gains a list of strings.
          """
@@ -287,6 +287,14 @@ class BuiltInThermistor():
         :return: units a list of strings.
         '''
         return (self.units)
+
+    def getgains(self):
+        """
+          Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
+          the available gains are 2/3,1,2,4,8,16.
+          :return: gains a list of strings.
+         """
+        return(self.gains)
 
     def K(self, v_avg, v_std, avg_std):
         '''
@@ -372,8 +380,8 @@ class VernierSSTemp():
         self.name = 'Vernier SS Temperature Probe'
         self.vendor = 'Vernier'
         self.units = ['K', 'C', 'F']
-        self.gains=[2/3,1]
-        self.Vdd = 5.10  # voltage provided to sensor. Vernier sensors designed to use 5 V
+        self.gains=[2/3,1,2]
+        self.Vdd = 3.3  # voltage provided to sensor. Vernier sensors designed to use 5 V
         # print('Done initializing builtinthermistor class.')
         pass
 
@@ -398,6 +406,14 @@ class VernierSSTemp():
         :return: units a list of strings.
         '''
         return (self.units)
+
+    def getgains(self):
+        """
+          Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
+          the available gains are 2/3,1,2,4,8,16.
+          :return: gains a list of strings.
+         """
+        return(self.gains)
 
     def K(self, v_avg, v_std, avg_std):
         '''
