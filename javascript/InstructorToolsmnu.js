@@ -28,8 +28,8 @@ function createInstructorToolsMenu(){
         optiontxt+='<option title="Prevent editting of selected cells.">Protect Selected Cells</option>';
         optiontxt+='<option title="Allow editting of selected cells.">Deprotect Selected Cells</option>';
         optiontxt+='<option title="Temporarily highlight protected cells in pink.">Indicate Protected Cells</option>';
-        optiontxt+='<option><hr/></option>';
-        optiontxt+='<option title="Remove/deactivate this menu. Use python command `instmenu_act()` to reactivate">'
+        optiontxt+='<option>----</option>';
+        optiontxt+='<option title="Remove/deactivate this menu. Use python command `from InstructorTools import *` to reactivate">'
         optiontxt+='Deactivate this menu</option>';
         newselect.innerHTML=optiontxt;
         document.getElementById('maintoolbar-container').appendChild(newselect);
@@ -39,6 +39,21 @@ function createInstructorToolsMenu(){
 function deleteInstructorToolsMenu(){
     if(document.getElementById('InstructorToolsmnu')){
         document.getElementById('InstructorToolsmnu').remove();
+    }
+    var celllist = Jupyter.notebook.get_cells();
+    for (var i = 0;i<celllist.length;i++){
+        if(celllist[i].get_text().indexOf('from InstructorTools import *') !== -1){
+            //delete the cell
+            var cellindex=Jupyter.notebook.find_cell_index(celllist[i]);
+            //alert('cellindex: '+cellindex)
+            Jupyter.notebook.delete_cell(cellindex);
+        }
+        if(celllist[i].get_text().indexOf('instmenu_act()') !== -1){
+            //delete the cell
+            var cellindex=Jupyter.notebook.find_cell_index(celllist[i]);
+            //alert('cellindex: '+cellindex)
+            Jupyter.notebook.delete_cell(cellindex);
+        }
     }
 }
 

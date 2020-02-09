@@ -25,6 +25,9 @@ def instmenu_act():
     tempJSfile.close()
     display(HTML(tempscript))
     display(JS('createInstructorToolsMenu()'))
+    warnstr = "This cell should only contain `from InstructorTools import *` as it will be deleted when the tools"
+    warnstr+= " are deactivated."
+    print(warnstr)
     pass
 
 def instmenu_deact():
@@ -32,10 +35,13 @@ def instmenu_deact():
     Removes the instructor menu from the Jupyter menu bar
     :return:
     """
-    tempJSfile = open(os.path.join(mydir, 'javascript', 'InstructorToolsmnu.js'))
-    tempscript = '<script type="text/javascript">'
-    tempscript += tempJSfile.read() + '</script>'
-    tempJSfile.close()
-    display(HTML(tempscript))
+#    tempJSfile = open(os.path.join(mydir, 'javascript', 'InstructorToolsmnu.js'))
+#    tempscript = '<script type="text/javascript">'
+#    tempscript += tempJSfile.read() + '</script>'
+#    tempJSfile.close()
+#    display(HTML(tempscript))
     display(JS('deleteInstructorToolsMenu()'))
+    print("Delete this cell after the menu has been removed.")
     pass
+
+instmenu_act()

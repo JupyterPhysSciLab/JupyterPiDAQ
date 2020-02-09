@@ -38,7 +38,6 @@ function record_input(element){
     tempelem.setAttribute('size',tempsize);
     tempelem.setAttribute('value',tempval);
     tempelem.setAttribute('onblur','record_input(this)');
-    alert(tempelem);
     element.replaceWith(tempelem);
 }
 
