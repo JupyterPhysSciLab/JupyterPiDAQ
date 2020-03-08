@@ -118,7 +118,8 @@ function create_table(){
 function save_input_table(tableID){
     var currentcell = Jupyter.notebook.get_selected_cell();
     var tablecnt = document.getElementById(tableID).innerHTML;
-    var tablestr='display(HTML(\''
+    var tablestr='from input_table import *\n'
+    tablestr+='display(HTML(\''
     tablestr+='<table class="input_table" id="'+tableID+'">';
     var re=/\n/g;
     var re2=/'/g;

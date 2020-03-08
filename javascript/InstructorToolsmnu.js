@@ -7,7 +7,7 @@ function createInstructorToolsMenu(){
         newselect.onchange=function(){
             var lastvalue = this.value;
             this.value='Instructor Tools';
-            if (lastvalue=='Insert Data Table...'){
+            if (lastvalue=='Insert Data Entry Table...'){
                 get_table_dim();
             }
             if (lastvalue=='Protect Selected Cells'){
@@ -24,7 +24,7 @@ function createInstructorToolsMenu(){
             }
         }
         var optiontxt = '<option title="Insert an Instructor Tool.">Instructor Tools</option>';
-        optiontxt+='<option title="Insert cell below selected and create a data entry table.">Insert Data Table...</option>';
+        optiontxt+='<option title="Insert cell below selected and create a data entry table.">Insert Data Entry Table...</option>';
         optiontxt+='<option title="Prevent editting of selected cells.">Protect Selected Cells</option>';
         optiontxt+='<option title="Allow editting of selected cells.">Deprotect Selected Cells</option>';
         optiontxt+='<option title="Temporarily highlight protected cells in pink.">Indicate Protected Cells</option>';
