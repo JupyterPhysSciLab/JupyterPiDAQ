@@ -12,6 +12,8 @@ setuptools.setup(
     author_email="jgutow@new.rr.com",
     license="GPL-3.0+",
     packages=setuptools.find_packages(),
+    package_data={'javascript': ['*.js']},
+    include_package_data=True,
     install_requires=[
         # 'python>=3.6',
         'Adafruit-ADS1x15>=1.0.2',
@@ -22,9 +24,13 @@ setuptools.setup(
         'pandas>=0.22.0'
     ],
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers :: End Users',
-        'License :: GPL-3.0+',
-        'Programming Language :: Python 3'
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: End Users/Desktop',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: JavaScript',
+        'Operating System :: OS Independent'
     ]
 )
