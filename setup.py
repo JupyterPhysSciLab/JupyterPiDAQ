@@ -12,7 +12,17 @@ setuptools.setup(
     author_email="jgutow@new.rr.com",
     license="GPL-3.0+",
     packages=setuptools.find_packages(),
-    package_data={'javascript': ['*.js']},
+    #package_data={'javascript': ['javascript/*.js']},
+    data_files=[
+    	('javascript',['javascript/JupyterPiDAQmnu.js'])
+    ],
+    py_modules=["ADCsim",
+    	"ADS1115_Utility",
+    	"ChannelSettings",
+    	"DAQinstance",
+    	"DAQProc",
+    	"Sensors"
+    ],
     include_package_data=True,
     install_requires=[
         # 'python>=3.6',

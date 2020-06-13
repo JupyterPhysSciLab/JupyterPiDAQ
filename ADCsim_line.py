@@ -1,6 +1,6 @@
-# Random number generator substitute for actual analog to digital converter.
+# Noisy line substitute for actual analog to digital converter.
 # Used to allow a 'demo' mode for JupyterPiDAQ.
-# J. Gutow <jgutow@new.rr.com> March 16, 2019
+# J. Gutow <jgutow@new.rr.com> June 11, 2020
 # license GPL V3 or greater
 
 from numpy import random
@@ -12,13 +12,13 @@ from numpy import log10
 from numpy import floor
 import time
 
-# Optimized for Pi 3B+ mimicking an installed ADS1115 ADC PiHAT.
+# mimicking an installed ADS1115 ADC PiHAT.
 RATE = 475  # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
 
 # other rates 8, 16, 32, 64, 128, 250, 475, 860 in Hz.
 
 def get_board_name():
-    return 'ADCsym Random'
+    return 'ADCsym line'
 
 def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
     '''
@@ -27,7 +27,7 @@ def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
     number of seconds. The 0.0012 is the required loop time
     on a RPI 3B+ in python3. The voltage is rounded to the number
     of decimals indicated by the standard deviation. The standard
-    deviation and the estimated deviation of the mean are also 
+    deviation and the estimated deviation of the mean are also
     returned.
     Parameters
         chan    the channel number 0, 1, 2, 3
@@ -42,25 +42,28 @@ def V_oversampchan_stats(chan, gain, avg_sec, data_rate=RATE):
         stdev_avg   estimated standard deviation of the mean
         time_stamp the time at halfway through the averaging interval in seconds
                 since the beginning of the epoch (OS dependent begin time).
-        
+
     '''
+    time_tuple = time.localtime()
+    nearesthr = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
+                             time_tuple.tm_mday, time_tuple.tm_hour, 0, 0,
+                             time_tuple.tm_wday, time_tuple.tm_yday,
+                             time_tuple.tm_isdst))
     n_samp = int(round(avg_sec / (0.0017 + 1 / data_rate)))
     if (n_samp < 1):
         n_samp = 1
     value = []
     start = 0
     end = 0
-    while (len(value) == 0):  # we will try until we get some values in case of bad reads
+    while (len(
+            value) == 0):  # we will try until we get some values in case of bad reads
         start = time.time()
-        center = random.random()
+        intercept = -0.6
+        slope = 1.00/3800
         for k in range(n_samp):
             try:
-                tempval = round((random.normal(center, center / 10)) * 32767)
-                # positive only to avoid problems mimicking some sensors
-                #if (tempval<0):
-                 #   tempval = -1*tempval
-                #if (tempval == 0):
-                 #   tempval=1
+                tempval = round((intercept+slope*(time.time()-nearesthr)) *
+                                32767) + (random.random()-0.5)*200
             except (ValueError, OverflowError):
                 print('Bad adc read.')
                 pass

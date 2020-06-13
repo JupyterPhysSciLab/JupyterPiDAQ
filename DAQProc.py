@@ -6,27 +6,27 @@
 # J. Gutow <jgutow@new.rr.com> May 19, 2019
 # license GPL V3 or greater.
 
-# ADC simulator
-try:
-    import ADCsim as Demo
-    # print(str(Demo.V_oversampchan_stats(1,1,2)))
-except (ImportError) as e:
-    print(e)
-
 # utilities for timing and queues
 from collections import deque
 import time
 
-# ADC routinees
-try:
-    import ADS1115_Utility as ADS1115
-except (ImportError) as e:
-    print(e)
-
-
-def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL, mode='Demo'):
+def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
+    """
+    This function is to be run in a separate thread to asychronously communicte
+    with the ADC board.
+    :param whichchn: a list of dictionaries. Each dictionary is of the form:
+        {'board': board_object, 'chnl': chnlID}.
+    :param gains: a list of the numerical gain for each channel. May have no
+        for many boards.
+    :param avgtime: the averaging time in seconds for a data point.
+    :param timedelta: the target time between data points.
+    :param DAQconn: the connection pipe
+    :param DAQCTL: the control pipe
+    :return: Data is returned via the pipes.
+        On the DAQCTL pipe this only returns 'done'
+        On the DAQconn pipe a list of lists with data is returned.
+    """
     # f=open('daq.log','w')
-    adc = globals()[mode]
     databuf = deque()
     collect = True
     transmit = False
@@ -45,7 +45,11 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL, mode='Demo'):
             if (whichchn[i]):
                 time.sleep(0.001)
                 # f.write('Calling adc...')
-                v_avg, v_std, avg_std, meastime = adc.V_oversampchan_stats(i, gains[i], avgtime)
+                v_avg, v_std, avg_std, meastime = \
+                    whichchn[i]['board'].V_oversampchan_stats(whichchn[i][
+                                                                   'chnl'],
+                                                              gains[i],
+                                                           avgtime)
                 # f.write('Successful return from call to adc.\n')
                 times.append(meastime - starttime)
                 values.append(v_avg)
