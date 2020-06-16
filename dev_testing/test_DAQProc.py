@@ -1,18 +1,22 @@
 # Use os tools for file path and such
-import logging
+import os, logging
 import time
-# Start Logging
-logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S', time.localtime()) + '.log'
-logging.basicConfig(filename=logname,level=logging.INFO)
+
 # Below allows asynchronous calls to get and plot the data in real time.
 # Actually read the DAQ board on a different process.
 from multiprocessing import Process, Pipe
 
 from DAQProc import DAQProc
-import load_boards
+from Boards import boards
+
 
 def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
-    boards = load_boards.load_boards()
+    # Start Logging
+    logname = 'test_DAQProc' + time.strftime('%y-%m-%d_%H%M%S',
+                                             time.localtime()) \
+              + '.log'
+    logging.basicConfig(filename=logname, level=logging.DEBUG)
+    boards = boards.load_boards()
     whichchn = []
     for k in range(nchans):
         whichchn.append({'board':boards[0],'chnl':k})
@@ -77,3 +81,9 @@ def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
     print (timestamp)
     print (data)
     print (stdev)
+    logging.shutdown()
+    try:
+        if os.stat(logname).st_size == 0:
+            os.remove(logname)
+    except FileNotFoundError:
+        pass
