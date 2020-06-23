@@ -1,18 +1,16 @@
 # Class that manages getting settings for a channel to use in JupyterPiDAQ
-# By Jonathan Gutow <jgutow@new.rr.com>
-# June 2019
+# By Jonathan Gutow <gutow@uwosh.edu>
+# June 2020
 # license GPL3+
 
-# Info on available sensor definitions and units of measurements. This import * looks bad, but the Sensor.py file
-# contains an unknown number of sensor definition classes. We need them all to discover what they are.
-from Sensors import *
 from ipywidgets import widgets
 
 
-class ChannelSettings():
+class ChannelSettings:
     """
-    This class takes care of interacting with the user to get settings for data collection on each channel. Should be
-    initialized with an idno, so that it knows what number has been assigned to it.
+    This class takes care of interacting with the user to get settings for data
+    collection on each channel. Should be initialized with an idno, so that
+    it knows what number has been assigned to it.
     """
 
     def __init__(self, idno):
@@ -20,24 +18,24 @@ class ChannelSettings():
 
         :param idno: int number iding this instance of ChannelSettings
         """
-        if (idno == None):
+        if idno == None:
             idno = 0
         self.idno = idno
-        self.sensor = None
+        self.boardchannel = None
+        self.boardnames = []
+        for board in globals()[availboards]:
+            self.boardnames.append(board.getname())
+        self.board = globals()[availboards][0]
         self.toselectedunits = None
         self.isactive = False
-        self.availablegains =[]
+        self.availablegains = []
         self.toselectedgain = None
         self.sensornames = []
-        self.defaultunits = []
-        self.defaultsensorname = None
-        for k in range(len(listSensors())):
-            self.sensor = globals()[listSensors()[k]]()
-            self.sensornames.append(self.sensor.getname())
-            if k == 0:
-                self.defaultunits = self.sensor.getunits()
-                self.availablegains=self.sensor.getgains()
-                self.defaultsensorname = self.sensornames[0]
+        for name in self.board.getsensors().name:
+            self.sensornames.append(name)
+        self.defaultunits = self.board.getsensors()[0].getunits()
+        self.availablegains = self.board.getsensors()[0].getgains()
+        self.defaultsensorname = self.sensornames[0]
         self.sensor = None  # Set to nothing unless the channel is active.
         ###
         # Jupyter Interactive elements for setting channel parameters
@@ -48,19 +46,28 @@ class ChannelSettings():
             disabled=False)
         self.checkbox.observe(self.checkchanged, names='value')
         self.channellbl = widgets.Text(
-            value='Chan' + str(self.idno),  # TODO: update to meaningful title on sensor change if left at default.
+            value='Chan' + str(self.idno),
+            # TODO: update to meaningful title on sensor change if left at
+            #  default.
             placeholder='Type something',
             description='Title:',
             disabled=True)
+        self.boardchoice = widgets.Dropdown(
+            options=self.boardnames,
+            description='Board:',
+            disabled=True)
+        self.boardchoice.observe(self.boardchanged, names='value')
         self.sensorchoice = widgets.Dropdown(
             options=self.sensornames,
-            # value=self.defaultsensorname, # not needed defaults to the first choice in list
+            # value=self.defaultsensorname, # not needed defaults to the first
+            # choice in list
             description='Sensor:',
             disabled=True)
         self.sensorchoice.observe(self.sensorchanged, names='value')
         self.units = widgets.Dropdown(
             options=self.defaultunits,
-            # value=self.defaultunits[0], # not needed defaults to the first choice in list
+            # value=self.defaultunits[0], # not needed defaults to the first
+            # choice in list
             description='Units:',
             disabled=True)
         self.units.observe(self.unitschanged, names='value')
@@ -69,18 +76,19 @@ class ChannelSettings():
             options=self.availablegains,
             description='gains:',
             disabled=True)
-        self.toselectedgain=self.gains.value
+        self.toselectedgain = self.gains.value
         self.gains.observe(self.gainschanged, names='value')
 
     def activate(self):
         """
-        This function makes this channel active. No return value unless an error is thrown by something called by this
-        function.
+        This function makes this channel active. No return value unless an e
+        rror is thrown by something called by this function.
         :return: None
         """
-        self.sensor = globals()[listSensors()[self.sensorchoice.index]]()
+        self.sensor = self.board.getsensors()[self.sensorchoice.index]
         self.toselectedunits = getattr(self.sensor, self.units.value)
-        self.checkbox.value = True  # in case the selection is not done by the user.
+        self.checkbox.value = True  # in case the selection is not done by the
+        # user.
         self.channellbl.disabled = False
         self.sensorchoice.disabled = False
         self.units.disabled = False
@@ -90,13 +98,14 @@ class ChannelSettings():
 
     def deactivate(self):
         """
-        This function makes the channel inactive. No return value unless an error is thrown by something called by this
-        function.
+        This function makes the channel inactive. No return value unless an
+        error is thrown by something called by this function.
         :return: None
         """
         self.sensor = None
         self.toselectedunits = None
-        self.checkbox.value = False  # in case the deactivation is not done by the user.
+        self.checkbox.value = False  # in case the deactivation is not done by
+        # the user.
         self.channellbl.disabled = True
         self.sensorchoice.disabled = True
         self.units.disabled = True
@@ -117,41 +126,56 @@ class ChannelSettings():
             self.deactivate()
         pass
 
+    def boardchanged(self, change):
+        """
+        This function responds to a change in board choice.
+        :param change: change object passed by the observe tool
+        :return:
+        """
+        # Get the new board
+        self.board = globals()[availboards][change['owner'].index]
+        # Trigger an update to the sensor list
+
+        pass
+
     def sensorchanged(self, change):
         """
-        Called  by the observe function of sensorchoice when the user changes the sensor choice.
+        Called  by the observe function of sensorchoice when the user changes
+        the sensor choice.
         :param self:
         :param change: change object passed by the observe tool
         :return: None
         """
         # Get the new sensor choice and define the sensor object
-        self.sensor = globals()[listSensors()[change['owner'].index]]()
+        self.sensor = self.board.getsensors()[change['owner'].index]
         # Update the unit choices to match the sensor chosen
         self.units.options = self.sensor.getunits()
         # set the unit conversion function
         self.toselectedunits = getattr(self.sensor, self.units.value)
         # Update the gain choices to match the chosen sensor
         self.gains.options = self.sensor.getgains()
-        self.toselectedgain=self.gains.value
+        self.toselectedgain = self.gains.value
         pass
 
     def unitschanged(self, change):
-        '''
-        Called by the observe function for the units selector when units are changed
+        """
+        Called by the observe function for the units selector when units are
+        changed
         :param self:
         :param change: change object passed by the observe tool
         :return:
-        '''
+        """
         self.toselectedunits = getattr(self.sensor, self.units.value)
         pass
 
-    def gainschanged(self,change):
-        '''
-        Called by the observe function for the gains selector when the gain is changed.
+    def gainschanged(self, change):
+        """
+        Called by the observe function for the gains selector when the gain is
+        changed.
         :param self:
         :param change: change object passed by the observe tool
         :return:
-        '''
+        """
         self.toselectedgain = self.gains.value
         pass
 
@@ -161,18 +185,20 @@ class ChannelSettings():
         :return: None
         """
         self.headbox = widgets.HBox([self.checkbox, self.channellbl])
-        self.parambox = widgets.HBox([self.sensorchoice, self.units, self.gains])
+        self.parambox = widgets.HBox(
+            [self.sensorchoice, self.units, self.gains])
         self.settings = widgets.VBox([self.headbox, self.parambox])
+        from IPython.core.display import display
         display(self.settings)
         pass
 
     def hideGUI(self):
         self.settings.close()
-        #Not sure any of the below is necessary. The DOM could use some cleanup. This may require supporting JS.
+        # Not sure any of the below is necessary. The DOM could use some
+        # cleanup. This may require supporting JS.
         self.headbox.close()
         self.parambox.close()
         self.sensorchoice.close()
         self.units.close()
         self.checkbox.close()
         self.channellbl.close()
-

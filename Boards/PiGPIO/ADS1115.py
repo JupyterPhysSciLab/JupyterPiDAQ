@@ -33,18 +33,20 @@ def find_boards():
             tmpmod = Adafruit_ADS1x15.ADS1115(address=addr)
         except RuntimeError as e:
             logger.debug(e)
+            # print('No ADS1115 at: '+str(addr))
             tmpmod = None
         if tmpmod:
-            boards.append(tmpmod)
+            boards.append(Board_ADS1115(tmpmod))
     return boards
 
 class Board_ADS1115(Board):
-    def __init__(self):
+    def __init__(self,adc):
         super().__init__()
         self.name = 'ADS1115'
         self.vendor = '?'
         self.channels = (0, 1, 2, 3)
         self.Vdd = 3.3
+        self.adc = adc
 
 
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
@@ -71,7 +73,7 @@ class Board_ADS1115(Board):
         '''
         n_samp = int(round(avg_sec / (0.0012 + 1 / data_rate)))
         value = [0] * n_samp
-        avgmax = adc.read_adc(chan, gain=gain, data_rate=data_rate)
+        avgmax = self.adc.read_adc(chan, gain=gain, data_rate=data_rate)
         avgmin = avgmax
         start = time.time()
         # TODO: more error checking as in stats below
@@ -119,7 +121,8 @@ class Board_ADS1115(Board):
             start = time.time()
             for k in range(n_samp):
                 try:
-                    tempval = adc.read_adc(chan, gain=gain, data_rate=data_rate)
+                    tempval = self.adc.read_adc(chan, gain=gain,
+                                            data_rate=data_rate)
                 except (ValueError, OverflowError):
                     print('Bad adc read.')
                     pass
@@ -152,8 +155,9 @@ class Board_ADS1115(Board):
         # TODO: more error checking as in stats above
 
         start = time.time()
-        value = adc.read_adc(chan, gain=gain, data_rate=data_rate)
+        value = self.adc.read_adc(chan, gain=gain, data_rate=data_rate)
         end = time.time()
         time_stamp = (start + end) / 2
         V = value * 4.096 / gain / 32767
         return (V, time_stamp)
+tmpmod

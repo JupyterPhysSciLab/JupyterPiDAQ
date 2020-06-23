@@ -11,20 +11,18 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# TODO: Update this list of available options as they are created.
-knownboardpkgs = ('.JPhysSciLab_board_ADS1115',
-                  '.JPhysSciLab_board_DACQ2')
+# TODO: Update this list of available board options as they are created.
+# Name format is `.package.boardname` where `boardname` is the name of the
+# python file defining the required board operations.
+
+knownboardpkgs = ('.PiGPIO.ADS1115', '.PiGPIO.DACQ2')
 knownsimulators = ('.Simulated.ADCsim', '.Simulated.ADCsim_line')
 
 
 def load_boards():
     """
     Uses the list of known board packages to search for available boards.
-    The __init__.py file for each package should try to import the board
-    python software modules/drivers and raise an ImportError if not successful.
-
-    __init__.py should also do an `from .board import *` call after successful
-    importing the software/drivers. The file board.py should at minimum
+    The file <boardname>.py should at minimum
     implement a `find_boards(): routine that overrides the function below and
     define a class for the particular board that extends the `Board` class
     defined below.
@@ -49,7 +47,7 @@ def load_boards():
         # All board pkgs must implement `find_boards().
         for drv in boardpkgs:
             avail = drv.find_boards()
-            if len(avail) > 0:
+            if avail:
                 boards.append(avail)
     if len(boards) == 0:
         # We found no boards
@@ -84,6 +82,7 @@ def _load_simulators():
     :return:
     boards  list of adc board objects.
     """
+    simpkgs = []
     boards = []
     tmpmod = None
     for sim in knownsimulators:
@@ -92,8 +91,16 @@ def _load_simulators():
         except ImportError as e:
             logger.debug(e)
             tmpmod = None
-        if tmpmod:
-            boards.append(tmpmod)
+        if (tmpmod):
+            simpkgs.append(tmpmod)
+        logging.log(logging.DEBUG,str(simpkgs))
+    if len(simpkgs) >= 1:
+        # All board pkgs must implement `find_boards().
+        for drv in simpkgs:
+            avail = drv.find_boards()
+            logging.log(logging.DEBUG,str(avail))
+            if avail:
+                boards.append(avail)
     return boards
 
 
@@ -143,7 +150,9 @@ class Board:
         This returns a list of objects that allow the software to translate
         the measured voltage into a sensor reading in appropriate units.
         Must be provided by the specific board implementation.
-        :return: A list of valid sensor objects to use with this board.
+        :return: A list of valid sensor objects to use with this board. This
+        should be a subset of all the sensors returned by the listSensors
+        function in sensors.py.
         """
         raise NotImplementedError
 

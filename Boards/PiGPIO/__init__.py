@@ -3,4 +3,4 @@ try:
 except (ImportError, RuntimeError, FileNotFoundError) as e:
     raise ImportError(e)
 
-from .board import *
+from .ADS1115 import *

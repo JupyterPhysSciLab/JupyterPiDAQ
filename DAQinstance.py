@@ -25,46 +25,23 @@ import ipywidgets as widgets
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from IPython.display import HTML
+from IPython.display import display, HTML
 from IPython.display import Javascript as JS
 import time
+
 # Start Logging
-logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S', time.localtime()) + '.log'
-logging.basicConfig(filename=logname,level=logging.INFO)
+logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
+                                         time.localtime()) + '.log'
+logging.basicConfig(filename=logname, level=logging.INFO)
 # Below allows asynchronous calls to get and plot the data in real time.
 # Actually read the DAQ board on a different process.
 import threading
 from multiprocessing import Process, Pipe
 
-# this import is being done to see if an actual analog-to-digital converter is
-# available. Used to decide if running in "Demo" mode or not.
-MODE = 'Demo'
-try:
-    import Adafruit_ADS1x15
+from DAQProc import DAQProc
 
-    # Create an ADS1115 ADC (16-bit) instance to verify it worked.
-    adc = Adafruit_ADS1x15.ADS1115()
-except (ImportError, RuntimeError, FileNotFoundError) as e:
-    MODE = 'Demo'
-    #display(JS('alert("Running in Demo mode. No ADC detected.")'))
-    print("Running in Demo mode. No ADC detected.")
-else:
-    MODE = 'ADS1115'
-from DAQProc import DAQProc  # The separate process that talks to the A-to-D board asynchronously
-###section between ### may not be necessary as data available through the ChannelSettings object
-from Sensors import *  # This looks bad, but Sensors is an set of classes for all known sensors. We do not want to
-
-# have to be aware of what this changing list contains in the main module.
-# Get human readable list of sensor names and units for the default
-sensornames = []
-defaultunits = []
-for k in range(len(listSensors())):
-    sensortemp = globals()[listSensors()[k]]()
-    sensornames.append(sensortemp.getname())
-    if k == 0:
-        defaultunits = sensortemp.getunits()
-sensortemp = None  # let garbage collection get rid of the temporary objects.
-###
+import Boards.boards as boards
+availboards = boards.load_boards()
 
 from ChannelSettings import ChannelSettings
 
@@ -81,7 +58,8 @@ runs = []
 ######
 
 # Locate JupyterPiDAQ package directory
-mydir = os.path.dirname(__file__)  # absolute path to directory containing this file.
+mydir = os.path.dirname(
+    __file__)  # absolute path to directory containing this file.
 
 # Add a "DAQ Menu" to the notebook.
 tempJSfile = open(os.path.join(mydir, 'javascript', 'JupyterPiDAQmnu.js'))
@@ -123,7 +101,8 @@ class DAQinstance():
         self.collectbtn = widgets.Button(
             description='Start Collecting',
             disabled=False,
-            button_style='success',  # 'success', 'info', 'warning', 'danger' or ''
+            button_style='success',
+            # 'success', 'info', 'warning', 'danger' or ''
             tooltip='Start collecting data and plotting it. Will make new graph.',
             icon='')
         self.rateinp = widgets.BoundedFloatText(
@@ -154,7 +133,8 @@ class DAQinstance():
             description='')
         tempgridcol = ''
         tempgridperc = np.round(80 / self.nchannels)
-        self.setup_layout = widgets.HBox([self.rateinp, self.timelbl, self.setupbtn])
+        self.setup_layout = widgets.HBox(
+            [self.rateinp, self.timelbl, self.setupbtn])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
 
     def setupclick(self, btn):
@@ -163,11 +143,14 @@ class DAQinstance():
         self.rate = self.rateinp.value
         self.delta = 1 / self.rate
         self.defaultparamtxt = '<div id="DAQRun_' + str(self.idno) + '_param">'
-        self.defaultparamtxt += '<p style="font-weight:bold;">Parameters for run "' + str(self.title)
-        self.defaultparamtxt += '" (run id#: ' + str(self.idno) + ') set to:</p>'
+        self.defaultparamtxt += '<p style="font-weight:bold;">Parameters for run "' + str(
+            self.title)
+        self.defaultparamtxt += '" (run id#: ' + str(
+            self.idno) + ') set to:</p>'
         self.defaultparamtxt += '<table><tr><td style="font-weight:bold;">Approx. Rate (Hz):</td><td>' + str(
             self.rate) + '</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;">Approx. Delta (s):</td><td>' + str(self.delta) + '</td>'
+        self.defaultparamtxt += '<td style="font-weight:bold;">Approx. Delta (s):</td><td>' + str(
+            self.delta) + '</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;">X-label: </td><td>' + self.timelbl.value + '</td></tr></table>'
         # table of channel information
         self.defaultparamtxt += '<table id="chnlinfo" class="chnlinfo"><tr>'
@@ -180,12 +163,18 @@ class DAQinstance():
         for i in range(self.nchannels):
             if (self.channels[i].isactive):
                 self.channelmap.append(i)
-                self.defaultparamtxt += '<td style="text-align:center;">' + str(i) + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + self.channels[i].channellbl.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + self.channels[i].units.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + self.channels[
-                    i].sensorchoice.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + str(self.channels[i
+                self.defaultparamtxt += '<td style="text-align:center;">' + str(
+                    i) + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        self.channels[
+                                            i].channellbl.value + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        self.channels[i].units.value + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        self.channels[
+                                            i].sensorchoice.value + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + str(
+                    self.channels[i
                     ].gains.value) + '</td>'
             self.defaultparamtxt += '</tr><tr>'
             self.channels[i].hideGUI()
@@ -225,11 +214,13 @@ class DAQinstance():
             self.stdev = stdev
             self.fillpandadf()
             # save data to csv file so can be loaded elsewhere.
-            svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S', time.localtime()) + '.csv'
+            svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
+                                                      time.localtime()) + '.csv'
             self.pandadf.to_csv(svname)
             self.collectbtn.close()
             display(self.collecttxt)
-            display(HTML('<span style="color:blue;font-weight:bold;">DATA SAVED TO:' + svname + '</span>'))
+            display(HTML(
+                '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' + svname + '</span>'))
 
     def fillpandadf(self):
         datacolumns = []
@@ -248,9 +239,13 @@ class DAQinstance():
         # Column labels.
         for i in range(self.nchannels):
             if (self.channels[i].isactive):
-                titles.append(self.channels[i].channellbl.value + '_' + self.timelbl.value)
-                titles.append(self.channels[i].channellbl.value + '(' + self.channels[i].units.value + ')')
-                titles.append(self.channels[i].channellbl.value + '_' + 'stdev')
+                titles.append(self.channels[
+                                  i].channellbl.value + '_' + self.timelbl.value)
+                titles.append(
+                    self.channels[i].channellbl.value + '(' + self.channels[
+                        i].units.value + ')')
+                titles.append(
+                    self.channels[i].channellbl.value + '_' + 'stdev')
         # print(str(titles))
         # print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
@@ -276,15 +271,18 @@ class DAQinstance():
         for i in range(self.nchannels):
             whichchn.append(self.channels[i].isactive)
             if (self.channels[i].isactive):
-                self.gain[i]=self.channels[i].toselectedgain
+                self.gain[i] = self.channels[i].toselectedgain
         # print(str(whichchn))
-        #print(str(self.gain))
+        # print(str(self.gain))
         DAQ = Process(target=DAQProc,
-                      args=(whichchn, self.gain, self.averaging_time, self.delta, DAQconn, DAQCTL, MODE))
+                      args=(
+                      whichchn, self.gain, self.averaging_time, self.delta,
+                      DAQconn, DAQCTL, MODE))
         DAQ.start()
         for i in range(self.nchannels):
             if (self.channels[i].isactive):
-                tempstr = self.channels[i].channellbl.value+'('+self.channels[i].units.value+')'
+                tempstr = self.channels[i].channellbl.value + '(' + \
+                          self.channels[i].units.value + ')'
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
@@ -302,8 +300,10 @@ class DAQinstance():
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
-                    avg, std, avg_std = self.channels[self.channelmap[i]].toselectedunits(avg, std, avg_std)
-                    avg, std, avg_std = to_reasonable_significant_figures_fast(avg, std, avg_std)
+                    avg, std, avg_std = self.channels[
+                        self.channelmap[i]].toselectedunits(avg, std, avg_std)
+                    avg, std, avg_std = to_reasonable_significant_figures_fast(
+                        avg, std, avg_std)
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std
@@ -338,8 +338,10 @@ class DAQinstance():
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
-                    avg, std, avg_std = self.channels[self.channelmap[i]].toselectedunits(avg, std, avg_std)
-                    avg, std, avg_std = to_reasonable_significant_figures_fast(avg, std, avg_std)
+                    avg, std, avg_std = self.channels[
+                        self.channelmap[i]].toselectedunits(avg, std, avg_std)
+                    avg, std, avg_std = to_reasonable_significant_figures_fast(
+                        avg, std, avg_std)
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std

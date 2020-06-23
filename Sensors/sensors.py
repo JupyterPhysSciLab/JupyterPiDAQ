@@ -7,7 +7,9 @@
 
 import math
 import logging
+
 logger = logging.getLogger(__name__)
+
 
 ###
 # Private Utility functions. WARNING: behavior may change
@@ -44,7 +46,7 @@ def _ntc_therm_RtoK(R, A, B, C):
     :return: Temperature in K
     '''
     K = 1 / (A + B * math.log(R) + C * (math.log(R)) ** 3)
-    logger.debug('K: '+str(K))
+    logger.debug('K: ' + str(K))
     return (K)
 
 
@@ -103,7 +105,8 @@ def to_reasonable_significant_figures_fast(avg, std, avg_std):
     return ([avg, std, avg_std])
 
 
-# Sensor list. *******TODO: Should be added to when each new sensor class is added.*********
+# Sensor list.
+# TODO: Should be added to when each new sensor class is added.
 
 def listSensors():
     '''
@@ -113,8 +116,8 @@ def listSensors():
     '''
     return ['RawAtoD',
             'BuiltInThermistor',
-            'VernierSSTemp',]  # TODO: extend this list when each new sensor class is added. RawAtoD should
-    # always be first in the list.
+            'VernierSSTemp', ]
+    # TODO: extend this list when each new sensor class is added. RawAtoD shouldalways be first in the list.
 
 
 ###
@@ -133,9 +136,7 @@ def listSensors():
 #                                                             by the class. These must match the names of the functions
 #                                                             called to return the values and cannot contain spaces or
 #                                                             punctuation.
-#         self.gains = [2/3,1,2,4,8,16] a list of values for the ADC gains that can be used with this
-#                                         sensor. The values here are all that are available for an ADS1115.
-#         other internal values may be defined as needed.
+##         other internal values may be defined as needed.
 #         pass
 #
 #     def getname(self):
@@ -194,10 +195,8 @@ class RawAtoD():
 
     def __init__(self):
         self.name = 'Volts at A-to-D'
-        self.vendor = 'KNARCO'
+        self.vendor = '--'
         self.units = ['V', 'mV']
-        self.gains=[2/3,1,2,4,8,16]
-        self.Vdd = 3.3  # voltage provided to sensor
         pass
 
     def getname(self):
@@ -213,14 +212,6 @@ class RawAtoD():
         :return: string containing the vendor/manufacturer name
         '''
         return (self.vendor)
-
-    def getgains(self):
-        """
-          Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
-          the available gains are 2/3,1,2,4,8,16.
-          :return: gains a list of strings.
-         """
-        return(self.gains)
 
     def getunits(self):
         '''
@@ -261,7 +252,7 @@ class BuiltInThermistor():
         self.name = 'Built-in Thermistor'
         self.vendor = 'KNARCO'
         self.units = ['K', 'C', 'F']
-        self.gains=[1]
+        self.gains = [1]
         self.Vdd = 3.3  # voltage provided to sensor
         # print('Done initializing builtinthermistor class.')
         pass
@@ -294,7 +285,7 @@ class BuiltInThermistor():
           the available gains are 2/3,1,2,4,8,16.
           :return: gains a list of strings.
          """
-        return(self.gains)
+        return (self.gains)
 
     def K(self, v_avg, v_std, avg_std):
         '''
@@ -313,13 +304,15 @@ class BuiltInThermistor():
         v_min = v_avg - v_std
         K_max = self._VtoK(v_max)
         K_min = self._VtoK(v_min)
-        K_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_std = (
+                            K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
         # estimated standard deviation of the average temperature
         v_max = v_avg + avg_std
         v_min = v_avg - avg_std
         K_max = self._VtoK(v_max)
         K_min = self._VtoK(v_min)
-        K_avg_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_avg_std = (
+                                K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
         return (K_avg, K_std, K_avg_std)
 
     def C(self, v_avg, v_std, avg_std):
@@ -361,15 +354,16 @@ class BuiltInThermistor():
         A = 0.0009667974157916105
         B = 0.00024132572130718138
         C = 2.077144181533216e-07
-        #Need to stay in sensor range, if get bad voltage throw max or min possible value
+        # Need to stay in sensor range, if get bad voltage throw max or min possible value
         # alternative for pegging would be to set to 1.649999 which gives < absolute zero.
-        if (volts <=0):
-            volts=1e-312 # gets about 0 K
+        if (volts <= 0):
+            volts = 1e-312  # gets about 0 K
         if (volts >= 1.65):
-            volts = 1.649998411 #gets very high T in K
+            volts = 1.649998411  # gets very high T in K
         R = self.Vdd * 1.0e4 / volts - 2.0e4
         tempK = _ntc_therm_RtoK(R, A, B, C)
         return (tempK)
+
 
 class VernierSSTemp():
     '''
@@ -380,7 +374,7 @@ class VernierSSTemp():
         self.name = 'Vernier SS Temperature Probe'
         self.vendor = 'Vernier'
         self.units = ['K', 'C', 'F']
-        self.gains=[2/3,1,2]
+        self.gains = [2 / 3, 1, 2]
         self.Vdd = 3.3  # voltage provided to sensor. Vernier sensors designed to use 5 V
         # print('Done initializing builtinthermistor class.')
         pass
@@ -413,7 +407,7 @@ class VernierSSTemp():
           the available gains are 2/3,1,2,4,8,16.
           :return: gains a list of strings.
          """
-        return(self.gains)
+        return (self.gains)
 
     def K(self, v_avg, v_std, avg_std):
         '''
@@ -425,7 +419,9 @@ class VernierSSTemp():
         :return: list [K_avg, K_std, K_avg_std]: [average temperature in K, standard deviation of temperature in K,
             estimated standard deviation of the average temperature].
         '''
-        logger.debug('voltages in: '+str(v_avg)+' '+str(v_std)+' '+str(avg_std))
+        logger.debug(
+            'voltages in: ' + str(v_avg) + ' ' + str(v_std) + ' ' + str(
+                avg_std))
         # v_avg to K
         K_avg = self._VtoK(v_avg)
         # standard deviation of temperature
@@ -433,14 +429,17 @@ class VernierSSTemp():
         v_min = v_avg - v_std
         K_max = self._VtoK(v_min)
         K_min = self._VtoK(v_max)
-        K_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_std = (
+                            K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
         # estimated standard deviation of the average temperature
         v_max = v_avg + avg_std
         v_min = v_avg - avg_std
         K_max = self._VtoK(v_min)
         K_min = self._VtoK(v_max)
-        K_avg_std = (K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
-        logger.debug('K out: '+str(K_avg)+' '+str(K_std)+' '+str(K_avg_std))
+        K_avg_std = (
+                                K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        logger.debug(
+            'K out: ' + str(K_avg) + ' ' + str(K_std) + ' ' + str(K_avg_std))
         return (K_avg, K_std, K_avg_std)
 
     def C(self, v_avg, v_std, avg_std):
@@ -482,13 +481,14 @@ class VernierSSTemp():
         A = 0.00102119
         B = 0.000222468
         C = 1.33342e-07
-        #Need to stay in sensor range, if get bad voltage throw max or min possible value
+        # Need to stay in sensor range, if get bad voltage throw max or min possible value
         # alternative for pegging would be to set to 1.649999 which gives < absolute zero.
-        if (volts <=0): #TODO: fix over and underflow for vernier thermistor sensors.
-            volts=1e-312 # gets high T
+        if (
+                volts <= 0):  # TODO: fix over and underflow for vernier thermistor sensors.
+            volts = 1e-312  # gets high T
         if (volts >= self.Vdd):
-            volts = self.Vdd-1e-10 #gets low T in K
+            volts = self.Vdd - 1e-10  # gets low T in K
         R = volts * 1.5e4 / (self.Vdd - volts)
-        logger.debug('volts: '+str(volts)+' R: '+str(R))
+        logger.debug('volts: ' + str(volts) + ' R: ' + str(R))
         tempK = _ntc_therm_RtoK(R, A, B, C)
         return (tempK)
