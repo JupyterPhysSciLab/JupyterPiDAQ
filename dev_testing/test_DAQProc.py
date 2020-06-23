@@ -7,7 +7,7 @@ import time
 from multiprocessing import Process, Pipe
 
 from DAQProc import DAQProc
-from Boards import boards
+import Boards.boards as boards
 
 
 def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
@@ -16,10 +16,10 @@ def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
                                              time.localtime()) \
               + '.log'
     logging.basicConfig(filename=logname, level=logging.DEBUG)
-    boards = boards.load_boards()
+    availboards = boards.load_boards()
     whichchn = []
     for k in range(nchans):
-        whichchn.append({'board':boards[0],'chnl':k})
+        whichchn.append({'board':availboards[0],'chnl':k})
     starttime = time.time()
     global data
     data = []

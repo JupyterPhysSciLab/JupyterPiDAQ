@@ -42,12 +42,12 @@ class Board_DAQC2(Board):
         self.vendor = 'Pi-Plates'
         self.channels = (0, 1, 2, 3, 4, 5, 6, 7)
         self.addr = addr
-        Vddcheck = float(self.V_sampchan(8,1,5))
+        Vddcheck = float(self.V_sampchan(8,1,5)[0])
         self.Vdd = Vddcheck
         # Flash light green and then off to indicated found and set up.
-        DACQ2plate.setLED(self.addr,'green')
+        DAQC2plate.setLED(self.addr,'green')
         time.sleep(2.0)
-        DACQ2plate.setLED(self.addr,'off')
+        DAQC2plate.setLED(self.addr,'off')
 
     def getsensors(self):
         """
@@ -85,7 +85,7 @@ class Board_DAQC2(Board):
         endtime = starttime + avg_sec
         while time.time() < endtime:
             value.append(DAQC2plate.getADC(self.addr, chan))
-        time_stamp = (start + end) / 2
+        time_stamp = (endtime + endtime) / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
         V_min = min(value)
@@ -116,7 +116,7 @@ class Board_DAQC2(Board):
         endtime = starttime + avg_sec
         while time.time() < endtime:
             value.append(DAQC2plate.getADC(self.addr, chan))
-        time_stamp = (start + end) / 2
+        time_stamp = (starttime + endtime) / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
         stdev = np.std(value, ddof=1, dtype=np.float64)
