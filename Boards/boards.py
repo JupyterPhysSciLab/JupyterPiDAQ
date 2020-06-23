@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 # Name format is `.package.boardname` where `boardname` is the name of the
 # python file defining the required board operations.
 
-knownboardpkgs = ('.PiGPIO.ADS1115', '.PiGPIO.DACQ2')
+knownboardpkgs = ('.PiGPIO.ADS1115', '.PiGPIO.DAQC2')
 knownsimulators = ('.Simulated.ADCsim', '.Simulated.ADCsim_line')
 
 
@@ -47,8 +47,8 @@ def load_boards():
         # All board pkgs must implement `find_boards().
         for drv in boardpkgs:
             avail = drv.find_boards()
-            if avail:
-                boards.append(avail)
+            for hdw in avail:
+                boards.append(hdw)
     if len(boards) == 0:
         # We found no boards
         print('No ADC boards found. Using simulated boards...')

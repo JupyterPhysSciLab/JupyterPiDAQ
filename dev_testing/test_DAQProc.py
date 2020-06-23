@@ -19,7 +19,8 @@ def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
     availboards = boards.load_boards()
     whichchn = []
     for k in range(nchans):
-        whichchn.append({'board':availboards[0],'chnl':k})
+        thisboard = availboards[0]
+        whichchn.append({'board':thisboard,'chnl':k})
     starttime = time.time()
     global data
     data = []
