@@ -119,6 +119,7 @@ class Board:
         self.name = None
         self.vendor = None
         self.channels = None
+        self.gains = [1]
         self.Vdd = None
 
     def getname(self):
@@ -133,6 +134,13 @@ class Board:
         """
         return self.channels
 
+    def getgains(self):
+        """
+        If not defined for a specific board the gain is fixed at 1.
+        :return: tuple of gains availabe for onboard preamp
+        """
+        return self.gains
+    
     def getvendor(self):
         """
         :return: string value of the vendor name

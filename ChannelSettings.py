@@ -3,7 +3,9 @@
 # June 2020
 # license GPL3+
 
-from ipywidgets import widgets
+from ipywidgets import widgets, Layout
+
+from Sensors import sensors
 
 
 class ChannelSettings:
@@ -13,7 +15,7 @@ class ChannelSettings:
     it knows what number has been assigned to it.
     """
 
-    def __init__(self, idno):
+    def __init__(self, idno, availboards):
         """
 
         :param idno: int number iding this instance of ChannelSettings
@@ -23,18 +25,19 @@ class ChannelSettings:
         self.idno = idno
         self.boardchannel = None
         self.boardnames = []
-        for board in globals()[availboards]:
-            self.boardnames.append(board.getname())
-        self.board = globals()[availboards][0]
+        for k in range(len(availboards)):
+            self.boardnames.append((str(k)+' '+availboards[k].getname(),k))
+        self.board = availboards[0]
+        self.channel = self.board.channels[0]
         self.toselectedunits = None
         self.isactive = False
-        self.availablegains = []
-        self.toselectedgain = None
+        self.availablegains = self.board.getgains()
+        self.toselectedgain = self.availablegains[0]
         self.sensornames = []
-        for name in self.board.getsensors().name:
+        for name in self.board.getsensors():
             self.sensornames.append(name)
-        self.defaultunits = self.board.getsensors()[0].getunits()
-        self.availablegains = self.board.getsensors()[0].getgains()
+        self.sensor = getattr(sensors,self.board.getsensors()[0])()
+        self.defaultunits = self.sensor.getunits()
         self.defaultsensorname = self.sensornames[0]
         self.sensor = None  # Set to nothing unless the channel is active.
         ###
@@ -42,11 +45,11 @@ class ChannelSettings:
         ###
         self.checkbox = widgets.Checkbox(
             value=self.isactive,
-            description='Channel ' + str(self.idno),
+            description='Trace ' + str(self.idno),
             disabled=False)
         self.checkbox.observe(self.checkchanged, names='value')
-        self.channellbl = widgets.Text(
-            value='Chan' + str(self.idno),
+        self.tracelbl = widgets.Text(
+            value='Trace_' + str(self.idno),
             # TODO: update to meaningful title on sensor change if left at
             #  default.
             placeholder='Type something',
@@ -57,6 +60,11 @@ class ChannelSettings:
             description='Board:',
             disabled=True)
         self.boardchoice.observe(self.boardchanged, names='value')
+        self.channelchoice = widgets.Dropdown(
+            options=self.board.channels,
+            description='Channel:',
+            disabled=True)
+        self.channelchoice.observe(self.channelchanged, names='value')
         self.sensorchoice = widgets.Dropdown(
             options=self.sensornames,
             # value=self.defaultsensorname, # not needed defaults to the first
@@ -85,11 +93,13 @@ class ChannelSettings:
         rror is thrown by something called by this function.
         :return: None
         """
-        self.sensor = self.board.getsensors()[self.sensorchoice.index]
+        self.sensor = getattr(sensors,self.board.getsensors()[0])()
         self.toselectedunits = getattr(self.sensor, self.units.value)
         self.checkbox.value = True  # in case the selection is not done by the
         # user.
-        self.channellbl.disabled = False
+        self.tracelbl.disabled = False
+        self.boardchoice.disabled = False
+        self.channelchoice.disabled = False
         self.sensorchoice.disabled = False
         self.units.disabled = False
         self.gains.disabled = False
@@ -106,7 +116,9 @@ class ChannelSettings:
         self.toselectedunits = None
         self.checkbox.value = False  # in case the deactivation is not done by
         # the user.
-        self.channellbl.disabled = True
+        self.tracelbl.disabled = True
+        self.boardchoice.disabled = True
+        self.channelchoice.disabled = True
         self.sensorchoice.disabled = True
         self.units.disabled = True
         self.gains.disabled = True
@@ -133,9 +145,27 @@ class ChannelSettings:
         :return:
         """
         # Get the new board
-        self.board = globals()[availboards][change['owner'].index]
+        self.board = availboards[change['owner'].value]
+        # Trigger update to allowed gains
+        self.availablegains = self.board.getgains()
+        self.toselectedgain = self.availablegains[0]
         # Trigger an update to the sensor list
+        for name in self.board.getsensors():
+            self.sensornames.append(name)
+        self.sensor = getattr(sensors,self.board.getsensors()[0])()
+        self.defaultunits = self.sensor.getunits()
+        self.defaultsensorname = self.sensornames[0]
+        self.toselectedunits = getattr(self.sensor, self.defaultunits)
+        pass
 
+    def channelchanged(self, change):
+        """
+        This function responds to a change in board choice.
+        :param change: change object passed by the observe tool
+        :return:
+        """
+        # set new channel
+        self.channel = change['owner'].value
         pass
 
     def sensorchanged(self, change):
@@ -146,15 +176,13 @@ class ChannelSettings:
         :param change: change object passed by the observe tool
         :return: None
         """
+        #print(str(change['new'])+',' + str(self.sensorchoice.value))
         # Get the new sensor choice and define the sensor object
-        self.sensor = self.board.getsensors()[change['owner'].index]
+        self.sensor = getattr(sensors,change['owner'].value)()
         # Update the unit choices to match the sensor chosen
         self.units.options = self.sensor.getunits()
         # set the unit conversion function
         self.toselectedunits = getattr(self.sensor, self.units.value)
-        # Update the gain choices to match the chosen sensor
-        self.gains.options = self.sensor.getgains()
-        self.toselectedgain = self.gains.value
         pass
 
     def unitschanged(self, change):
@@ -184,10 +212,12 @@ class ChannelSettings:
         Sets up the GUI and the necessary monitoring.
         :return: None
         """
-        self.headbox = widgets.HBox([self.checkbox, self.channellbl])
-        self.parambox = widgets.HBox(
-            [self.sensorchoice, self.units, self.gains])
-        self.settings = widgets.VBox([self.headbox, self.parambox])
+        self.headbox = widgets.HBox([self.checkbox, self.tracelbl])
+        self.parambox1 = widgets.HBox(
+            [self.boardchoice, self.channelchoice, self.sensorchoice])
+        self.parambox2= widgets.HBox([self.units, self.gains])
+        self.settings = widgets.VBox([self.headbox, self.parambox1, self.parambox2],
+                                    layout=Layout(border='solid'))
         from IPython.core.display import display
         display(self.settings)
         pass
@@ -197,8 +227,9 @@ class ChannelSettings:
         # Not sure any of the below is necessary. The DOM could use some
         # cleanup. This may require supporting JS.
         self.headbox.close()
-        self.parambox.close()
+        self.parambox1.close()
+        self.parambox2.close()
         self.sensorchoice.close()
         self.units.close()
         self.checkbox.close()
-        self.channellbl.close()
+        self.tracelbl.close()

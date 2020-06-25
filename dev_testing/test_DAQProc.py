@@ -22,6 +22,8 @@ def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
         thisboard = availboards[0]
         whichchn.append({'board':thisboard,'chnl':k})
     starttime = time.time()
+    print('whichchn: '+str(whichchn))
+    print('gains: '+str(gains))
     global data
     data = []
     global timestamp
@@ -41,6 +43,7 @@ def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):
         while PLTconn.poll():
             pkg = PLTconn.recv()
             lastpkgstr = str(pkg)
+            print(lastpkgstr)
             # convert voltage to requested units.
             # for i in range(len(pkg[0])):
             #     avg = pkg[1][i]

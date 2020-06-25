@@ -19,6 +19,7 @@ ipython = get_ipython()
 if ipython:
     ipython.magic("matplotlib notebook")
 # these % magics are important inside the notebook
+print('Importing drivers and searching for available data acquisition hardware.',end='')
 
 # imports below must work. Allow normal python error response.
 import ipywidgets as widgets
@@ -29,6 +30,8 @@ from IPython.display import display, HTML
 from IPython.display import Javascript as JS
 import time
 
+print ('.',end='')
+
 # Start Logging
 logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
                                          time.localtime()) + '.log'
@@ -38,12 +41,26 @@ logging.basicConfig(filename=logname, level=logging.INFO)
 import threading
 from multiprocessing import Process, Pipe
 
+print('.',end='')
+
 from DAQProc import DAQProc
 
+print('.',end='')
+
 import Boards.boards as boards
+
+print('.',end='')
+
+global availboards
 availboards = boards.load_boards()
 
+print('.',end='')
+
 from ChannelSettings import ChannelSettings
+
+print('.',end='')
+
+from Sensors import sensors
 
 # globals to put stuff in from threads.
 data = []  # all data from DAQ tools avg_values
@@ -69,25 +86,25 @@ tempJSfile.close()
 display(HTML(tempscript))
 display(JS('createCmdMenu()'))
 
-
+print('Done with setup.')
 # Data Aquistion Instance (a run).
 class DAQinstance():
-    def __init__(self, idno, title='None', nchannels=4):
+    def __init__(self, idno, title='None', ntraces=4):
         self.idno = idno
         self.title = str(title)
         self.averaging_time = 0.02  # seconds
-        self.gain = [1] * nchannels
+        self.gain = [1] * ntraces
         self.data = []
         self.timestamp = []
         self.stdev = []
         self.pandadf = None
-        self.nchannels = nchannels
-        self.channels = []
-        self.channelmap = []  # index map from returned data to channel,
-        self.channellbls = []
+        self.ntraces = ntraces
+        self.traces = []
+        self.tracemap = []  # index map from returned data to trace,
+        self.tracelbls = []
         self.units = []
-        for i in range(self.nchannels):
-            self.channels.append(ChannelSettings(i))
+        for i in range(self.ntraces):
+            self.traces.append(ChannelSettings(i, availboards))
         self.ratemax = 3.0  # Hz
         self.rate = 1.0  # Hz
         self.deltamin = 1 / self.ratemax
@@ -95,7 +112,7 @@ class DAQinstance():
         self.setupbtn = widgets.Button(
             description='Set Parameters',
             disabled=False,
-            button_style='',  # 'success', 'info', 'warning', 'danger' or ''
+            button_style='info',  # 'success', 'info', 'warning', 'danger' or ''
             tooltip='Click to set collection parameters to displayed values.',
             icon='')
         self.collectbtn = widgets.Button(
@@ -132,7 +149,7 @@ class DAQinstance():
             placeholder='',
             description='')
         tempgridcol = ''
-        tempgridperc = np.round(80 / self.nchannels)
+        tempgridperc = np.round(80 / self.ntraces)
         self.setup_layout = widgets.HBox(
             [self.rateinp, self.timelbl, self.setupbtn])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
@@ -152,32 +169,37 @@ class DAQinstance():
         self.defaultparamtxt += '<td style="font-weight:bold;">Approx. Delta (s):</td><td>' + str(
             self.delta) + '</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;">X-label: </td><td>' + self.timelbl.value + '</td></tr></table>'
-        # table of channel information
-        self.defaultparamtxt += '<table id="chnlinfo" class="chnlinfo"><tr>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Channel #</td>'
+        # table of trace information
+        self.defaultparamtxt += '<table id="traceinfo" class="traceinfo"><tr>'
+        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Trace #</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Title</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Units</td>'
+        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Board</td>'
+        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Channel</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Sensor</td>'
         self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Gain</td>'
         self.defaultparamtxt += '</tr><tr>'
-        for i in range(self.nchannels):
-            if (self.channels[i].isactive):
-                self.channelmap.append(i)
+        for i in range(self.ntraces):
+            if (self.traces[i].isactive):
+                self.tracemap.append(i)
                 self.defaultparamtxt += '<td style="text-align:center;">' + str(
                     i) + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
-                                        self.channels[
-                                            i].channellbl.value + '</td>'
+                                        self.traces[
+                                            i].tracelbl.value + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
-                                        self.channels[i].units.value + '</td>'
+                                        self.traces[i].units.value + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
-                                        self.channels[
+                                        self.traces[i].board.name + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        str(self.traces[i].channel) + '</td>'
+                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        self.traces[
                                             i].sensorchoice.value + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + str(
-                    self.channels[i
-                    ].gains.value) + '</td>'
+                    self.traces[i].gains.value) + '</td>'
             self.defaultparamtxt += '</tr><tr>'
-            self.channels[i].hideGUI()
+            self.traces[i].hideGUI()
         self.defaultparamtxt += '</tr></table>'
         self.defaultparamtxt += '</div>'
         self.runtitle.close()
@@ -189,8 +211,8 @@ class DAQinstance():
     def setup(self):
         self.setupbtn.on_click(self.setupclick)
         display(self.runtitle)
-        for i in range(self.nchannels):
-            self.channels[i].setup()
+        for i in range(self.ntraces):
+            self.traces[i].setup()
         display(self.setup_layout)
 
     def collectclick(self, btn):
@@ -228,8 +250,8 @@ class DAQinstance():
         tempdata = np.transpose(self.data)
         tempstdev = np.transpose(self.stdev)
         chncnt = 0
-        for i in range(self.nchannels):
-            if (self.channels[i].isactive):
+        for i in range(self.ntraces):
+            if (self.traces[i].isactive):
                 chncnt += 1
         for i in range(chncnt):
             datacolumns.append(temptimes[i])
@@ -237,15 +259,15 @@ class DAQinstance():
             datacolumns.append(tempstdev[i])
         titles = []
         # Column labels.
-        for i in range(self.nchannels):
-            if (self.channels[i].isactive):
-                titles.append(self.channels[
-                                  i].channellbl.value + '_' + self.timelbl.value)
+        for i in range(self.ntraces):
+            if (self.traces[i].isactive):
+                titles.append(self.traces[
+                                  i].tracelbl.value + '_' + self.timelbl.value)
                 titles.append(
-                    self.channels[i].channellbl.value + '(' + self.channels[
+                    self.traces[i].tracelbl.value + '(' + self.traces[
                         i].units.value + ')')
                 titles.append(
-                    self.channels[i].channellbl.value + '_' + 'stdev')
+                    self.traces[i].tracelbl.value + '_' + 'stdev')
         # print(str(titles))
         # print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
@@ -268,41 +290,44 @@ class DAQinstance():
         PLTconn, DAQconn = Pipe()
         DAQCTL, PLTCTL = Pipe()
         whichchn = []
-        for i in range(self.nchannels):
-            whichchn.append(self.channels[i].isactive)
-            if (self.channels[i].isactive):
-                self.gain[i] = self.channels[i].toselectedgain
-        # print(str(whichchn))
-        # print(str(self.gain))
-        DAQ = Process(target=DAQProc,
-                      args=(
-                      whichchn, self.gain, self.averaging_time, self.delta,
-                      DAQconn, DAQCTL, MODE))
-        DAQ.start()
-        for i in range(self.nchannels):
-            if (self.channels[i].isactive):
-                tempstr = self.channels[i].channellbl.value + '(' + \
-                          self.channels[i].units.value + ')'
+        gains = []
+        for i in range(self.ntraces):
+            if (self.traces[i].isactive):
+                whichchn.append({'board':self.traces[i].board,
+                                'chnl':self.traces[i].channel})
+                gains.append(self.traces[i].toselectedgain)
+                tempstr = self.traces[i].tracelbl.value + '(' + \
+                          self.traces[i].units.value + ')'
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
+        #print('whichchn: '+str(whichchn))
+        #print('gains: '+str(gains))
+        DAQ = Process(target=DAQProc,
+                      args=(
+                      whichchn, gains, self.averaging_time, self.delta,
+                      DAQconn, DAQCTL))
+        DAQ.start()
         fig = plt.figure()
         ax = fig.add_subplot(111)
 
         pts = 0
         oldpts = 0
+        #print('about to enter while loop',end='')
         while (self.collectbtn.description == 'Stop Collecting'):
+            #print('.',end='')
             while PLTconn.poll():
                 pkg = PLTconn.recv()
                 self.lastpkgstr = str(pkg)
+                print(self.lastpkgstr)
                 # convert voltage to requested units.
                 for i in range(len(pkg[0])):
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
-                    avg, std, avg_std = self.channels[
-                        self.channelmap[i]].toselectedunits(avg, std, avg_std)
-                    avg, std, avg_std = to_reasonable_significant_figures_fast(
+                    avg, std, avg_std = self.traces[
+                        self.tracemap[i]].toselectedunits(avg, std, avg_std)
+                    avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
                         avg, std, avg_std)
                     pkg[1][i] = avg
                     pkg[2][i] = std
@@ -338,9 +363,9 @@ class DAQinstance():
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
-                    avg, std, avg_std = self.channels[
-                        self.channelmap[i]].toselectedunits(avg, std, avg_std)
-                    avg, std, avg_std = to_reasonable_significant_figures_fast(
+                    avg, std, avg_std = self.traces[
+                        self.tracemap[i]].toselectedunits(avg, std, avg_std)
+                    avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
                         avg, std, avg_std)
                     pkg[1][i] = avg
                     pkg[2][i] = std
@@ -383,7 +408,7 @@ def newRun():
 
 def showSelectedRunTable(change):
     global runsdrp
-    whichrun = runsdrp.index - 1
+    whichrun = runsdrp.value
     runsdrp.close()
     tbldiv = '<div style="height:10em;">' + str(runs[whichrun].title)
     tbldiv += str(runs[whichrun].pandadf.to_html()) + '</div>'
@@ -396,14 +421,14 @@ def showDataTable():
        is made.
     '''
     # get list of runs
-    runlst = ['Choose Run']
+    runlst = [('Choose Run', -1)]
     for i in range(len(runs)):
-        runlst.append(str(i + 1) + ': ' + runs[i].title)
+        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
     # buid selection menu
     global runsdrp
     runsdrp = widgets.Dropdown(
         options=runlst,
-        value=runlst[0],
+        value=-1,
         description='Select Run #:',
         disabled=False,
     )
