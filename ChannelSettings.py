@@ -37,7 +37,7 @@ class ChannelSettings:
         self.sensornames = []
         for name in self.board.getsensors():
             self.sensornames.append(name)
-        self.sensor = getattr(sensors,self.board.getsensors()[0])()
+        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
         self.defaultsensorname = self.sensornames[0]
         self.sensor = None  # Set to nothing unless the channel is active.
@@ -94,7 +94,7 @@ class ChannelSettings:
         rror is thrown by something called by this function.
         :return: None
         """
-        self.sensor = getattr(sensors,self.board.getsensors()[0])()
+        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
         self.toselectedunits = getattr(self.sensor, self.units.value)
         self.checkbox.value = True  # in case the selection is not done by the
         # user.
@@ -153,7 +153,7 @@ class ChannelSettings:
         # Trigger an update to the sensor list
         for name in self.board.getsensors():
             self.sensornames.append(name)
-        self.sensor = getattr(sensors,self.board.getsensors()[0])()
+        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
         self.defaultsensorname = self.sensornames[0]
         self.toselectedunits = getattr(self.sensor, self.defaultunits[0])
@@ -179,7 +179,7 @@ class ChannelSettings:
         """
         #print(str(change['new'])+',' + str(self.sensorchoice.value))
         # Get the new sensor choice and define the sensor object
-        self.sensor = getattr(sensors,change['owner'].value)()
+        self.sensor = getattr(sensors,change['owner'].value)(self.board.getVdd())
         # Update the unit choices to match the sensor chosen
         self.units.options = self.sensor.getunits()
         # set the unit conversion function

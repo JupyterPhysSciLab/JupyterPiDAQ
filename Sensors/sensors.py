@@ -193,10 +193,16 @@ class RawAtoD():
     AdaFruit python software and may be found at: https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076.
     '''
 
-    def __init__(self):
+    def __init__(self, Vdd):
+        """
+
+        :param Vdd: Because some sensors depend on the voltage provided by the
+        A-to-D board this must be supplied.
+        """
         self.name = 'Volts at A-to-D'
         self.vendor = '--'
         self.units = ['V', 'mV']
+        self.Vdd = Vdd
         pass
 
     def getname(self):
@@ -248,12 +254,12 @@ class BuiltInThermistor():
     This class contains the definitions for builtin thermistor.
     '''
 
-    def __init__(self):
+    def __init__(self, Vdd):
         self.name = 'Built-in Thermistor'
         self.vendor = 'KNARCO'
         self.units = ['K', 'C', 'F']
         self.gains = [1]
-        self.Vdd = 3.3  # voltage provided to sensor
+        self.Vdd = Vdd
         # print('Done initializing builtinthermistor class.')
         pass
 
@@ -304,15 +310,15 @@ class BuiltInThermistor():
         v_min = v_avg - v_std
         K_max = self._VtoK(v_max)
         K_min = self._VtoK(v_min)
-        K_std = (
-                            K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_std = (K_max - K_min) / 2.0
+        # assuming a symmetric gaussian error even after transform from volts.
         # estimated standard deviation of the average temperature
         v_max = v_avg + avg_std
         v_min = v_avg - avg_std
         K_max = self._VtoK(v_max)
         K_min = self._VtoK(v_min)
-        K_avg_std = (
-                                K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_avg_std = (K_max - K_min) / 2.0
+        # assuming a symmetric gaussian error even after transform from volts.
         return (K_avg, K_std, K_avg_std)
 
     def C(self, v_avg, v_std, avg_std):
@@ -370,13 +376,11 @@ class VernierSSTemp():
     This class contains the definitions for Vernier Stainless Steel Temperature Probe. A 20K thermistor.
     '''
 
-    def __init__(self):
+    def __init__(self, Vdd):
         self.name = 'Vernier SS Temperature Probe'
         self.vendor = 'Vernier'
         self.units = ['K', 'C', 'F']
-        self.gains = [2 / 3, 1, 2]
-        self.Vdd = 3.3  # voltage provided to sensor. Vernier sensors designed to use 5 V
-        # print('Done initializing builtinthermistor class.')
+        self.Vdd = Vdd
         pass
 
     def getname(self):
@@ -400,14 +404,6 @@ class VernierSSTemp():
         :return: units a list of strings.
         '''
         return (self.units)
-
-    def getgains(self):
-        """
-          Provides values representing the ADC gains that can be used with this sensor. For the ADS1115
-          the available gains are 2/3,1,2,4,8,16.
-          :return: gains a list of strings.
-         """
-        return (self.gains)
 
     def K(self, v_avg, v_std, avg_std):
         '''
