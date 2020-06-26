@@ -319,7 +319,7 @@ class DAQinstance():
             while PLTconn.poll():
                 pkg = PLTconn.recv()
                 self.lastpkgstr = str(pkg)
-                print(self.lastpkgstr)
+                #print(self.lastpkgstr)
                 # convert voltage to requested units.
                 for i in range(len(pkg[0])):
                     avg = pkg[1][i]
