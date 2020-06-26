@@ -24,10 +24,11 @@ class ChannelSettings:
             idno = 0
         self.idno = idno
         self.boardchannel = None
+        self.boards = availboards
         self.boardnames = []
-        for k in range(len(availboards)):
-            self.boardnames.append((str(k)+' '+availboards[k].getname(),k))
-        self.board = availboards[0]
+        for k in range(len(self.boards)):
+            self.boardnames.append((str(k)+' '+self.boards[k].getname(),k))
+        self.board = self.boards[0]
         self.channel = self.board.channels[0]
         self.toselectedunits = None
         self.isactive = False
@@ -145,7 +146,7 @@ class ChannelSettings:
         :return:
         """
         # Get the new board
-        self.board = availboards[change['owner'].value]
+        self.board = self.boards[change['owner'].value]
         # Trigger update to allowed gains
         self.availablegains = self.board.getgains()
         self.toselectedgain = self.availablegains[0]
@@ -155,7 +156,7 @@ class ChannelSettings:
         self.sensor = getattr(sensors,self.board.getsensors()[0])()
         self.defaultunits = self.sensor.getunits()
         self.defaultsensorname = self.sensornames[0]
-        self.toselectedunits = getattr(self.sensor, self.defaultunits)
+        self.toselectedunits = getattr(self.sensor, self.defaultunits[0])
         pass
 
     def channelchanged(self, change):

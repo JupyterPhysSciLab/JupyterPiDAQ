@@ -31,13 +31,18 @@ function addnewRun(){
 function showDataTable(){
     //find the currently active cell
     var currentcell = Jupyter.notebook.get_selected_cell();
-    //append the command to the end of the cell
-    var currentcelltxt=currentcell.get_text();
-    if (currentcelltxt!=''){
-        currentcelltxt+='\n'
+    //Because we could destroy date created by having run
+    //this cell previously do not use this cell if it contains
+    //anything
+    if (currentcell.get_text()==''){
+        currentcell.set_text('showDataTable()');
+    }else{
+        Jupyter.notebook.insert_cell_below();
+        Jupyter.notebook.select_next(true);
+        Jupyter.notebook.focus_cell();
+        currentcell = Jupyter.notebook.get_selected_cell();
+        currentcell.set_text('showDataTable()');
     }
-    currentcelltxt+='showDataTable()';
-    currentcell.set_text(currentcelltxt);
     currentcell.execute()
 }
 

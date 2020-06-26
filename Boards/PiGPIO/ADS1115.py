@@ -160,4 +160,3 @@ class Board_ADS1115(Board):
         time_stamp = (start + end) / 2
         V = value * 4.096 / gain / 32767
         return (V, time_stamp)
-tmpmod
