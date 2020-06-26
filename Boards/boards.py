@@ -51,7 +51,7 @@ def load_boards():
                 boards.append(hdw)
     if len(boards) == 0:
         # We found no boards
-        print('No ADC boards found. Using simulated boards...')
+        print('\nNo ADC boards found. Using simulated boards...',end='')
         boards = _load_simulators()
     return boards
 
@@ -114,6 +114,7 @@ class Board:
         self.name = 'board name/adc name/type' Short an useful to end user
         self.vendor = 'Vendor/Manufacturer name`
         self.channels = tuple of available channel IDs
+        self.gains = list of gains
         self.Vdd = voltage provided by board to sensors
         """
         self.name = None

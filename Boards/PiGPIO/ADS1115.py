@@ -43,8 +43,9 @@ class Board_ADS1115(Board):
     def __init__(self,adc):
         super().__init__()
         self.name = 'ADS1115'
-        self.vendor = '?'
+        self.vendor = '?' # Adafruit equivalent
         self.channels = (0, 1, 2, 3)
+        self.gains = [2/3, 1, 2, 4, 8, 16]
         self.Vdd = 3.3
         self.adc = adc
 
@@ -78,7 +79,7 @@ class Board_ADS1115(Board):
         start = time.time()
         # TODO: more error checking as in stats below
         for k in range(n_samp):
-            value[k] = adc.read_adc(chan, gain=gain, data_rate=data_rate)
+            value[k] = self.adc.read_adc(chan, gain=gain, data_rate=data_rate)
         end = time.time()
         time_stamp = (start + end) / 2
         V_avg = sum(value) * 4.096 / n_samp / gain / 32767
