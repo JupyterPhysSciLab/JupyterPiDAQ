@@ -40,13 +40,12 @@ class Board_DAQC2(Board):
         super().__init__()
         self.name = 'DAQC2'
         self.vendor = 'Pi-Plates'
-        self.channels = (0, 1, 2, 3, 4, 5, 6, 7)
+        self.channels = (0, 1, 2, 3, 4, 5, 6, 7, 8)
         self.addr = addr
-        Vddcheck = float(self.V_sampchan(8,1,5)[0])
-        self.Vdd = Vddcheck
         # Flash light green and then off to indicated found and set up.
         DAQC2plate.setLED(self.addr,'green')
-        time.sleep(2.0)
+        Vddcheck = float(self.V_oversampchan(8,1,5)[0])
+        self.Vdd = Vddcheck
         DAQC2plate.setLED(self.addr,'off')
 
     def getsensors(self):
@@ -79,18 +78,22 @@ class Board_DAQC2(Board):
             V_max   the maximum voltage read during the interval
             time_stamp the time at halfway through the averaging interval in seconds
                     since the beginning of the epoch (OS dependent begin time).
+            Vdd_avg the average value of Vdd monitored simultanously.
         '''
         value = []
+        ref = []
         starttime = time.time()
         endtime = starttime + avg_sec
         while time.time() < endtime:
             value.append(DAQC2plate.getADC(self.addr, chan))
+            ref.append(DAQC2plate.getADC(self.addr, 8))
         time_stamp = (endtime + endtime) / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
+        Vdd_avg = sum(ref) / ndata
         V_min = min(value)
         V_max = max(value)
-        return V_avg, V_min, V_max, time_stamp
+        return V_avg, V_min, V_max, time_stamp, Vdd_avg
 
     def V_oversampchan_stats(self, chan, gain, avg_sec, data_rate=RATE):
         '''
@@ -110,18 +113,22 @@ class Board_DAQC2(Board):
             stdev_avg   estimated standard deviation of the mean
             time_stamp the time at halfway through the averaging interval in seconds
                     since the beginning of the epoch (OS dependent begin time).
+            Vdd_avg the average value of Vdd monitored simultanously.
         '''
         value = []
+        ref = []
         starttime = time.time()
         endtime = starttime + avg_sec
         while time.time() < endtime:
             value.append(DAQC2plate.getADC(self.addr, chan))
+            ref.append(DAQC2plate.getADC(self.addr, 8))
         time_stamp = (starttime + endtime) / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
+        Vdd_avg = sum(ref) / ndata
         stdev = np.std(value, ddof=1, dtype=np.float64)
         stdev_avg = stdev / np.sqrt(float(ndata))
-        return V_avg, stdev, stdev_avg, time_stamp
+        return V_avg, stdev, stdev_avg, time_stamp, Vdd_avg
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
         '''
@@ -137,6 +144,7 @@ class Board_DAQC2(Board):
         '''
         start = time.time()
         value = DAQC2plate.getADC(self.addr, chan)
+        ref = DAQC2plate.getADC(self.addr, 8)
         end = time.time()
         time_stamp = (start + end) / 2
-        return (value, time_stamp)
+        return (value, time_stamp, ref)

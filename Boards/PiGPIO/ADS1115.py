@@ -6,6 +6,7 @@ import numpy as np
 
 import logging
 
+import Adafruit_PureIO.smbus as smbus
 import Adafruit_ADS1x15
 
 from Boards.boards import Board
@@ -28,9 +29,14 @@ def find_boards():
     POSS_ADDR = (0x48, 0x49, 0x4A, 0x4B)
     boards = []
     tmpmod = None
+    I2Cbus = smbus.SMBus(1)
     for addr in POSS_ADDR:
         try:
-            tmpmod = Adafruit_ADS1x15.ADS1115(address=addr)
+            I2Cbus.read_byte(addr)
+        except OSError:
+            continue
+        try:
+            tmpmod = Adafruit_ADS1x15.ADS1115(address=addr)            
         except RuntimeError as e:
             logger.debug(e)
             # print('No ADS1115 at: '+str(addr))
@@ -49,6 +55,18 @@ class Board_ADS1115(Board):
         self.Vdd = 3.3
         self.adc = adc
 
+    def getsensors(self):
+        """
+        Return a list of valid sensor object names for this board.
+        :return: list of classnames
+        """
+        sensorlist = ['RawAtoD', 'BuiltInThermistor', 'VernierSSTemp']
+        # TODO: extend this list as appropriate. You can get a full list
+        #  using the `Sensors.sensors.listSensors()` call.
+        # The main program will use this list to access the actual sensor
+        # objects when converting the raw board voltage and for producing
+        # a menu of valid options for this particular board.
+        return sensorlist
 
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
         '''

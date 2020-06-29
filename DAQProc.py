@@ -41,11 +41,12 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
         values = []
         stdevs = []
         avg_stdevs = []
+        avg_vdds = []
         for i in range(len(whichchn)):
             if (whichchn[i]):
                 time.sleep(0.001)
                 # f.write('Calling adc...')
-                v_avg, v_std, avg_std, meastime = \
+                v_avg, v_std, avg_std, meastime, vdd_avg = \
                     whichchn[i]['board'].V_oversampchan_stats(whichchn[i][
                                                                    'chnl'],
                                                               gains[i],
@@ -55,10 +56,12 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
                 values.append(v_avg)
                 stdevs.append(v_std)
                 avg_stdevs.append(avg_std)
+                avg_vdds.append(vdd_avg)
         pkg.append(times)
         pkg.append(values)
         pkg.append(stdevs)
         pkg.append(avg_stdevs)
+        pkg.append(avg_vdds)
         databuf.append(pkg)
         # f.write('Buffer length: '+str(len(databuf))+'\n')
         if DAQCTL.poll():

@@ -26,12 +26,14 @@ setuptools.setup(
     include_package_data=True,
     install_requires=[
         # 'python>=3.6',
+        'Adafruit-PureIO>=1.1.5',
         'Adafruit-ADS1x15>=1.0.2',
+        'pi-plates>=6.0',
         'numpy>=1.13',
         'matplotlib>=1.0',
         'jupyter>=1.0.0',
         'jupyter-contrib-nbextensions>=0.5.1',
-        'pandas>=0.22.0'
+        'pandas>=1.0.0'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

@@ -227,7 +227,7 @@ class RawAtoD():
         '''
         return (self.units)
 
-    def V(self, v_avg, v_std, avg_std):
+    def V(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         It is not really necessary to call this function because it just returns the same values that are passed to it.
         It is provided for consistency with the way sensors units are defined.
@@ -238,7 +238,7 @@ class RawAtoD():
         '''
         return (v_avg, v_std, avg_std)
 
-    def mV(self, v_avg, v_std, avg_std):
+    def mV(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         Convert the raw AtoD voltage to mV.
         :param v_avg: v_avg: average voltage from A-to-D
@@ -293,7 +293,7 @@ class BuiltInThermistor():
          """
         return (self.gains)
 
-    def K(self, v_avg, v_std, avg_std):
+    def K(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in K. It is assumed that the distribution is symmetric guassian even in K. This may
         not be true, but still gives a reasonable estimate of the standard deviation.
@@ -303,6 +303,10 @@ class BuiltInThermistor():
         :return: list [K_avg, K_std, K_avg_std]: [average temperature in K, standard deviation of temperature in K,
             estimated standard deviation of the average temperature].
         '''
+        # Correct values based on measured reference voltage
+        v_avg = v_avg*self.Vdd/avg_vdd
+        v_std = v_std*self.Vdd/avg_vdd
+        avg_std = avg_std*self.Vdd/avg_vdd
         # v_avg to K
         K_avg = self._VtoK(v_avg)
         # standard deviation of temperature
@@ -321,7 +325,7 @@ class BuiltInThermistor():
         # assuming a symmetric gaussian error even after transform from volts.
         return (K_avg, K_std, K_avg_std)
 
-    def C(self, v_avg, v_std, avg_std):
+    def C(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in deg C. It is assumed that the distribution is symmetric guassian even in deg C.
         This may not be true, but still gives a reasonable estimate of the standard deviation.
@@ -331,11 +335,11 @@ class BuiltInThermistor():
         :return:  list [C_avg, C_std, C_avg_std]: [average temperature in C, standard deviation of temperature in C,
             estimated standard deviation of the average temperature].
         '''
-        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std, avg_vdd)
         C_avg = _KtoC(K_avg)
         return (C_avg, K_std, K_avg_std)
 
-    def F(self, v_avg, v_std, avg_std):
+    def F(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in deg F. It is assumed that the distribution is symmetric guassian even in deg F.
         This may not be true, but still gives a reasonable estimate of the standard deviation.
@@ -345,7 +349,7 @@ class BuiltInThermistor():
         :return:  list [F_avg, F_std, F_avg_std]: [average temperature in F, standard deviation of temperature in F,
             estimated standard deviation of the average temperature].
         '''
-        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std, avg_vdd)
         F_avg = _CtoF(_KtoC(K_avg))
         F_std = K_std * 9.0 / 5.0
         F_avg_std = K_avg_std * 9.0 / 5.0
@@ -405,7 +409,7 @@ class VernierSSTemp():
         '''
         return (self.units)
 
-    def K(self, v_avg, v_std, avg_std):
+    def K(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in K. It is assumed that the distribution is symmetric guassian even in K. This may
         not be true, but still gives a reasonable estimate of the standard deviation.
@@ -418,6 +422,10 @@ class VernierSSTemp():
         logger.debug(
             'voltages in: ' + str(v_avg) + ' ' + str(v_std) + ' ' + str(
                 avg_std))
+        # Correct values based on measured reference voltage
+        v_avg = v_avg*self.Vdd/avg_vdd
+        v_std = v_std*self.Vdd/avg_vdd
+        avg_std = avg_std*self.Vdd/avg_vdd
         # v_avg to K
         K_avg = self._VtoK(v_avg)
         # standard deviation of temperature
@@ -438,7 +446,7 @@ class VernierSSTemp():
             'K out: ' + str(K_avg) + ' ' + str(K_std) + ' ' + str(K_avg_std))
         return (K_avg, K_std, K_avg_std)
 
-    def C(self, v_avg, v_std, avg_std):
+    def C(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in deg C. It is assumed that the distribution is symmetric guassian even in deg C.
         This may not be true, but still gives a reasonable estimate of the standard deviation.
@@ -448,11 +456,11 @@ class VernierSSTemp():
         :return:  list [C_avg, C_std, C_avg_std]: [average temperature in C, standard deviation of temperature in C,
             estimated standard deviation of the average temperature].
         '''
-        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std, avg_vdd)
         C_avg = _KtoC(K_avg)
         return (C_avg, K_std, K_avg_std)
 
-    def F(self, v_avg, v_std, avg_std):
+    def F(self, v_avg, v_std, avg_std, avg_vdd):
         '''
         The returned values are in deg F. It is assumed that the distribution is symmetric guassian even in deg F.
         This may not be true, but still gives a reasonable estimate of the standard deviation.
@@ -462,7 +470,7 @@ class VernierSSTemp():
         :return:  list [F_avg, F_std, F_avg_std]: [average temperature in F, standard deviation of temperature in F,
             estimated standard deviation of the average temperature].
         '''
-        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std)
+        K_avg, K_std, K_avg_std = self.K(v_avg, v_std, avg_std, avg_vdd)
         F_avg = _CtoF(_KtoC(K_avg))
         F_std = K_std * 9.0 / 5.0
         F_avg_std = K_avg_std * 9.0 / 5.0

@@ -147,14 +147,20 @@ class ChannelSettings:
         """
         # Get the new board
         self.board = self.boards[change['owner'].value]
+        # Update available channels
+        self.channelchoice.options = self.board.getchannels()
         # Trigger update to allowed gains
         self.availablegains = self.board.getgains()
+        self.gains.options = self.board.getgains()
         self.toselectedgain = self.availablegains[0]
         # Trigger an update to the sensor list
+        self.sensornames = []
         for name in self.board.getsensors():
             self.sensornames.append(name)
+        self.sensorchoice.options = self.sensornames
         self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
+        self.units.options = self.defaultunits
         self.defaultsensorname = self.sensornames[0]
         self.toselectedunits = getattr(self.sensor, self.defaultunits[0])
         pass

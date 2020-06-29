@@ -92,7 +92,7 @@ class DAQinstance():
     def __init__(self, idno, title='None', ntraces=4):
         self.idno = idno
         self.title = str(title)
-        self.averaging_time = 0.02  # seconds
+        self.averaging_time = 0.1  # seconds
         self.gain = [1] * ntraces
         self.data = []
         self.timestamp = []
@@ -190,6 +190,7 @@ class DAQinstance():
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
                                         self.traces[i].units.value + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
+                                        str(self.traces[i].boardchoice.value) +' ' + \
                                         self.traces[i].board.name + '</td>'
                 self.defaultparamtxt += '<td style="text-align:center;">' + \
                                         str(self.traces[i].channel) + '</td>'
@@ -325,8 +326,9 @@ class DAQinstance():
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
+                    avg_vdd = pkg[4][i]
                     avg, std, avg_std = self.traces[
-                        self.tracemap[i]].toselectedunits(avg, std, avg_std)
+                        self.tracemap[i]].toselectedunits(avg, std, avg_std, avg_vdd)
                     avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
                         avg, std, avg_std)
                     pkg[1][i] = avg
@@ -363,8 +365,9 @@ class DAQinstance():
                     avg = pkg[1][i]
                     std = pkg[2][i]
                     avg_std = pkg[3][i]
+                    avg_vdd = pkg[4][i]
                     avg, std, avg_std = self.traces[
-                        self.tracemap[i]].toselectedunits(avg, std, avg_std)
+                        self.tracemap[i]].toselectedunits(avg, std, avg_std, avg_vdd)
                     avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
                         avg, std, avg_std)
                     pkg[1][i] = avg
