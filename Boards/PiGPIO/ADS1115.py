@@ -103,7 +103,7 @@ class Board_ADS1115(Board):
         V_avg = sum(value) * 4.096 / n_samp / gain / 32767
         V_min = min(value) * 4.096 / gain / 32767
         V_max = max(value) * 4.096 / gain / 32767
-        return (V_avg, V_min, V_max, time_stamp)
+        return V_avg, V_min, V_max, time_stamp, self.Vdd
 
 
     def V_oversampchan_stats(self, chan, gain, avg_sec, data_rate=RATE):
@@ -154,7 +154,7 @@ class Board_ADS1115(Board):
         V_avg = sum(value) * 4.096 / len(value) / gain / 32767
         stdev = np.std(value, ddof=1, dtype=np.float64) * 4.096 / gain / 32767
         stdev_avg = stdev / np.sqrt(float(len(value)))
-        return (V_avg, stdev, stdev_avg, time_stamp)
+        return V_avg, stdev, stdev_avg, time_stamp, self.Vdd
 
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
@@ -178,4 +178,4 @@ class Board_ADS1115(Board):
         end = time.time()
         time_stamp = (start + end) / 2
         V = value * 4.096 / gain / 32767
-        return (V, time_stamp)
+        return V, time_stamp, self.Vdd
