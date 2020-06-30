@@ -4,7 +4,7 @@ from Sensors import sensors
 
 def test_load_boards():
     # test all functionality of board loading and
-    # of all functionality of each board that is loaded
+    # all functionality of each board that is loaded
     # on this machine.
     availboards = boards.load_boards()
     assert (len(availboards) > 0)
@@ -29,14 +29,14 @@ def test_load_boards():
         # Check board functionality
         for chan in board.getchannels():
             for gain in board.getgains():
-                assert (len(board.V_oversampchan(chan, gain, 0.2)) == 4)
+                assert (len(board.V_oversampchan(chan, gain, 0.2)) == 5)
                 for k in range(0,3):
                     assert (isinstance(board.V_oversampchan(chan, gain,
                                                             0.2)[k], float))
                 # max value should be greater than minimum
                 measurement = board.V_oversampchan(chan, gain, 0.2)
                 assert (measurement[1] < measurement[2])
-                assert (len(board.V_oversampchan_stats(chan, gain, 0.2)) == 4)
+                assert (len(board.V_oversampchan_stats(chan, gain, 0.2)) == 5)
                 for k in range(0,3):
                     assert (isinstance(board.V_oversampchan_stats(chan, gain,
                                                                   0.2)[k],
@@ -45,7 +45,7 @@ def test_load_boards():
                 # the values used to get the average.
                 measurement = board.V_oversampchan_stats(chan, gain, 0.2)
                 assert (measurement[2] < measurement[1])
-                assert (len(board.V_sampchan(chan, gain)) == 2)
+                assert (len(board.V_sampchan(chan, gain)) == 3)
                 for k in range(0,1):
                     assert (isinstance(board.V_sampchan(chan, gain)[k], float))
     pass
@@ -83,14 +83,14 @@ def test_sim_boards():
         # Check board functionality
         for chan in board.getchannels():
             for gain in board.getgains():
-                assert (len(board.V_oversampchan(chan, gain, 0.2)) == 4)
+                assert (len(board.V_oversampchan(chan, gain, 0.2)) == 5)
                 for k in range(0,3):
                     assert (isinstance(board.V_oversampchan(chan, gain,
                                                             0.2)[k], float))
                 # max value should be greater than minimum
                 measurement = board.V_oversampchan(chan, gain, 0.2)
                 assert (measurement[1] < measurement[2])
-                assert (len(board.V_oversampchan_stats(chan, gain, 0.2)) == 4)
+                assert (len(board.V_oversampchan_stats(chan, gain, 0.2)) == 5)
                 for k in range(0,3):
                     assert (isinstance(board.V_oversampchan_stats(chan, gain,
                                                                   0.2)[k],
@@ -99,7 +99,7 @@ def test_sim_boards():
                 # the values used to get the average.
                 measurement = board.V_oversampchan_stats(chan, gain, 0.2)
                 assert (measurement[2] < measurement[1])
-                assert (len(board.V_sampchan(chan, gain)) == 2)
+                assert (len(board.V_sampchan(chan, gain)) == 3)
                 for k in range(0,1):
                     assert (isinstance(board.V_sampchan(chan, gain)[k], float))
     pass

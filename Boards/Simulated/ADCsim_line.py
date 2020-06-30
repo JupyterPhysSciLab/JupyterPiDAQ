@@ -92,7 +92,7 @@ class Board_ADCsim_line(Board):
         V_avg = sum(value) / len(value) / gain
         V_max = max(value)
         V_min = min(value)
-        return V_avg, V_min, V_max, time_stamp
+        return V_avg, V_min, V_max, time_stamp, self.Vdd
 
     def V_oversampchan_stats(self, chan, gain, avg_sec, data_rate=RATE):
         '''
@@ -149,7 +149,7 @@ class Board_ADCsim_line(Board):
         V_avg = around(V_avg, decimals=decimals)
         stdev = around(stdev, decimals=decimals)
         stdev_avg = around(stdev_avg, decimals=decimals)
-        return V_avg, stdev, stdev_avg, time_stamp
+        return V_avg, stdev, stdev_avg, time_stamp, self.Vdd
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
         '''
@@ -187,4 +187,4 @@ class Board_ADCsim_line(Board):
                                                              - 0.5) * slope
         end = time.time()
         time_stamp = (start + end) / 2.0
-        return V, time_stamp
+        return V, time_stamp, self.Vdd

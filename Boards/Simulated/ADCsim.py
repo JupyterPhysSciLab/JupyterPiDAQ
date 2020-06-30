@@ -112,7 +112,7 @@ class Board_ADCsim_random(Board):
         V_avg = around(V_avg, decimals=decimals)
         stdev = around(stdev, decimals=decimals)
         stdev_avg = around(stdev_avg, decimals=decimals)
-        return (V_avg, stdev, stdev_avg, time_stamp)
+        return V_avg, stdev, stdev_avg, time_stamp, self.Vdd
 
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
         '''
@@ -169,7 +169,7 @@ class Board_ADCsim_random(Board):
         V_avg = sum(value) * 4.096 / len(value) / gain / 32767
         V_max = max(value) * 4.096 / gain / 32767
         V_min = min(value) * 4.096 / gain / 32767
-        return (V_avg, V_min, V_max, time_stamp)
+        return V_avg, V_min, V_max, time_stamp, self.Vdd
 
     def V_sampchan(self, chan, gain, **kwargs):
         """
@@ -181,4 +181,4 @@ class Board_ADCsim_random(Board):
         voltage measurement and time_stamp the time it was collected.
         """
         V = (random.random()-0.5)*6.6
-        return V, time.time()
+        return V, time.time(), self.Vdd
