@@ -433,15 +433,15 @@ class VernierSSTemp():
         v_min = v_avg - v_std
         K_max = self._VtoK(v_min)
         K_min = self._VtoK(v_max)
-        K_std = (
-                            K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_std = (K_max - K_min) / 2.0  
+        # assuming a symmetric gaussian error even after transform from volts.
         # estimated standard deviation of the average temperature
         v_max = v_avg + avg_std
         v_min = v_avg - avg_std
         K_max = self._VtoK(v_min)
         K_min = self._VtoK(v_max)
-        K_avg_std = (
-                                K_max - K_min) / 2.0  # assuming a symmetric gaussian error even after transform from volts.
+        K_avg_std = (K_max - K_min) / 2.0  
+        # assuming a symmetric gaussian error even after transform from volts.
         logger.debug(
             'K out: ' + str(K_avg) + ' ' + str(K_std) + ' ' + str(K_avg_std))
         return (K_avg, K_std, K_avg_std)
