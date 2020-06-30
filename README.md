@@ -1,17 +1,42 @@
-**JupyterPiDAQ**
+## JupyterPiDAQ
 
 This software allows live collection and plotting of 
-analog data in Jupyter on a Raspberry Pi.  For now the 
-only compatible A-to-D is the ADS1115 piHAT.
-So far this has been tested on a RPi 3B+. A demo mode will
-run on any computer with a Jupyter notebook install and
+analog data in  a Jupyter notebook. The package was initially developed
+to provide an inexpensive laboratory system for teaching based on
+the Raspberry Pi.  However, as the development has progressed the data
+acquisition board drivers have been separated out of the user interface,
+so that the software has potential to work on other computers running Jupyter
+with A-to-D board specific connector code. Presently the compatible A-to-Ds are
+for Raspberry Pis: Adafruit compliant ADS1115 boards 
+([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
+also available from other vendors); and the [&pi;-Plates
+ DAQC2 plate](https://pi-plates.com/daqc2r1/). 
+A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+.
+
+__Sensors:__
+Like many commercial educational packages the software knows about the
+properties of sensors, so can collect data directly in the units
+appropriate for the sensor. Not all sensors are compatible with all boards.
+We attempt to keep the list below up-to-date, but the code may provide
+additional sensors not listed here:
+* __ADS1115 compatible__ (board can provide 3.3 V of power/reference to
+ sensors):
+  * voltage reading (V, mV) from any sensor that puts out a voltage in the
+   range +/-3.3 V.
+  * built-in thermistor (V, mV, K, C, F).
+  * Vernier SS temperature probe (V, mV, K, C, F).
+* __DAQC2 compatible__ (board can provide 5.0 V of power/reference to sensors):
+  * voltage reading (V, mV) from any sensor that puts out a voltage in the
+   range +/- 12 V.
+  * Vernier SS temperature probe (V, mV, K, C, F).
+  * Compatible with standard Vernier probes. Calibrations being added.
 
 _Author_: Jonathan Gutow <jgutow@new.rr.com>
 
 _License_: GPL V3+
 
-**Installation**
+### Installation
 
 Installation is meant to be done into a virtual environment
 from the PyPi repository. There are two modes "Production" 
