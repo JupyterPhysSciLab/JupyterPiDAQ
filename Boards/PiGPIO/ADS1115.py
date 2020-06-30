@@ -22,14 +22,18 @@ RATE = 475  # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval
 
 def find_boards():
     """
-    A rountine like this must be implemented by all board packages.
+    A routine like this must be implemented by all board packages.
 
     :return: list of ADS1115 board objects (maximum of 4 boards)
     """
     POSS_ADDR = (0x48, 0x49, 0x4A, 0x4B)
     boards = []
     tmpmod = None
-    I2Cbus = smbus.SMBus(1)
+    try:
+        I2Cbus = smbus.SMBus(1)
+    except OSError:
+        # no bus so there cannot be any boards.
+        return boards
     for addr in POSS_ADDR:
         try:
             I2Cbus.read_byte(addr)
