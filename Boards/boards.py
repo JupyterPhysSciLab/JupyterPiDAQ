@@ -58,22 +58,10 @@ def load_boards():
 def find_boards():
     """
     A function overriding this must be implemented by all board packages.
-    See examples of working packages and the pretend example below.
+    See examples in working packages. This is highly board dependent.
 
     :return: list of board objects
     """
-    # POSS_ADDR = (0x48, 0x49, 0x4A, 0x4B)
-    # boards = []
-    # tmpmod = None
-    # for addr in POSS_ADDR:
-    #     try:
-    #         tmpmod = pkgname.tstcall(addr)
-    #     except RuntimeError as e:
-    #         logger.debug(e)
-    #         tmpmod = None
-    #     if tmpmod:
-    #         boards.append(tmpmod)
-    # return boards
     raise NotImplementedError
 
 def _load_simulators():
@@ -158,7 +146,8 @@ class Board:
         """
         This returns a list of objects that allow the software to translate
         the measured voltage into a sensor reading in appropriate units.
-        Must be provided by the specific board implementation.
+        Must be provided by the specific board implementation. See examples
+        in working board packages.
         :return: A list of valid sensor objects to use with this board. This
         should be a subset of all the sensors returned by the listSensors
         function in sensors.py.
@@ -173,9 +162,12 @@ class Board:
         :param chan: id of the channel to be measured
         :param gain: gain of the channel if adjustable
         :param avg_sec: float period of time over which to average
-        :return: a tuple consisting of V_avg, V_min, V_max, time_stamp
+        :return: a tuple consisting of V_avg, V_min, V_max, time_stamp, avg_Vdd
             The time_stamp is the time the data was collected, usually the
-            middle of the averaging period.
+            middle of the averaging period. avg_Vdd should be the measured
+            average Vdd taken simultaneously, immediately before,
+            or immediately after the voltage being measured. If the board or
+            power supply is very stable self.Vdd can be returned instead.
         """
         raise NotImplementedError
 
@@ -187,8 +179,12 @@ class Board:
         :param gain: gain of the channel if adjustable
         :param avg_sec: float period of time over which to average
         :return: tuple consisting of V_avg, stdev, stdev_avg, time_stamp,
-        where stdev_avg is the estimated standard deviation of the average
-        not the standard deviation of the values sampled (stdev).
+            avg_Vdd where stdev_avg is the estimated standard deviation
+            of the average not the standard deviation of the values
+            sampled (stdev). avg_Vdd should be the measured
+            average Vdd taken simultaneously, immediately before,
+            or immediately after the voltage being measured. If the board or
+            power supply is very stable self.Vdd can be returned instead.
         """
         raise NotImplementedError
 
@@ -198,7 +194,11 @@ class Board:
         collected.
         :param chan: id of the channel to be measured
         :param gain: gain of the channel if adjustable
-        :return: a tuple consisting of V, time_stamp, where V = the single
-        voltage measurement and time_stamp the time it was collected.
+        :return: a tuple consisting of V, time_stamp, ref_Vdd, where V = the
+            single voltage measurement and time_stamp the time it was
+            collected. ref_Vdd should be the measured
+            Vdd taken simultaneously, immediately before,
+            or immediately after the voltage being measured. If the board or
+            power supply is very stable self.Vdd can be returned instead.
         """
         raise NotImplementedError
