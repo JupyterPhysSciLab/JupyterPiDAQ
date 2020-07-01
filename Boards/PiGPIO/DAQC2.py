@@ -18,9 +18,6 @@ logger = logging.getLogger(__name__)
 # compatibility.
 RATE = 475
 
-
-# 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
-
 def find_boards():
     """
     A rountine like this must be implemented by all board packages.
@@ -36,10 +33,22 @@ def find_boards():
 
 
 class Board_DAQC2(Board):
+    """
+    Class defining the properties of the analog-to-digital block of the
+    pi-Plates DAQC2 board. Key characteristics:
+
+    * 8 channels (0 - 7) with pseudo 16 bit resolution (oversampled 14 bit) and
+      a range of +/- 12 V.
+    * 1 channel (8) dedicated to monitoring Vdd.
+    * Programmable RGB LED to use as indicator.
+    * Other available facilities are Digital I/O, Digital-to-Analog and
+      2-channel o-scope modes. These are not supported by this class.
+    """
     def __init__(self, addr):
         super().__init__()
         self.name = 'DAQC2'
         self.vendor = 'Pi-Plates'
+        # Note: channel 8 is wired to Vdd so cannot be used for measurements.
         self.channels = (0, 1, 2, 3, 4, 5, 6, 7, 8)
         self.addr = addr
         # Flash light green and then off to indicated found and set up.
@@ -62,24 +71,33 @@ class Board_DAQC2(Board):
         return sensorlist
 
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
-        '''
+        """
         This routine returns the average voltage for the channel
         averaged at the default rate for the board and returns an
         average and observed range.
 
         Parameters
-            chan    the channel number 0, 1, 2, 3, 4, 5, 6, 7
-            gain    always 1
-            data_rate not used by this board
-            avg_sec seconds to average for. Greater than 0.0058 seconds.
+            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+
+            `gain`    ignored by this board, always 1
+
+            `data_rate` ignored by this board
+
+            `avg_sec` float, seconds to average for. Greater than 0.0058
+            seconds.
+
         Returns a tuple (V_avg, V_min, V_max, time_stamp)
-            V_avg   the averaged voltage
-            V_min   the minimum voltage read during the interval
-            V_max   the maximum voltage read during the interval
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
-            Vdd_avg the average value of Vdd monitored simultanously.
-        '''
+            `V_avg`   the averaged voltage
+
+            `V_min`   the minimum voltage read during the interval
+
+            `V_max`   the maximum voltage read during the interval
+
+            `time_stamp` the time at halfway through the averaging interval in
+            seconds since the beginning of the epoch (OS dependent begin time).
+
+            `Vdd_avg` the average value of Vdd monitored simultaneously.
+        """
         value = []
         ref = []
         starttime = time.time()
@@ -103,17 +121,26 @@ class Board_DAQC2(Board):
         returned.
 
         Parameters
-            chan    the channel number 0, 1, 2, 3, 4, 5, 6, 7
-            gain    ignored always 1 for this board
-            data_rate ignored, will average as fast as possible (~ 500 Hz)
-            avg_sec seconds to average for. Minimum of about 0.0058 seconds.
-        Returns a tuple (V_avg, V_min, V_max, time_stamp)
-            V_avg   the averaged voltage
-            stdev   estimated standard deviation of the measurements
-            stdev_avg   estimated standard deviation of the mean
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
-            Vdd_avg the average value of Vdd monitored simultanously.
+            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+
+            `gain`    ignored always 1 for this board
+
+            `data_rate` ignored, will average as fast as possible (~ 500 Hz)
+
+            `avg_sec` float, seconds to average for. Minimum of about 0.0058
+            seconds.
+
+        Returns a tuple (V_avg, V_min, V_max, time_stamp, Vdd_avg)
+            `V_avg`   the averaged voltage
+
+            `stdev`   estimated standard deviation of the measurements
+
+            `stdev_avg`   estimated standard deviation of the mean
+
+            `time_stamp` the time at halfway through the averaging interval in
+            seconds since the beginning of the epoch (OS dependent begin time).
+
+            `Vdd_avg` the average value of Vdd monitored simultaneously.
         '''
         value = []
         ref = []
@@ -132,19 +159,26 @@ class Board_DAQC2(Board):
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
         '''
-        This routine returns a single reading of the voltage for the channel
+        This routine returns a single reading of the voltage for the channel.
+
         Parameters
-            chan    the channel number 0, 1, 2, 3, 4, 5, 6, 7
-            gain    ignored by this board
-            data_rate ignored by this board
-        Returns a tuple (V, time_stamp)
-            V       the voltage
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+
+            `gain` ignored by this board
+
+            `data_rate` ignored by this board
+
+        Returns a tuple (V, time_stamp, ref)
+            `V` the voltage
+
+            `time_stamp` the time at halfway through the averaging interval in
+            seconds since the beginning of the epoch (OS dependent begin time).
+
+            `ref` the value of Vdd sampled simultaneously.
         '''
         start = time.time()
         value = DAQC2plate.getADC(self.addr, chan)
         ref = DAQC2plate.getADC(self.addr, 8)
         end = time.time()
         time_stamp = (start + end) / 2
-        return (value, time_stamp, ref)
+        return value, time_stamp, ref
