@@ -73,27 +73,46 @@ class Board_ADS1115(Board):
         return sensorlist
 
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
-        '''
+        """
         This routine returns the average voltage for the channel
         averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
         number of seconds. The 0.0012 is the required loop time
         on a RPI 3B+ in python.
 
-        Parameters
-            chan    the channel number 0, 1, 2, 3
-            gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
-                    8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-            avg_sec seconds to average for, actual averaging interval will be as close
-                    as possible for an integer number of samples.
-        Returns a tuple (V_avg, V_min, V_max, time_stamp)
-            V_avg   the averaged voltage
-            V_min   the minimum voltage read during the interval
-            V_max   the maximum voltage read during the interval
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+        Returns a tuple of the following 5 objects:
+            V_avg -- float, the averaged voltage
 
-        '''
+            V_min -- float, the minimum voltage read during
+            the interval
+
+            V_max -- float, the maximum voltage read during the
+            interval
+
+            time_stamp -- float, the time at halfway through the averaging
+            interval in seconds since the beginning of the epoch (OS
+            dependent begin time)
+
+            self.Vdd -- float, the reference voltage.
+
+        :param int chan: the channel number (0, 1, 2, 3)
+
+        :param gain: 2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V),
+         4(+/-1.024V), 8 (+/-0.512V), 16 (+/-0.256V))
+
+        :param int data_rate: the ADC sample rate in Hz (8, 16, 32, 64,
+         128,250, 475 or 860 Hz). Set to 475 Hz by default.
+
+        :param float avg_sec: seconds to average for, actual
+         averaging interval will be as close as possible for an integer
+         number of samples
+
+        :returns: V_avg, V_min, V_max, time_stamp, self.Vdd
+        :return float V_avg: description
+        :return float V_min:
+        :return float V_max:
+        :return float time_stamp:
+        :return float self.Vdd:
+        """
         n_samp = int(round(avg_sec / (0.0012 + 1 / data_rate)))
         value = [0] * n_samp
         avgmax = self.adc.read_adc(chan, gain=gain, data_rate=data_rate)
@@ -111,28 +130,48 @@ class Board_ADS1115(Board):
 
 
     def V_oversampchan_stats(self, chan, gain, avg_sec, data_rate=RATE):
-        '''
+        """
         This routine returns the average voltage for the channel
         averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
         number of seconds. The 0.0012 is the required loop time
         on a RPI 3B+ in python3. The standard
         deviation and the estimated deviation of the mean are also
         returned.
-        Parameters
-            chan    the channel number 0, 1, 2, 3
-            gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
-                    8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-            avg_sec seconds to average for, actual averaging interval will be as close
-                    as possible for an integer number of samples.
-        Returns a tuple (V_avg, V_min, V_max, time_stamp)
-            V_avg   the averaged voltage
-            stdev   estimated standard deviation of the measurements
-            stdev_avg   estimated standard deviation of the mean
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
 
-        '''
+        Returns a tuple of the following 5 objects:
+            V_avg -- float, the averaged voltage
+
+            stdev -- float, the standard deviation of the measured values
+            during the averaging interval
+
+            stdev_avg -- float, the estimated standard deviation of the
+            returned average
+
+            time_stamp -- float, the time at halfway through the averaging
+            interval in seconds since the beginning of the epoch (OS
+            dependent begin time)
+
+            self.Vdd -- float, the reference voltage.
+
+        :param int chan: the channel number (0, 1, 2, 3)
+
+        :param gain: 2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V),
+         4(+/-1.024V), 8 (+/-0.512V), 16 (+/-0.256V))
+
+        :param int data_rate: the ADC sample rate in Hz (8, 16, 32, 64,
+         128,250, 475 or 860 Hz). Set to 475 Hz by default.
+
+        :param float avg_sec: seconds to average for, actual
+         averaging interval will be as close as possible for an integer
+         number of samples
+
+        :returns: VV_avg, stdev, stdev_avg, time_stamp, self.Vdd
+        :return float V_avg: description
+        :return float stdev:
+        :return float stdev_avg:
+        :return float time_stamp:
+        :return float self.Vdd:
+        """
         n_samp = int(round(avg_sec / (0.0017 + 1 / data_rate)))
         if (n_samp < 1):
             n_samp = 1
@@ -162,21 +201,31 @@ class Board_ADS1115(Board):
 
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
-        '''
-        This routine returns the voltage for the channel
-        Parameters
-            chan    the channel number 0, 1, 2, 3
-            gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
-                    8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-        Returns a tuple (V, time_stamp)
-            V       the voltage
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+        """
+        This routine returns the voltage for the
 
-        '''
-        # TODO: more error checking as in stats above
+        Returns a tuple of the following 3 objects:
+            V -- float, the measured voltage
 
+            time_stamp -- float, the time at halfway through the averaging
+            interval in seconds since the beginning of the epoch (OS
+            dependent begin time)
+
+            self.Vdd -- float, the reference voltage.
+
+        :param int chan: the channel number (0, 1, 2, 3)
+
+        :param gain: 2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V),
+         4(+/-1.024V), 8 (+/-0.512V), 16 (+/-0.256V))
+
+        :param int data_rate: the ADC sample rate in Hz (8, 16, 32, 64,
+         128,250, 475 or 860 Hz). Set to 475 Hz by default.
+
+        :returns: V, time_stamp, self.Vdd
+        :return float V:
+        :return float time_stamp:
+        :return float self.Vdd:
+        """
         start = time.time()
         value = self.adc.read_adc(chan, gain=gain, data_rate=data_rate)
         end = time.time()
