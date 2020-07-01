@@ -1,5 +1,5 @@
 # Utility sampling routines for using the ADS1115 ADC RPI HAT.
-# J. Gutow <jgutow@new.rr.com> Nov. 12, 2018
+# J. Gutow <gutow@uwosh.edu> Nov. 12, 2018
 # license GPL V3 or greater
 import time
 import numpy as np
@@ -50,6 +50,15 @@ def find_boards():
     return boards
 
 class Board_ADS1115(Board):
+    """
+    Class defining the properties of Adafruit compatible ADS1115
+    analog-to-digital boards for Raspberry-Pi style GPIO. Key characteristics:
+
+    * 4 channels (0 - 3) with 16 bit resolution and a range of +/- 3.3 V
+    * Programmable gain on each channel of 2/3, 1, 2, 4, 8, 16 making these
+      good for small signals.
+    * a differential mode is available but not implemented in this class.
+    """
     def __init__(self,adc):
         super().__init__()
         self.name = 'ADS1115'

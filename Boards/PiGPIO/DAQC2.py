@@ -1,6 +1,6 @@
 # Utility sampling routines for using the ADC block of the
 # Pi-Plates DAQC2plate RPI HAT.
-# J. Gutow <jgutow@new.rr.com> June 2020
+# J. Gutow <gutow@uwosh.edu> June 2020
 # license GPL V3 or greater
 import time
 import numpy as np
@@ -76,27 +76,39 @@ class Board_DAQC2(Board):
         averaged at the default rate for the board and returns an
         average and observed range.
 
-        Parameters
-            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+        Returns a tuple of the following 5 objects:
+            V_avg -- float, the averaged voltage
 
-            `gain`    ignored by this board, always 1
+            V_min -- float, the minimum voltage read during
+            the interval
 
-            `data_rate` ignored by this board
+            V_max -- float, the maximum voltage read during the
+            interval
 
-            `avg_sec` float, seconds to average for. Greater than 0.0058
-            seconds.
+            time_stamp -- float, the time at halfway through the averaging
+            interval in seconds since the beginning of the epoch (OS
+            dependent begin time)
 
-        Returns a tuple (V_avg, V_min, V_max, time_stamp)
-            `V_avg`   the averaged voltage
+            Vdd_avg -- float, the reference voltage (Vdd) collected
+            simultaneously.
 
-            `V_min`   the minimum voltage read during the interval
+        :param int chan: the channel number (0, 1, 2, 3, 4, 5, 6, 7,
+         8). NOTE: channel 8 returns a measurement of Vdd.
 
-            `V_max`   the maximum voltage read during the interval
+        :param gain: ignored by board. Defaults to 1.
 
-            `time_stamp` the time at halfway through the averaging interval in
-            seconds since the beginning of the epoch (OS dependent begin time).
+        :param int data_rate: ignored by board.
 
-            `Vdd_avg` the average value of Vdd monitored simultaneously.
+        :param float avg_sec: seconds to average for, actual
+         averaging interval will be as close as possible for an integer
+         number of samples
+
+        :returns: V_avg, V_min, V_max, time_stamp, Vdd_avg
+        :return float V_avg: description
+        :return float V_min:
+        :return float V_max:
+        :return float time_stamp:
+        :return float Vdd_avg:
         """
         value = []
         ref = []
@@ -120,27 +132,39 @@ class Board_DAQC2(Board):
         deviation and the estimated deviation of the mean are also
         returned.
 
-        Parameters
-            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+        Returns a tuple of the following 5 objects:
+            V_avg -- float, the averaged voltage
 
-            `gain`    ignored always 1 for this board
+            stdev -- float, the standard deviation of the measured values
+            during the averaging interval
 
-            `data_rate` ignored, will average as fast as possible (~ 500 Hz)
+            stdev_avg -- float, the estimated standard deviation of the
+            returned average
 
-            `avg_sec` float, seconds to average for. Minimum of about 0.0058
-            seconds.
+            time_stamp -- float, the time at halfway through the averaging
+            interval in seconds since the beginning of the epoch (OS
+            dependent begin time)
 
-        Returns a tuple (V_avg, V_min, V_max, time_stamp, Vdd_avg)
-            `V_avg`   the averaged voltage
+            Vdd_avg -- float, the reference voltage (Vdd) collected
+            simultaneously.
 
-            `stdev`   estimated standard deviation of the measurements
+        :param int chan: the channel number (0, 1, 2, 3, 4, 5, 6, 7,
+         8). NOTE: channel 8 returns a measurement of Vdd.
 
-            `stdev_avg`   estimated standard deviation of the mean
+        :param gain: ignored by board. Defaults to 1.
 
-            `time_stamp` the time at halfway through the averaging interval in
-            seconds since the beginning of the epoch (OS dependent begin time).
+        :param int data_rate: ignored by board.
 
-            `Vdd_avg` the average value of Vdd monitored simultaneously.
+        :param float avg_sec: seconds to average for, actual
+         averaging interval will be as close as possible for an integer
+         number of samples
+
+        :returns: V_avg, stdev, stdev_avg, time_stamp, Vdd_avg
+        :return float V_avg: description
+        :return float stdev:
+        :return float stdev_avg:
+        :return float time_stamp:
+        :return float Vdd_avg:
         '''
         value = []
         ref = []
@@ -161,20 +185,26 @@ class Board_DAQC2(Board):
         '''
         This routine returns a single reading of the voltage for the channel.
 
-        Parameters
-            `chan` integer, the channel number 0, 1, 2, 3, 4, 5, 6, 7
+        Returns a tuple of the following 5 objects:
+            V -- float, the measured voltage
 
-            `gain` ignored by this board
+            time_stamp -- float, the time of the measurement in seconds since
+            the beginning of the epoch (OS dependent begin time)
 
-            `data_rate` ignored by this board
+            ref -- float, the reference voltage (Vdd) collected
+            simultaneously.
 
-        Returns a tuple (V, time_stamp, ref)
-            `V` the voltage
+        :param int chan: the channel number (0, 1, 2, 3, 4, 5, 6, 7,
+         8). NOTE: channel 8 returns a measurement of Vdd.
 
-            `time_stamp` the time at halfway through the averaging interval in
-            seconds since the beginning of the epoch (OS dependent begin time).
+        :param gain: ignored by board. Defaults to 1.
 
-            `ref` the value of Vdd sampled simultaneously.
+        :param int data_rate: ignored by board.
+
+        :returns: V_avg, stdev, stdev_avg, time_stamp, Vdd_avg
+        :return float V:
+        :return float time_stamp:
+        :return float ref:
         '''
         start = time.time()
         value = DAQC2plate.getADC(self.addr, chan)
