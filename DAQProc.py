@@ -3,7 +3,7 @@
 # as necessary. The separate process takes advantage of timesliced multitasking
 # to get reasonably consistent time spacing between the datapoints even when
 # the drawing process gets bogged down.
-# J. Gutow <jgutow@new.rr.com> May 19, 2019
+# J. Gutow <gutow@uwosh.edu> May 19, 2019
 # license GPL V3 or greater.
 
 # utilities for timing and queues
@@ -12,16 +12,23 @@ import time
 
 def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
     """
-    This function is to be run in a separate thread to asychronously communicte
-    with the ADC board.
-    :param whichchn: a list of dictionaries. Each dictionary is of the form:
-        {'board': board_object, 'chnl': chnlID}.
-    :param gains: a list of the numerical gain for each channel. May have no
-        for many boards.
-    :param avgtime: the averaging time in seconds for a data point.
-    :param timedelta: the target time between data points.
-    :param DAQconn: the connection pipe
-    :param DAQCTL: the control pipe
+    This function is to be run in a separate thread to asynchronously
+    communicate with the ADC board.
+
+    :param list whichchn: a list of dictionaries. Each dictionary is of the
+     form:{'board': board_object, 'chnl': chnlID}.
+
+    :param list gains: a list of the numerical gain for each channel. May
+     have no for many boards.
+
+    :param float avgtime: the averaging time in seconds for a data point.
+
+    :param float timedelta: the target time between data points.
+
+    :param pipe DAQconn: the connection pipe
+
+    :param pipe DAQCTL: the control pipe
+
     :return: Data is returned via the pipes.
         On the DAQCTL pipe this only returns 'done'
         On the DAQconn pipe a list of lists with data is returned.
