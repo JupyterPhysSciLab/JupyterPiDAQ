@@ -18,8 +18,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
     :param list whichchn: a list of dictionaries. Each dictionary is of the
      form:{'board': board_object, 'chnl': chnlID}.
 
-    :param list gains: a list of the numerical gain for each channel. May
-     have no for many boards.
+    :param list gains: a list of the numerical gain for each channel.
 
     :param float avgtime: the averaging time in seconds for a data point.
 

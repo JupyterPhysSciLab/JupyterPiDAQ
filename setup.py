@@ -9,19 +9,19 @@ setuptools.setup(
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
     author="Jonathan Gutow",
-    author_email="jgutow@new.rr.com",
+    author_email="gutow@uwosh.edu",
     license="GPL-3.0+",
     packages=setuptools.find_packages(),
     #package_data={'javascript': ['javascript/*.js']},
     data_files=[
     	('javascript',['javascript/JupyterPiDAQmnu.js'])
     ],
-    py_modules=["ADCsim",
-    	"ADS1115_Utility",
+    py_modules=["Boards",
     	"ChannelSettings",
     	"DAQinstance",
     	"DAQProc",
-    	"Sensors"
+    	"Sensors",
+        "Tests"
     ],
     include_package_data=True,
     install_requires=[

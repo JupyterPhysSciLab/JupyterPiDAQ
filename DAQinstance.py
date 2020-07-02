@@ -62,6 +62,8 @@ print('.',end='')
 
 from Sensors import sensors
 
+print('.',end='')
+
 # globals to put stuff in from threads.
 data = []  # all data from DAQ tools avg_values
 stdev = []  # all standard deviations
