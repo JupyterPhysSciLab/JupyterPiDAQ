@@ -30,3 +30,16 @@
         pip install -i https://test.pypi.org/..... # copy actual link from the
                                                    # repository on test.pypi.
         ```
+       There are often install issues because sometimes only older versions of
+       some of the required packages are available on test.pypi.org. If this
+       is the only problem change the version to end in `rc0` for release
+       candidate and try it on the regular pypi.org as described below for
+       releasing on PyPi.
+
+### Releasing on PyPi
+
+Proceed only if testing of the build is successful.
+
+1. Double check the version number in setup.py.
+1. Rebuild the release: `python -m setup sdist bdist_wheel`.
+1. Upload it: `python -m twine upload dist/*`
