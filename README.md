@@ -19,8 +19,8 @@ Like many commercial educational packages the software knows about the
 properties of some sensors, so can collect data directly in the units
 appropriate for the sensor, in addition to the raw voltage signal returned
 by the sensor. Not all sensors are compatible with all boards.
-We attempt to keep this list of known sensors up-to-date, but the code may
-provide additional sensors not listed here:
+The developer(s) attempt to keep this list of known sensors up-to-date, but the
+code may provide additional sensors not listed here:
 * __ADS1115 compatible__ (board can provide 3.3 V of power/reference to
  sensors):
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
@@ -32,6 +32,9 @@ provide additional sensors not listed here:
    range +/- 12 V.
   * Vernier SS temperature probe (V, mV, K, C, F).
   * Compatible with standard Vernier probes. Calibrations being added.
+
+You can also hook up your own sensors and manually convert the raw voltage
+readings or write and submit a new sensor definition to the project.
 
 _Author_: Jonathan Gutow <gutow@uwosh.edu>
 
@@ -45,12 +48,41 @@ for end users and "Development" for those who want to
 improve the package.
 
 NOTE: If a binary distribution (whl or wheel) is not available for your
-platform, some of the required packages may need to be compiled. This will
-require the python header and development files for your platform. To get
-on most *nix platforms use the command `sudo apt install python3-dev`.
+platform, some of the required packages may need to be compiled. If you get
+compilation errors when installing try getting the python header and 
+development files for your platform. To get them on most *nix platforms use the
+command `$ sudo apt install python3-dev`.
 
 _Production_
 
+1. If not installed, install pipenv:`$ pip3 install --user pipenv`. You may
+need to add `~/.local/bin` to your `PATH` to make `pipenv`
+available in your command shell. More discussion: 
+[The Hitchhiker's Guide to
+Python](https://docs.python-guide.org/dev/virtualenvs/).
+1. Create a directory for the virtual environment you will be installing
+   into (example: `$ mkdir JupyterPiDAQ`).
+1. Navigate into the directory `$ cd JupyterPiDAQ`.
+1. Create the virtual environment and enter it `$ pipenv shell`. To get out of
+   the environment you can issue the `$ exit` command on the command line.
+1. While still in the shell install JupyterPiDAQ and all its requirements
+   `$ pip install -U JupyterPiDAQ`. This can take a long time, especially on a
+   Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
+   without at least 1 GB of swap. See: [Build Jupyter on a Pi](
+   https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian)
+   for a discussion of adding swap space on a Pi.
+1. Still within the environment shell test
+   this by starting jupyter `$ jupyter notebook`. Jupyter should launch in your browser.
+    1. Open a new notebook using the default (Python 3) kernel.
+    1. In the first cell import all from DAQinstance.py: 
+       `from jupyterpidaq.DAQinstance import *`.
+        When run this cell should load the DAQmenu at the end of the Jupyter
+        notebook menu/icon bar. If you do not have an appropriate A-to-D
+        board installed you will get a message and the software
+        will default to demo mode, substituting a random number
+        generator for the A-to-D. Because of the demo mode it is
+        possible to run this on any computer, not just a Pi.
+        
 _Development_
 
 Basic requirements: Python 3.6+, associated
@@ -71,27 +103,31 @@ inside the directory as described below:
         1. If you downloaded the git repository named "JupyterPiDAQ"
         and have used that directory to build your virtual
         environment: `$ pip install -e ../JupyterPiDAQ/`.
-        1. If you are downloading from PyPi (not yet available)
+        1. If you are downloading from PyPi
         `$ pip install -e JupyterPiDAQ`
         1. Either should install all the additional packages this
         package depends upon. On a Raspberry Pi this will take
         a long time. It probably will not run without at least 1 GB of swap. See: 
-[Build Jupyter on a Pi](https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian).
+        [Build Jupyter on a Pi
+        ](https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian).
     1. Still within the environment shell test
-    this by starting jupyter `$ jupyter notebook`. Jupyter should launch in your browser.
+       this by starting jupyter `$ jupyter notebook`. Jupyter should launch in
+       your browser.
         1. Open a new notebook using the default (Python 3) kernel.
-        1. In the first cell import all from DAQinstance.py: `from DAQinstance import *`.
-        When run this cell should load the DAQmenu at the end of the Jupyter notebook 
-        menu/icon bar. If you do not have an appropriate A-to-D
+        1. In the first cell import all from DAQinstance.py: 
+        `from jupyterpidaq.DAQinstance import *`.
+        When run this cell should load the DAQmenu at the end of the
+        Jupyter notebook menu/icon bar. If you do not have an appropriate A-to-D
         board installed you will get a message and the software
         will default to demo mode, substituting a random number
         generator for the A-to-D. Because of the demo mode it is
         possible to run this on any computer, not just a Pi.
 1. If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
-    1. Make sure you are running in your virtual environment `$ pipenv shell` in the directory for  virtual
-    environment will do that.
+    1. Make sure you are running in your virtual environment `$ pipenv shell` 
+       in the directory for  virtual environment will do that.
     1. Issue the command to add this as a kernel to your personal space: 
     `$ python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
-    1. More information is available in the Jupyter/Ipython documentation. A simple tutorial from Nikolai Jankiev
-    (_Parametric Thoughts_) can be found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
+    1. More information is available in the Jupyter/Ipython documentation. 
+    A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
+     found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
