@@ -19,8 +19,8 @@ ipython = get_ipython()
 if ipython:
     ipython.magic("matplotlib notebook")
 # these % magics are important inside the notebook
-print('Importing drivers and searching for available data acquisition \
-      hardware.',end='')
+print('Importing drivers and searching for available data acquisition '
+      'hardware.',end='')
 
 # imports below must work. Allow normal python error response.
 import ipywidgets as widgets
@@ -103,7 +103,8 @@ class DAQinstance():
         self.pandadf = None
         self.ntraces = ntraces
         self.traces = []
-        self.tracemap = []  # index map from returned data to trace,
+        # index map from returned data to trace,
+        self.tracemap = []
         self.tracelbls = []
         self.units = []
         for i in range(self.ntraces):
@@ -115,7 +116,8 @@ class DAQinstance():
         self.setupbtn = widgets.Button(
             description='Set Parameters',
             disabled=False,
-            button_style='info',  # 'success', 'info', 'warning', 'danger' or ''
+            button_style='info',
+            # 'success', 'info', 'warning', 'danger' or ''
             tooltip='Click to set collection parameters to displayed values.',
             icon='')
         self.collectbtn = widgets.Button(
@@ -123,7 +125,8 @@ class DAQinstance():
             disabled=False,
             button_style='success',
             # 'success', 'info', 'warning', 'danger' or ''
-            tooltip='Start collecting data and plotting it. Will make new graph.',
+            tooltip='Start collecting data and plotting it. '
+                    'Will make new graph.',
             icon='')
         self.rateinp = widgets.BoundedFloatText(
             value=self.rate,
@@ -143,9 +146,12 @@ class DAQinstance():
             description='Run title',
             disabled=False)
         self.defaultparamtxt = ''
-        self.defaultcollecttxt = '<span style="color:red;">If you see single dots displayed as two colors or distorted, '
-        self.defaultcollecttxt += 'expand graph slightly to force browser to redraw the graph.</span>'
-        self.defaultcollecttxt += '<span style="color:blue;"> To accurately read point location zoom in a lot'
+        self.defaultcollecttxt = '<span style="color:red;">If you see single '
+        self.defaultcollecttxt += 'dots displayed as two colors or distorted, '
+        self.defaultcollecttxt += 'expand graph slightly to force browser '
+        self.defaultcollecttxt += 'to redraw the graph.</span>'
+        self.defaultcollecttxt += '<span style="color:blue;"> To accurately '
+        self.defaultcollecttxt += 'read point location zoom in a lot'
         self.defaultcollecttxt += ' (box button below graph).</span>'
         self.collecttxt = widgets.HTML(
             value=self.defaultcollecttxt,
@@ -158,7 +164,8 @@ class DAQinstance():
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
 
     def setupclick(self, btn):
-        # Could just use the values in widgets, but this forces intentional selection and locks them for the run.
+        # Could just use the values in widgets, but this forces intentional
+        # selection and locks them for the run.
         self.title = self.runtitle.value
         self.rate = self.rateinp.value
         self.delta = 1 / self.rate
@@ -224,7 +231,8 @@ class DAQinstance():
             btn.description = 'Stop Collecting'
             btn.button_style = 'danger'
             btn.tooltip = 'Stop the data collection'
-            self.setupbtn.disabled = True  # do not allow parameters to be reset after starting run.
+            # do not allow parameters to be reset after starting run.
+            self.setupbtn.disabled = True
             self.setupbtn.tooltip = 'Parameters locked. The run has started.'
             self.rateinp.disabled = True
             self.timelbl.disabled = True
@@ -277,10 +285,11 @@ class DAQinstance():
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
 
     def updatingplot(self):
-        '''
-        Runs until when a check of self.collectbtn.description does not return 'Stop Collecting'.
-            This would probably be more efficient if set a boolean.
-        '''
+        """
+        Runs until when a check of self.collectbtn.description does not return
+        'Stop Collecting'. This would probably be more efficient if set a
+        boolean.
+        """
         starttime = time.time()
         global data
         data = []
@@ -403,7 +412,9 @@ class DAQinstance():
 
 
 def newRun():
-    '''Set up a new data collection run and add it to the list of runs.'''
+    """
+    Set up a new data collection run and add it to the list of runs.
+    """
     data = []
     timestamp = []
     stdev = []
@@ -422,10 +433,11 @@ def showSelectedRunTable(change):
 
 
 def showDataTable():
-    '''Provides a menu to select which run. Then displays the run in a 
-       10 em high scrolling table. Selection menu is removed after choice
-       is made.
-    '''
+    """
+    Provides a menu to select which run. Then displays the run in a
+    10 em high scrolling table. Selection menu is removed after choice
+    is made.
+    """
     # get list of runs
     runlst = [('Choose Run', -1)]
     for i in range(len(runs)):
@@ -444,7 +456,9 @@ def showDataTable():
 
 
 def newCalculatedColumn():
-    '''Simple GUI for generating an expression for a column calculated from other
-       columns in a data set. The new column can be added to a single run or all
-       runs.'''
+    """
+    Simple GUI for generating an expression for a column calculated from other
+    columns in a data set. The new column can be added to a single run or all
+    runs.
+    """
     print("Sorry, not yet implemented.")

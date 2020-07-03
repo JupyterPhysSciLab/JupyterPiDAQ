@@ -135,92 +135,30 @@ def listSensors():
 ###
 # Sensor Classes
 #
-# Each class must at minimum provide the following skeleton of functions
-#
-# class sensorname():
-#     """
-#     Short description of the sensor this is for. 1 - 2 sentences
-#     """
-#     def __init__(self):
-#         self.name = 'Description the user will see for the sensor.
-#         Keep to a few words.'
-#         self.vendor = 'Vendor/Manufacturer Name'
-#         self.units = ['unit1', 'unit2', 'unit3', '...',...]
-#         a list of strings for different units that can be returned
-#         by the class. These must match the names of the functions
-#         called to return the values and cannot contain spaces or
-#         punctuation.
-#         other internal values may be defined as needed.
-#         pass
-#
-#     def getname(self):
-#        """
-#        Provides a string name for the sensor
-#        :return: string containing the sensor name
-#        """
-#        return (self.name)
-#
-#    def getvendor(self):
-#        """
-#        Provides a string name for the sensor vendor/manufacturer
-#        :return: string containing the vendor/manufacturer name
-#        """
-#        return(self.vendor)
-#
-#    def getgains(self):
-#         """
-#           Provides values representing the ADC gains that can be used with
-#           this sensor. For the ADS1115
-#           the available gains are 2/3,1,2,4,8,16.
-#           :return: gains a list of strings.
-#         """
-#           return(self.gains)
-#
-#    def getunits(self):
-#        """
-#        Provides the string names for the available units for this sensor.
-#        These string names are also the functions
-#        within this class that return the measurement in those units.
-#        :return: units a list of strings.
-#        """
-#        return(self.units)
-#
-#    def unit1(self,v_avg,v_std, avg_std):
-#        """
-#        The returned values are in unit1. It is easiest to use interval
-#        arithmetic to convert the voltage standard
-#        deviations to those in the converted units. See builtinthermistor().
-#        K(...) for an example.
-#        :param v_avg: average voltage from sensor.
-#        :param v_std: standard deviation of voltage from sensor.
-#        :param avg_std: estimated standard deviation of the avg.
-#        :return: list [unit1_avg, unit1_std, unit1_avg_std]: [average value
-#        in unit1, standard deviation of value in
-#            unit1, estimated standard deviation of the average].
-#        """
-#        operations to convert the voltage to desired units.
-#        return ([unit1_avg, unit1_std, unit1_avg_std])
-#
-#    def {additional functions for each unit, make sure the names match the
-#    strings in the list returned by getunits().
+# Each class must extend the `Class RawAtoD`. See below:
 ###
 
 class RawAtoD:
     """
+    This is the base sensor class which all sensors should extend. See how to
+    do this properly using one of the examples below.
     This class contains definitions for the raw AtoD return in volts. The
-    digital values are not returned as the AtoD has a builtin pre-amp,
+    digital values are not used as the AtoD may have a builtin pre-amp,
     so a given digital value has different meanings depending upon the pre-amp
-    setting. This is for an AtoD board based on the ADS1115 chip. The
-    detailed board description made for/by 52PI is compatible with
-    AdaFruit python software and may be found at:
-    https://wiki.52pi.com/index.php/RPI-ADS1115-ADC-Module_SKU:EP-0076.
+    setting.
     """
 
     def __init__(self, Vdd):
         """
+        This init should be called first in the init section of any class
+        extending this class (e.g. `super().__init__(Vdd)`). Then set
+        `self.name` and `self.vendor` to the proper values. Append units
+        specific to the sensor to `self.units`. The parameter Vdd must be
+        supplied upon initialization because the output voltage of some
+        sensors depends on Vdd.
 
-        :param Vdd: Because some sensors depend on the voltage provided by the
-        A-to-D board this must be supplied.
+        :param float Vdd: the voltage supplied to the sensor by the A-to-D
+         board in case the sensor output depends on this.
         """
         self.name = 'Volts at A-to-D'
         self.vendor = '--'
@@ -276,51 +214,25 @@ class RawAtoD:
         return 1000 * v_avg, 1000 * v_std, 1000 * avg_std
 
 
-class BuiltInThermistor:
+class BuiltInThermistor(RawAtoD):
     """
     This class contains the definitions for builtin thermistor.
     """
 
     def __init__(self, Vdd):
+        super().__init__(Vdd)
         self.name = 'Built-in Thermistor'
         self.vendor = 'KNARCO'
-        self.units = ['K', 'C', 'F']
+        self.units = self.units + ['K', 'C', 'F']
         self.gains = [1]
         self.Vdd = Vdd
         # print('Done initializing builtinthermistor class.')
         pass
 
-    def getname(self):
-        """
-        Provides a string name for the sensor
-        :return: string containing the sensor name
-        """
-        return self.name
-
-    def getvendor(self):
-        """
-        Provides a string name for the sensor vendor/manufacturer
-        :return: string containing the vendor/manufacturer name
-        """
-        return self.vendor
-
-    def getunits(self):
-        """
-        Provides the string names for the available units for this sensor.
-        These string names are also the functions
-        within this class that return the measurement in those units.
-        :return: units a list of strings.
-        """
-        return self.units
-
-    def getgains(self):
-        """
-          Provides values representing the ADC gains that can be used with
-          this sensor. For the ADS1115
-          the available gains are 2/3,1,2,4,8,16.
-          :return: gains a list of strings.
-         """
-        return self.gains
+    ###
+    # Sensor specific units. Notice the function names must match the string
+    # used for the units.
+    ###
 
     def K(self, v_avg, v_std, avg_std, avg_vdd):
         """
@@ -421,41 +333,24 @@ class BuiltInThermistor:
         return tempK
 
 
-class VernierSSTemp:
+class VernierSSTemp(RawAtoD):
     """
     This class contains the definitions for Vernier Stainless Steel Temperature
     Probe. A 20K thermistor.
     """
 
     def __init__(self, Vdd):
+        super().__init__(Vdd)
         self.name = 'Vernier SS Temperature Probe'
         self.vendor = 'Vernier'
-        self.units = ['K', 'C', 'F']
+        self.units = self.units + ['K', 'C', 'F']
         self.Vdd = Vdd
         pass
 
-    def getname(self):
-        """
-        Provides a string name for the sensor
-        :return: string containing the sensor name
-        """
-        return self.name
-
-    def getvendor(self):
-        """
-        Provides a string name for the sensor vendor/manufacturer
-        :return: string containing the vendor/manufacturer name
-        """
-        return self.vendor
-
-    def getunits(self):
-        """
-        Provides the string names for the available units for this sensor.
-        These string names are also the functions
-        within this class that return the measurement in those units.
-        :return: units a list of strings.
-        """
-        return self.units
+    ###
+    # Sensor specific units. Notice the function names must match the
+    # string used for the units.
+    ###
 
     def K(self, v_avg, v_std, avg_std, avg_vdd):
         """

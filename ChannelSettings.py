@@ -36,6 +36,9 @@ class ChannelSettings:
         self.toselectedgain = self.availablegains[0]
         self.sensornames = []
         for name in self.board.getsensors():
+            # TODO: change this to display the sensor name, not the sensor
+            #  class name. Probably need to replace each element with a tuple
+            #  and rejigger some of the update calls.
             self.sensornames.append(name)
         self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
