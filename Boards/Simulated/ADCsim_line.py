@@ -16,7 +16,8 @@ from numpy import std
 from Boards.boards import Board
 
 # mimicking an installed ADS1115 ADC PiHAT.
-RATE = 475  # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
+RATE = 475
+# 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.
 
 
 # other rates 8, 16, 32, 64, 128, 250, 475, 860 in Hz.
@@ -25,6 +26,12 @@ def find_boards():
 
 
 class Board_ADCsim_line(Board):
+    """
+    This class simulates an Analog-to-Digital board that returns a linearly
+    increasing signal with a small amount of noise on the signal. The
+    intercept and slope depend upon which hour of the day the simulation is
+    run.
+    """
     def __init__(self, adc):
         super().__init__()
         self.name = 'ADCsym Line'
@@ -60,15 +67,17 @@ class Board_ADCsim_line(Board):
             chan    the channel number 0, 1, 2, 3
             gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
                     8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-            avg_sec seconds to average for, actual averaging interval will be as close
-                    as possible for an integer number of samples.
+            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475
+             or 860 Hz)
+            avg_sec seconds to average for, actual averaging interval will be
+             as close as possible for an integer number of samples.
         Returns a tuple (V_avg, V_min, V_max, time_stamp)
             V_avg   the averaged voltage
             stdev   estimated standard deviation of the measurements
             stdev_avg   estimated standard deviation of the mean
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+            time_stamp the time at halfway through the averaging interval in
+             seconds since the beginning of the epoch (OS dependent begin
+             time).
 
         """
         time_tuple = time.localtime()
@@ -77,7 +86,7 @@ class Board_ADCsim_line(Board):
                                  time_tuple.tm_wday, time_tuple.tm_yday,
                                  time_tuple.tm_isdst))
         n_samp = int(round(avg_sec / (0.0017 + 1 / data_rate)))
-        if (n_samp < 1):
+        if n_samp < 1:
             n_samp = 1
         value = []
         start = time.time()
@@ -95,7 +104,7 @@ class Board_ADCsim_line(Board):
         return V_avg, V_min, V_max, time_stamp, self.Vdd
 
     def V_oversampchan_stats(self, chan, gain, avg_sec, data_rate=RATE):
-        '''
+        """
         This routine returns the average voltage for the channel
         averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
         number of seconds. The 0.0012 is the required loop time
@@ -107,17 +116,19 @@ class Board_ADCsim_line(Board):
             chan    the channel number 0, 1, 2, 3
             gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
                     8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-            avg_sec seconds to average for, actual averaging interval will be as close
-                    as possible for an integer number of samples.
+            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475
+             or 860 Hz)
+            avg_sec seconds to average for, actual averaging interval will be
+             as close as possible for an integer number of samples.
         Returns a tuple (V_avg, V_min, V_max, time_stamp)
             V_avg   the averaged voltage
             stdev   estimated standard deviation of the measurements
             stdev_avg   estimated standard deviation of the mean
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+            time_stamp the time at halfway through the averaging interval in
+              seconds since the beginning of the epoch (OS dependent begin
+              time).
 
-        '''
+        """
         time_tuple = time.localtime()
         currhr = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
                                  time_tuple.tm_mday, time_tuple.tm_hour, 0, 0,
@@ -128,7 +139,7 @@ class Board_ADCsim_line(Board):
                                  time_tuple.tm_wday, time_tuple.tm_yday,
                                  time_tuple.tm_isdst))
         n_samp = int(round(avg_sec / (0.0017 + 1 / data_rate)))
-        if (n_samp < 1):
+        if n_samp < 1:
             n_samp = 1
         value = []
         start = time.time()
@@ -144,7 +155,7 @@ class Board_ADCsim_line(Board):
         stdev = std(value, ddof=1, dtype=float64) / gain
         stdev_avg = stdev / sqrt(float(len(value)))
         decimals = 0
-        if (stdev_avg == 0):
+        if stdev_avg == 0:
             decimals = 6
         else:
             if (stdev_avg != float('inf')) and (stdev_avg > 0):
@@ -156,7 +167,7 @@ class Board_ADCsim_line(Board):
         return V_avg, stdev, stdev_avg, time_stamp, self.Vdd
 
     def V_sampchan(self, chan, gain, data_rate=RATE):
-        '''
+        """
         This routine returns the average voltage for the channel
         averaged at (0.0012 + 1/data_rate)^-1 Hz for avg_sec
         number of seconds. The 0.0012 is the required loop time
@@ -168,17 +179,19 @@ class Board_ADCsim_line(Board):
             chan    the channel number 0, 1, 2, 3
             gain    2/3 (+/-6.144V), 1(+/-4.096V), 2(+/-2.048V), 4(+/-1.024V),
                     8 (+/-0.512V), 16 (+/-0.256V)
-            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475 or 860 Hz)
-            avg_sec seconds to average for, actual averaging interval will be as close
-                    as possible for an integer number of samples.
+            data_rate the ADC sample rate in Hz (8, 16, 32, 64, 128, 250, 475
+             or 860 Hz) avg_sec seconds to average for, actual averaging
+             interval will be as close as possible for an integer number of
+             samples.
         Returns a tuple (V_avg, V_min, V_max, time_stamp)
             V_avg   the averaged voltage
             stdev   estimated standard deviation of the measurements
             stdev_avg   estimated standard deviation of the mean
-            time_stamp the time at halfway through the averaging interval in seconds
-                    since the beginning of the epoch (OS dependent begin time).
+            time_stamp the time at halfway through the averaging interval in
+             seconds since the beginning of the epoch (OS dependent begin
+             time).
 
-        '''
+        """
         time_tuple = time.localtime()
         nearesthr = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
                                  time_tuple.tm_mday, time_tuple.tm_hour, 0, 0,
