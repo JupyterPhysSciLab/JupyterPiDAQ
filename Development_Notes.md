@@ -7,3 +7,6 @@
    ```
 1. Run tests ignoring the manual tests in the `dev_testing` directory:
    `python -m pytest --ignore='dev_testing'`.
+   
+### Building PyPi package
+

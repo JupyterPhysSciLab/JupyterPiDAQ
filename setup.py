@@ -8,6 +8,7 @@ setuptools.setup(
     version="0.5.0",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     author="Jonathan Gutow",
     author_email="gutow@uwosh.edu",
     license="GPL-3.0+",
