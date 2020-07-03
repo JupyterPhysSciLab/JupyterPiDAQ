@@ -27,7 +27,8 @@ class ChannelSettings:
         self.boards = availboards
         self.boardnames = []
         for k in range(len(self.boards)):
-            self.boardnames.append((str(k)+' '+self.boards[k].getname(),k))
+            self.boardnames.append(
+                (str(k) + ' ' + self.boards[k].getname(), k))
         self.board = self.boards[0]
         self.channel = self.board.channels[0]
         self.toselectedunits = None
@@ -40,7 +41,8 @@ class ChannelSettings:
             #  class name. Probably need to replace each element with a tuple
             #  and rejigger some of the update calls.
             self.sensornames.append(name)
-        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
+        self.sensor = getattr(sensors, self.board.getsensors()[0])(
+            self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
         self.defaultsensorname = self.sensornames[0]
         self.sensor = None  # Set to nothing unless the channel is active.
@@ -97,7 +99,8 @@ class ChannelSettings:
         rror is thrown by something called by this function.
         :return: None
         """
-        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
+        self.sensor = getattr(sensors, self.board.getsensors()[0])(
+            self.board.getVdd())
         self.toselectedunits = getattr(self.sensor, self.units.value)
         self.checkbox.value = True  # in case the selection is not done by the
         # user.
@@ -136,7 +139,7 @@ class ChannelSettings:
         :param change: change object passed by the observe tool
         :return: None
         """
-        if (change.new):  # if True
+        if change.new:  # if True
             self.activate()
         else:
             self.deactivate()
@@ -161,7 +164,8 @@ class ChannelSettings:
         for name in self.board.getsensors():
             self.sensornames.append(name)
         self.sensorchoice.options = self.sensornames
-        self.sensor = getattr(sensors,self.board.getsensors()[0])(self.board.getVdd())
+        self.sensor = getattr(sensors, self.board.getsensors()[0])(
+            self.board.getVdd())
         self.defaultunits = self.sensor.getunits()
         self.units.options = self.defaultunits
         self.defaultsensorname = self.sensornames[0]
@@ -186,9 +190,10 @@ class ChannelSettings:
         :param change: change object passed by the observe tool
         :return: None
         """
-        #print(str(change['new'])+',' + str(self.sensorchoice.value))
+        # print(str(change['new'])+',' + str(self.sensorchoice.value))
         # Get the new sensor choice and define the sensor object
-        self.sensor = getattr(sensors,change['owner'].value)(self.board.getVdd())
+        self.sensor = getattr(sensors, change['owner'].value)(
+            self.board.getVdd())
         # Update the unit choices to match the sensor chosen
         self.units.options = self.sensor.getunits()
         # set the unit conversion function
@@ -225,9 +230,10 @@ class ChannelSettings:
         self.headbox = widgets.HBox([self.checkbox, self.tracelbl])
         self.parambox1 = widgets.HBox(
             [self.boardchoice, self.channelchoice, self.sensorchoice])
-        self.parambox2= widgets.HBox([self.units, self.gains])
-        self.settings = widgets.VBox([self.headbox, self.parambox1, self.parambox2],
-                                    layout=Layout(border='solid'))
+        self.parambox2 = widgets.HBox([self.units, self.gains])
+        self.settings = widgets.VBox(
+            [self.headbox, self.parambox1, self.parambox2],
+            layout=Layout(border='solid'))
         from IPython.core.display import display
         display(self.settings)
         pass
