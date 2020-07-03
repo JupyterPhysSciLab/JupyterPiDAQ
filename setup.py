@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     #package_data={'javascript': ['javascript/*.js']},
     data_files=[
-    	('javascript',['javascript/JupyterPiDAQmnu.js'])
+    	('javascript',['jupyterpidaq/javascript/JupyterPiDAQmnu.js'])
     ],
     include_package_data=True,
     install_requires=[
