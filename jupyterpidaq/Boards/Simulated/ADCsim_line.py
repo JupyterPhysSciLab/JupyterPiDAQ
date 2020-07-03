@@ -13,7 +13,7 @@ from numpy import random
 from numpy import sqrt
 from numpy import std
 
-from Boards.boards import Board
+from jupyterpidaq.Boards import Board
 
 # mimicking an installed ADS1115 ADC PiHAT.
 RATE = 475

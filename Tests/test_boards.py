@@ -1,5 +1,5 @@
-from Boards import boards
-from Sensors import sensors
+from jupyterpidaq.Boards import boards
+from jupyterpidaq.Sensors import sensors
 
 
 def test_load_boards():

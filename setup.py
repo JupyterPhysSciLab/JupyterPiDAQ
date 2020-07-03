@@ -17,11 +17,6 @@ setuptools.setup(
     data_files=[
     	('javascript',['javascript/JupyterPiDAQmnu.js'])
     ],
-    py_modules=[
-    	"ChannelSettings",
-    	"DAQinstance",
-    	"DAQProc"
-    ],
     include_package_data=True,
     install_requires=[
         # 'python>=3.6',

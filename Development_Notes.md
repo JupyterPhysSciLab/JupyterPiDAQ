@@ -35,6 +35,8 @@
        is the only problem change the version to end in `rc0` for release
        candidate and try it on the regular pypi.org as described below for
        releasing on PyPi.
+    1. After install test by running a jupyter notebook in the virtual 
+       environment.
 
 ### Releasing on PyPi
 
@@ -43,3 +45,6 @@ Proceed only if testing of the build is successful.
 1. Double check the version number in setup.py.
 1. Rebuild the release: `python -m setup sdist bdist_wheel`.
 1. Upload it: `python -m twine upload dist/*`
+1. Make sure it works by installing it in a clean virtual environment. This
+   is the same as on test.pypi.org except without `-i https://test.pypy...`. If
+   it does not work, pull the release.

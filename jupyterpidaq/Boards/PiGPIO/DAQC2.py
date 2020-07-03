@@ -9,7 +9,7 @@ import logging
 
 from piplates import DAQC2plate
 
-from Boards.boards import Board
+from jupyterpidaq.Boards import Board
 
 logger = logging.getLogger(__name__)
 

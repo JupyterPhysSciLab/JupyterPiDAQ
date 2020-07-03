@@ -44,6 +44,11 @@ from the PyPi repository. There are two modes "Production"
 for end users and "Development" for those who want to
 improve the package.
 
+NOTE: If a binary distribution (whl or wheel) is not available for your
+platform, some of the required packages may need to be compiled. This will
+require the python header and development files for your platform. To get
+on most *nix platforms use the command `sudo apt install python3-dev`.
+
 _Production_
 
 _Development_

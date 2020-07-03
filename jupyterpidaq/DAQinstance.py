@@ -44,11 +44,11 @@ from multiprocessing import Process, Pipe
 
 print('.',end='')
 
-from DAQProc import DAQProc
+from jupyterpidaq.DAQProc import DAQProc
 
 print('.',end='')
 
-import Boards.boards as boards
+from jupyterpidaq import Boards as boards
 
 print('.',end='')
 
@@ -57,11 +57,11 @@ availboards = boards.load_boards()
 
 print('.',end='')
 
-from ChannelSettings import ChannelSettings
+from jupyterpidaq.ChannelSettings import ChannelSettings
 
 print('.',end='')
 
-from Sensors import sensors
+from jupyterpidaq.Sensors import sensors
 
 print('.',end='')
 

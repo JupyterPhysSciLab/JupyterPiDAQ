@@ -5,7 +5,7 @@
 
 from ipywidgets import widgets, Layout
 
-from Sensors import sensors
+from jupyterpidaq.Sensors import sensors
 
 
 class ChannelSettings:

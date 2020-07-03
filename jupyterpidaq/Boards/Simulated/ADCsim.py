@@ -12,7 +12,7 @@ from numpy import log10
 from numpy import floor
 import time
 
-from Boards.boards import Board
+from jupyterpidaq.Boards import Board
 
 # Optimized for Pi 3B+ mimicking an installed ADS1115 ADC PiHAT.
 RATE = 475  # 475 Hz with oversampling best S/N on Pi 3B+ per unit time interval.

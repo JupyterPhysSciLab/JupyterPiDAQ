@@ -6,8 +6,8 @@ import time
 # Actually read the DAQ board on a different process.
 from multiprocessing import Process, Pipe
 
-from DAQProc import DAQProc
-import Boards.boards as boards
+from jupyterpidaq.DAQProc import DAQProc
+from jupyterpidaq import Boards as boards
 
 
 def test_DAQProc(nchans, gains, avgtime, timedelta, totaltime):

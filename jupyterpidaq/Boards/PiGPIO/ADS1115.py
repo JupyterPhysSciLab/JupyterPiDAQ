@@ -9,7 +9,7 @@ import logging
 import Adafruit_PureIO.smbus as smbus
 import Adafruit_ADS1x15
 
-from Boards.boards import Board
+from jupyterpidaq.Boards import Board
 
 logger = logging.getLogger(__name__)
 
