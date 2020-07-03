@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="JupyterPiDAQ",
-    version="0.5.0",
+    version="0.5.0a",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -17,12 +17,10 @@ setuptools.setup(
     data_files=[
     	('javascript',['javascript/JupyterPiDAQmnu.js'])
     ],
-    py_modules=["Boards",
+    py_modules=[
     	"ChannelSettings",
     	"DAQinstance",
-    	"DAQProc",
-    	"Sensors",
-        "Tests"
+    	"DAQProc"
     ],
     include_package_data=True,
     install_requires=[

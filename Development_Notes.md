@@ -10,6 +10,7 @@
    
 ### Building PyPi package
 
+1. Make sure to update the version number in setup.py first.
 1. Install updated  setuptools and twine in the virtual environment:
    ```
    pipenv shell
