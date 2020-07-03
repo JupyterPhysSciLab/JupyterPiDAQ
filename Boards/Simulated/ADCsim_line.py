@@ -119,8 +119,12 @@ class Board_ADCsim_line(Board):
 
         '''
         time_tuple = time.localtime()
-        nearesthr = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
+        currhr = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
                                  time_tuple.tm_mday, time_tuple.tm_hour, 0, 0,
+                                 time_tuple.tm_wday, time_tuple.tm_yday,
+                                 time_tuple.tm_isdst))
+        currdy = time.mktime((time_tuple.tm_year, time_tuple.tm_mon,
+                                 time_tuple.tm_mday, 0, 0, 0,
                                  time_tuple.tm_wday, time_tuple.tm_yday,
                                  time_tuple.tm_isdst))
         n_samp = int(round(avg_sec / (0.0017 + 1 / data_rate)))
@@ -128,10 +132,10 @@ class Board_ADCsim_line(Board):
             n_samp = 1
         value = []
         start = time.time()
-        intercept = (time.time() - nearesthr) / 1800
-        slope = (time.time() - nearesthr) / 692000
+        intercept = (currhr - currdy) / 24 / 3600 - 0.5
+        slope = (currhr - currdy) / 24 / 3600 / 300
         for k in range(n_samp):
-            tempval = intercept + slope * (time.time() - nearesthr) + (
+            tempval = intercept + slope * (time.time() - currhr) + (
                     random.random() - 0.5) * slope
             value.append(tempval)
         end = time.time()
