@@ -15,8 +15,10 @@ logger = logging.getLogger(__name__)
 # Name format is `.package.boardname` where `boardname` is the name of the
 # python file defining the required board operations.
 
-knownboardpkgs = ('.PiGPIO.ADS1115', '.PiGPIO.DAQC2')
-knownsimulators = ('.Simulated.ADCsim', '.Simulated.ADCsim_line')
+knownboardpkgs = ('jupyterpidaq.Boards.PiGPIO.ADS1115',
+                  'jupyterpidaq.Boards.PiGPIO.DAQC2')
+knownsimulators = ('jupyterpidaq.Boards.Simulated.ADCsim',
+                   'jupyterpidaq.Boards.Simulated.ADCsim_line')
 
 
 def load_boards():
@@ -34,12 +36,13 @@ def load_boards():
     for pkg in knownboardpkgs:
         tmpmod = None
         try:
-            tmpmod = import_module('Boards'+pkg)
+            tmpmod = import_module(pkg)
         except ImportError as e:
             logger.debug(e)
             tmpmod = None
         if (tmpmod):
             boardpkgs.append(tmpmod)
+        logging.log(logging.DEBUG,str(boardpkgs))
 
     # Check for available boards
     boards = []
@@ -75,7 +78,7 @@ def _load_simulators():
     tmpmod = None
     for sim in knownsimulators:
         try:
-            tmpmod = import_module('Boards'+sim)
+            tmpmod = import_module(sim)
         except ImportError as e:
             logger.debug(e)
             tmpmod = None
