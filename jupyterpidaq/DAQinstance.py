@@ -11,7 +11,16 @@
 ######
 # Use os tools for file path and such
 import os
+import time
 import logging
+
+# Start Logging
+logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
+                                         time.localtime()) + '.log'
+logging.basicConfig(filename=logname, level=logging.INFO)
+# Below allows asynchronous calls to get and plot the data in real time.
+# Actually read the DAQ board on a different process.
+
 # below is equivalent to %matplotlib notebook in a Jupyter cell
 from IPython import get_ipython
 
@@ -29,16 +38,9 @@ import numpy as np
 import pandas as pd
 from IPython.display import display, HTML
 from IPython.display import Javascript as JS
-import time
 
 print ('.',end='')
 
-# Start Logging
-logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
-                                         time.localtime()) + '.log'
-logging.basicConfig(filename=logname, level=logging.INFO)
-# Below allows asynchronous calls to get and plot the data in real time.
-# Actually read the DAQ board on a different process.
 import threading
 from multiprocessing import Process, Pipe
 
@@ -90,6 +92,15 @@ display(HTML(tempscript))
 display(JS('createCmdMenu()'))
 
 print('Done with setup.')
+
+# cleanup log file if it is empty
+logging.shutdown()
+try:
+    if os.stat(logname).st_size == 0:
+        os.remove(logname)
+except FileNotFoundError:
+    pass
+
 # Data Aquistion Instance (a run).
 class DAQinstance():
     def __init__(self, idno, title='None', ntraces=4):
