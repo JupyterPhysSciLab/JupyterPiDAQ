@@ -18,8 +18,6 @@ import logging
 logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
                                          time.localtime()) + '.log'
 logging.basicConfig(filename=logname, level=logging.INFO)
-# Below allows asynchronous calls to get and plot the data in real time.
-# Actually read the DAQ board on a different process.
 
 # below is equivalent to %matplotlib notebook in a Jupyter cell
 from IPython import get_ipython
@@ -41,15 +39,19 @@ from IPython.display import Javascript as JS
 
 print ('.',end='')
 
+# Below allows asynchronous calls to get and plot the data in real time.
+# Actually read the DAQ board on a different process.
 import threading
 from multiprocessing import Process, Pipe
 
 print('.',end='')
 
+# The process that monitors the board
 from jupyterpidaq.DAQProc import DAQProc
 
 print('.',end='')
 
+# Board definitions
 from jupyterpidaq import Boards as boards
 
 print('.',end='')
@@ -59,10 +61,12 @@ availboards = boards.load_boards()
 
 print('.',end='')
 
+# GUI for settings
 from jupyterpidaq.ChannelSettings import ChannelSettings
 
 print('.',end='')
 
+# Sensor definitions
 from jupyterpidaq.Sensors import sensors
 
 print('.',end='')
