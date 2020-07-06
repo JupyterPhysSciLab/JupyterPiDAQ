@@ -14,6 +14,10 @@ also available from other vendors); and the [&pi;-Plates
 A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+.
 
+The goal is for the user interface to be as close to self-explanatory as
+ possible. However, documentation is being developed along with some example
+  experiments.
+
 __Sensors:__
 Like many commercial educational packages the software knows about the
 properties of some sensors, so can collect data directly in the units
@@ -36,7 +40,7 @@ code may provide additional sensors not listed here:
 You can also hook up your own sensors and manually convert the raw voltage
 readings or write and submit a new sensor definition to the project.
 
-_Author_: Jonathan Gutow <gutow@uwosh.edu>
+_Initial Author_: Jonathan Gutow <gutow@uwosh.edu>
 
 _License_: GPL V3+
 
