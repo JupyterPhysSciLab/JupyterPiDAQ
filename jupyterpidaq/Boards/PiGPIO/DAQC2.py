@@ -7,8 +7,6 @@ import numpy as np
 
 import logging
 
-from piplates import DAQC2plate
-
 from jupyterpidaq.Boards import Board
 
 logger = logging.getLogger(__name__)
@@ -25,6 +23,10 @@ def find_boards():
     :return: list of DAQC2 board objects (maximum of 8 boards)
     """
     boards = []
+    try:
+        from piplates import DAQC2plate
+    except RuntimeError:
+        return boards
     tmpmod = None
     for addr in range(len(DAQC2plate.daqc2sPresent)):
         if DAQC2plate.daqc2sPresent[addr] == 1:
