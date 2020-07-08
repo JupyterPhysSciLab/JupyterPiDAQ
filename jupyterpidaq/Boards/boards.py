@@ -37,7 +37,7 @@ def load_boards():
         tmpmod = None
         try:
             tmpmod = import_module(pkg)
-        except ImportError as e:
+        except (ImportError, RuntimeError) as e:
             logger.debug(e)
             tmpmod = None
         if (tmpmod):
