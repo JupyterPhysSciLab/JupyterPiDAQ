@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="JupyterPiDAQ",
-    version="0.5.0RC2",
+    version="0.5.0RC3",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -20,6 +20,9 @@ setuptools.setup(
     include_package_data=True,
     install_requires=[
         # 'python>=3.6',
+        #RPi.GPIO is required by pi-plates, not sure why not included in the
+        # pi-plates setup.py.
+        'RPi.GPIO>=0.7.0',
         'Adafruit-PureIO>=1.1.5',
         'Adafruit-ADS1x15>=1.0.2',
         'pi-plates>=6.0',
