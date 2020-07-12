@@ -474,7 +474,7 @@ class VernierGasP(RawAtoD):
     def __init__(self, Vdd):
         super().__init__(Vdd)
         self.name = 'Vernier Absolute Gas Pressure Sensor'
-        self.vendor = 'Vernier (manufacutered after 2011)'
+        self.vendor = 'Vernier (manufactured after 2011)'
         self.units = self.units + ['Pa', 'kPa', 'Bar', 'Torr', 'mmHg', 'atm']
         self.Vdd = Vdd
         pass
