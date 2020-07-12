@@ -468,13 +468,13 @@ class VernierSSTemp(RawAtoD):
 class VernierGasP(RawAtoD):
     """
     This class contains the definitions for Vernier absolute gas pressure
-    sensor, GPS-BTA.
+    sensor, GPS-BTA (post 2011 manufacture).
     """
 
     def __init__(self, Vdd):
         super().__init__(Vdd)
         self.name = 'Vernier Absolute Gas Pressure Sensor'
-        self.vendor = 'Vernier'
+        self.vendor = 'Vernier (manufacutered after 2011)'
         self.units = self.units + ['Pa', 'kPa', 'Bar', 'Torr', 'mmHg', 'atm']
         self.Vdd = Vdd
         pass
