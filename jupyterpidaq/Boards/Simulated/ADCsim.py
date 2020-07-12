@@ -38,7 +38,7 @@ class Board_ADCsim_random(Board):
         Return a list of valid sensor object names for this board.
         :return: list of classnames
         """
-        sensorlist = ['RawAtoD', 'VernierSSTemp']
+        sensorlist = ['RawAtoD', 'VernierSSTemp', 'VernierGasP']
         # TODO: extend this list as appropriate. You can get a full list
         #  using the `Sensors.sensors.listSensors()` call.
         # The main program will use this list to access the actual sensor

@@ -127,7 +127,9 @@ def listSensors():
     """
     return ['RawAtoD',
             'BuiltInThermistor',
-            'VernierSSTemp', ]
+            'VernierSSTemp',
+            'VernierGasP',
+            ]
     # TODO: extend this list when each new sensor class is added. RawAtoD
     #  should always be first in the list.
 
