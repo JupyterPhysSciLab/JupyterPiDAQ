@@ -129,6 +129,7 @@ def listSensors():
             'BuiltInThermistor',
             'VernierSSTemp',
             'VernierGasP',
+            'VernierpH'
             ]
     # TODO: extend this list when each new sensor class is added. RawAtoD
     #  should always be first in the list.
@@ -584,3 +585,39 @@ class VernierGasP(RawAtoD):
         P_std = P_std / 101325
         P_avg_std = P_avg_std / 101325
         return P_avg, P_std, P_avg_std
+
+class VernierpH(RawAtoD):
+    """
+    This class contains the definitions for Vernier standard pH
+    sensor, PH-BTA.
+    """
+
+    def __init__(self, Vdd):
+        super().__init__(Vdd)
+        self.name = 'Vernier Standard pH Sensor'
+        self.vendor = 'Vernier'
+        self.units = self.units + ['pH']
+        self.Vdd = Vdd
+        pass
+
+    ###
+    # Sensor specific units. Notice the function names must match the
+    # string used for the units.
+    ###
+
+    def pH(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the raw voltage
+        :param float avg_std: estimated standard deviation of v_avg
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (not
+        used)
+        :return list:
+
+        Returns: pH_avg, pH_std, pH_avg_std all in pH units
+        """
+        pH_avg = -3.838 * v_avg + 13.720
+        pH_std = -3.838 * v_std
+        pH_avg_std = -3.838 * avg_std
+        return pH_avg, pH_std, pH_avg_std
