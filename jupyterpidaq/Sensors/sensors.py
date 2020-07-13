@@ -619,8 +619,8 @@ class VernierpH(RawAtoD):
         Returns: pH_avg, pH_std, pH_avg_std all in pH units
         """
         pH_avg = -3.838 * v_avg + 13.720
-        pH_std = -3.838 * v_std
-        pH_avg_std = -3.838 * avg_std
+        pH_std = 3.838 * v_std
+        pH_avg_std = 3.838 * avg_std
         return pH_avg, pH_std, pH_avg_std
 
 class VernierFlatpH(RawAtoD):
@@ -655,6 +655,6 @@ class VernierFlatpH(RawAtoD):
         Returns: pH_avg, pH_std, pH_avg_std all in pH units
         """
         pH_avg = -7.78 * v_avg + 16.34
-        pH_std = -7.78 * v_std
-        pH_avg_std = -7.78 * avg_std
+        pH_std = 7.78 * v_std
+        pH_avg_std = 7.78 * avg_std
         return pH_avg, pH_std, pH_avg_std
