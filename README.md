@@ -7,11 +7,12 @@ the Raspberry Pi.  However, as the development has progressed the data
 acquisition board drivers have been separated out of the user interface,
 so that the software has potential to work on other computers running Jupyter
 with A-to-D board specific connector code. Presently the compatible A-to-Ds are
-for Raspberry Pis: Adafruit compliant ADS1115 boards 
+for Raspberry Pis: 
+* Adafruit compliant ADS1115 boards 
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
-also available from other vendors); and the [&pi;-Plates
- DAQC2 plate](https://pi-plates.com/daqc2r1/). 
-A demo mode will run on any computer with a Jupyter notebook install and
+also available from other vendors);
+* The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
+* A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+.
 
 The goal is for the user interface to be as close to self-explanatory as
@@ -35,7 +36,10 @@ code may provide additional sensors not listed here:
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 12 V.
   * Vernier SS temperature probe (V, mV, K, C, F).
-  * Compatible with standard Vernier probes. Calibrations being added.
+  * Vernier standard pH probe (V, mV, pH).
+  * Vernier flat (tris compatible) pH probe (V, mV, pH).
+  * Compatible with standard Vernier analog probes. Default calibrations
+  being added as time and sensors become available.
 
 You can also hook up your own sensors and manually convert the raw voltage
 readings or write and submit a new sensor definition to the project.
@@ -69,7 +73,8 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
 1. Navigate into the directory `$ cd JupyterPiDAQ`.
 1. Create the virtual environment and enter it `$ pipenv shell`. To get out of
    the environment you can issue the `$ exit` command on the command line.
-1. While still in the shell install JupyterPiDAQ and all its requirements
+1. While still in the shell install the latest JupyterPiDAQ and all its
+ requirements
    `$ pip install -U JupyterPiDAQ`. This can take a long time, especially on a
    Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
    without at least 1 GB of swap. See: [Build Jupyter on a Pi](
