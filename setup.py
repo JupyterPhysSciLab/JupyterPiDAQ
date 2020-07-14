@@ -5,6 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="JupyterPiDAQ",
+    url = "https://github.com/JupyterPhysSciLab/JupyterPiDAQ",
     version="0.6.0",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
