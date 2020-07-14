@@ -1,3 +1,17 @@
+### Adding New Sensor Code
+
+1. Copy an existing sensor class paste it into the end of
+sensors.py and rename it.
+1. Update/delete functions for each valid uint within the new
+class as necessary.
+1. Update the sensor name, vendor and available units in the
+`__init__` function.
+1. Add the new sensor classname to the list of available sensors
+in `listSensors` at about line 120 of sensors.py.
+1. Add the new sensor classname to `getsensors` of ADCsim.py,
+ADCsim_line.py and any board (e.g. DAQC2.py) with which the sensor
+can be used. _Do not guess if a sensor works with a particular
+board. Test it!_
 ### Running Tests
 
 1. Install updated pytest in the virtual environment:
