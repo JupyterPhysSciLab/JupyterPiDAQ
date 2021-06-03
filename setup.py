@@ -13,7 +13,7 @@ setuptools.setup(
     author="Jonathan Gutow",
     author_email="gutow@uwosh.edu",
     license="GPL-3.0+",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=("dist","build","dev_testing",)),
     #package_data={'javascript': ['javascript/*.js']},
     data_files=[
     	('javascript',['jupyterpidaq/javascript/JupyterPiDAQmnu.js'])
@@ -29,6 +29,7 @@ setuptools.setup(
         'pi-plates>=6.0',
         'numpy>=1.13',
         'matplotlib>=1.0',
+        'plotly>=4.14.3',
         'jupyter>=1.0.0',
         'jupyter-contrib-nbextensions>=0.5.1',
         'pandas>=1.0.0'

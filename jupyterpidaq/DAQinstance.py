@@ -32,6 +32,10 @@ print('Importing drivers and searching for available data acquisition '
 # imports below must work. Allow normal python error response.
 import ipywidgets as widgets
 import matplotlib.pyplot as plt
+from plotly import io as pio
+pio.templates.default = "simple_white" #default plot format
+from plotly import graph_objects as go
+
 import numpy as np
 import pandas as pd
 from IPython.display import display, HTML
@@ -107,8 +111,9 @@ except FileNotFoundError:
 
 # Data Aquistion Instance (a run).
 class DAQinstance():
-    def __init__(self, idno, title='None', ntraces=4):
+    def __init__(self, idno, livefig, title='None', ntraces=4):
         self.idno = idno
+        self.livefig = livefig
         self.title = str(title)
         self.averaging_time = 0.1  # seconds
         self.gain = [1] * ntraces
@@ -319,6 +324,10 @@ class DAQinstance():
         DAQCTL, PLTCTL = Pipe()
         whichchn = []
         gains = []
+        toplotx = []
+        toploty = []
+        self.livefig.update_yaxes(title = "Values")
+        self.livefig.update_xaxes(title = self.timelbl.value)
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
                 whichchn.append({'board':self.traces[i].board,
@@ -329,6 +338,9 @@ class DAQinstance():
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
+                self.livefig.add_scatter(y=[],x=[], name=tempstr)
+                toplotx.append([])
+                toploty.append([])
         #print('whichchn: '+str(whichchn))
         #print('gains: '+str(gains))
         DAQ = Process(target=DAQProc,
@@ -336,8 +348,7 @@ class DAQinstance():
                       whichchn, gains, self.averaging_time, self.delta,
                       DAQconn, DAQCTL))
         DAQ.start()
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
+
 
         pts = 0
         oldpts = 0
@@ -361,21 +372,17 @@ class DAQinstance():
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std
+                    toplotx[i].append(pkg[0][i])
+                    toploty[i].append(avg)
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
                 stdev.append(pkg[2])
+            for k in range(len(self.livefig.data)):
+                self.livefig.data[k].x=toplotx[k]
+                self.livefig.data[k].y=toploty[k]
+            time.sleep(1)
             PLTCTL.send('send')
             time.sleep(self.delta)
-            pts = len(timestamp)
-            if (pts > oldpts):
-                oldpts = pts
-                ax.clear()
-                ax.set_xlabel(self.timelbl.value)
-                ax.set_ylabel('Y')
-                ax.plot(timestamp, data, '.-')
-                ax.legend(datalegend)
-                fig.canvas.draw()
-                plt.pause(1)
             # print ('btn.description='+str(btn.description))
         endtime = time.time()
         PLTCTL.send('stop')
@@ -400,6 +407,10 @@ class DAQinstance():
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std
+                    toplotx[i].append(pkg[0][i])
+                    toploty[i].append(avg)
+                    #print(pkg[0][i])
+                    #print(avg)
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
                 stdev.append(pkg[2])
@@ -410,15 +421,9 @@ class DAQinstance():
                 # print (str(msg))
                 if (msg != 'done'):
                     print('Received unexpected message: ' + str(msg))
-        ax.clear()
-        # self.data = data
-        # self.timestamp=timestamp
-        ax.set_xlabel(self.timelbl.value)
-        ax.set_ylabel('Y')
-        ax.plot(timestamp, data, '.-')
-        ax.legend(datalegend)
-        # fig.show()
-        fig.canvas.draw()
+        for k in range(len(self.livefig.data)):
+            self.livefig.data[k].x = toplotx[k]
+            self.livefig.data[k].y = toploty[k]
         DAQ.join()  # make sure garbage collection occurs when it stops.
         DAQconn.close()
         PLTconn.close()
@@ -426,7 +431,7 @@ class DAQinstance():
         PLTCTL.close()
 
 
-def newRun():
+def newRun(livefig):
     """
     Set up a new data collection run and add it to the list of runs.
     """
@@ -434,7 +439,7 @@ def newRun():
     timestamp = []
     stdev = []
     nrun = len(runs) + 1
-    runs.append(DAQinstance(nrun, title='Run-' + str(nrun)))
+    runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
     runs[nrun - 1].setup()
 
 
