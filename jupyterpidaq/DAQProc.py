@@ -48,6 +48,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
         stdevs = []
         avg_stdevs = []
         avg_vdds = []
+        calltime = time.time()
         for i in range(len(whichchn)):
             if (whichchn[i]):
                 time.sleep(0.001)
@@ -86,7 +87,9 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
                 DAQconn.send(databuf.popleft())
             #  f.write('Sent '+str(nsend)+' buffer chunks.\n')
             transmit = False  # we've done our burst of sending.
-        time.sleep(timedelta - 0.002 - (avgtime + 0.0035) * chncnt)
+        elapsedtime = time.time() - calltime
+        if elapsedtime < timedelta:
+            time.sleep(timedelta -elapsedtime- 0.002)
     # We should now send anything left...
     # f.write('Left in buffer: '+str(len(databuf))+'\n')
     while len(databuf) > 1:

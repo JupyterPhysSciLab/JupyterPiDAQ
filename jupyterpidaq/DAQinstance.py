@@ -258,6 +258,7 @@ class DAQinstance():
             self.timelbl.disabled = True
             thread = threading.Thread(target=self.updatingplot, args=())
             thread.start()
+            # self.updatingplot() hangs up user interface
         else:
             btn.description = 'Done'
             btn.button_style = ''
@@ -348,7 +349,7 @@ class DAQinstance():
                       whichchn, gains, self.averaging_time, self.delta,
                       DAQconn, DAQCTL))
         DAQ.start()
-
+        lastupdatetime = time.time()
 
         pts = 0
         oldpts = 0
@@ -377,10 +378,14 @@ class DAQinstance():
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
                 stdev.append(pkg[2])
-            for k in range(len(self.livefig.data)):
-                self.livefig.data[k].x=toplotx[k]
-                self.livefig.data[k].y=toploty[k]
-            time.sleep(1)
+            currenttime = time.time()
+            if (currenttime - lastupdatetime)>(0.3+len(toplotx[0])*len(
+                    toplotx)/4000):
+                lastupdatetime = currenttime
+                for k in range(len(self.livefig.data)):
+                    self.livefig.data[k].x=toplotx[k]
+                    self.livefig.data[k].y=toploty[k]
+            #time.sleep(1)
             PLTCTL.send('send')
             time.sleep(self.delta)
             # print ('btn.description='+str(btn.description))
