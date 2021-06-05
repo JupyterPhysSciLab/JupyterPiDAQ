@@ -1,10 +1,17 @@
+var insertruncount = 0
+var newrunstr = 'fig$ = go.FigureWidget() # Create figure to show data.\n'
+newrunstr += 'newRun(fig$) # Initiate run setup.\n'
+newrunstr += 'fig$ # Display the live figure.'
+
 function insertnewRun(){
     //Insert a cell below the current selection
     Jupyter.notebook.insert_cell_below();
     Jupyter.notebook.select_next(true);
     Jupyter.notebook.focus_cell();
     var currentcell = Jupyter.notebook.get_selected_cell();
-    currentcell.set_text('newRun()');
+    insertruncount += 1
+    var cmdstr = newrunstr.replaceAll('$',insertruncount)
+    currentcell.set_text(cmdstr);
     currentcell.execute()
 }
 
@@ -16,14 +23,16 @@ function addnewRun(){
     //If the cell is empty put command in it. Otherwise
     //add another cell at the end of the worksheet. Then
     //put the command in the new lastcell.
+    insertruncount += 1
+    var cmdstr = newrunstr.replaceAll('$',insertruncount)
     if(lastcell.get_text()==''){
-        lastcell.set_text('newRun()');  
+        lastcell.set_text(cmdstr);
     }else{
         Jupyter.notebook.insert_cell_below();
         Jupyter.notebook.select_next(true);
         Jupyter.notebook.focus_cell();
         lastcell=Jupyter.notebook.get_cell(lastcellidx+1);
-        lastcell.set_text('newRun()');
+        lastcell.set_text(cmdstr);
     }
     lastcell.execute()
 }
