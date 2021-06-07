@@ -169,8 +169,7 @@ class DAQinstance():
         self.defaultcollecttxt = '<span style="color:blue;"> To accurately '
         self.defaultcollecttxt += 'read point location on graph you can zoom '
         self.defaultcollecttxt += 'in. Drag to zoom. Additional controls show '
-        self.defaultcollecttxt += 'above plot when you hover over the it.' \
-                                  '</span>'
+        self.defaultcollecttxt += 'above plot when you hover over it.</span>'
         self.collecttxt = widgets.HTML(
             value=self.defaultcollecttxt,
             placeholder='',
@@ -273,6 +272,10 @@ class DAQinstance():
             display(HTML(
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
                 svname + '</span>'))
+            # Save the notebook with current widget states (plotly plots).
+            jscode = '<script>Jupyter.actions.call(' \
+                     '"widgets:save-with-widgets")</script>'
+            display(HTML(jscode))
 
     def fillpandadf(self):
         datacolumns = []
