@@ -166,19 +166,15 @@ class DAQinstance():
             description='Run title',
             disabled=False)
         self.defaultparamtxt = ''
-        self.defaultcollecttxt = '<span style="color:red;">If you see single '
-        self.defaultcollecttxt += 'dots displayed as two colors or distorted, '
-        self.defaultcollecttxt += 'expand graph slightly to force browser '
-        self.defaultcollecttxt += 'to redraw the graph.</span>'
-        self.defaultcollecttxt += '<span style="color:blue;"> To accurately '
-        self.defaultcollecttxt += 'read point location zoom in a lot'
-        self.defaultcollecttxt += ' (box button below graph).</span>'
+        self.defaultcollecttxt = '<span style="color:blue;"> To accurately '
+        self.defaultcollecttxt += 'read point location on graph you can zoom '
+        self.defaultcollecttxt += 'in. Drag to zoom. Additional controls show '
+        self.defaultcollecttxt += 'above plot when you hover over the it.' \
+                                  '</span>'
         self.collecttxt = widgets.HTML(
             value=self.defaultcollecttxt,
             placeholder='',
             description='')
-        tempgridcol = ''
-        tempgridperc = np.round(80 / self.ntraces)
         self.setup_layout = widgets.HBox(
             [self.rateinp, self.timelbl, self.setupbtn])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
@@ -275,7 +271,8 @@ class DAQinstance():
             self.collectbtn.close()
             display(self.collecttxt)
             display(HTML(
-                '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' + svname + '</span>'))
+                '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
+                svname + '</span>'))
 
     def fillpandadf(self):
         datacolumns = []
@@ -307,7 +304,7 @@ class DAQinstance():
 
     def updatingplot(self):
         """
-        Runs until when a check of self.collectbtn.description does not return
+        Runs until a check of self.collectbtn.description does not return
         'Stop Collecting'. This would probably be more efficient if set a
         boolean.
         """
@@ -440,9 +437,6 @@ def newRun(livefig):
     """
     Set up a new data collection run and add it to the list of runs.
     """
-    data = []
-    timestamp = []
-    stdev = []
     nrun = len(runs) + 1
     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
     runs[nrun - 1].setup()
