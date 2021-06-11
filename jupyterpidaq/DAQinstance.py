@@ -407,7 +407,7 @@ class DAQinstance():
                 data.append(pkg[1])
                 stdev.append(pkg[2])
             currenttime = time.time()
-            if (currenttime - lastupdatetime)>(1+len(toplotx[0])*len(
+            if (currenttime - lastupdatetime)>(0.8+len(toplotx[0])*len(
                     toplotx)/1000):
                 lastupdatetime = currenttime
                 for k in range(len(self.livefig.data)):
