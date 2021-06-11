@@ -122,6 +122,7 @@ class DAQinstance():
         self.stdev = []
         self.pandadf = None
         self.ntraces = ntraces
+        self.separate_plots = True
         self.traces = []
         # index map from returned data to trace,
         self.tracemap = []
@@ -148,6 +149,12 @@ class DAQinstance():
             tooltip='Start collecting data and plotting it. '
                     'Will make new graph.',
             icon='')
+        self.separate_traces_checkbox = widgets.Checkbox(
+            value = self.separate_plots,
+            description = 'Display multiple traces as stacked graphs. ' \
+                        'Uncheck to display all on the same graph.',
+            layout = widgets.Layout(width='80%'),
+            disabled = False)
         self.rateinp = widgets.BoundedFloatText(
             value=self.rate,
             min=0,
@@ -174,8 +181,10 @@ class DAQinstance():
             value=self.defaultcollecttxt,
             placeholder='',
             description='')
-        self.setup_layout = widgets.HBox(
+        self.setup_layout_bottom = widgets.HBox(
             [self.rateinp, self.timelbl, self.setupbtn])
+        self.setup_layout = widgets.VBox([self.separate_traces_checkbox,
+                                          self.setup_layout_bottom])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
 
     def setupclick(self, btn):
@@ -327,8 +336,19 @@ class DAQinstance():
         gains = []
         toplotx = []
         toploty = []
-        self.livefig.update_yaxes(title = "Values")
-        self.livefig.update_xaxes(title = self.timelbl.value)
+        nactive = 0
+        for k in self.traces:
+            if k.isactive:
+                nactive += 1
+        if self.separate_traces_checkbox.value:
+            self.livefig.set_subplots(rows = nactive, cols = 1,
+                                      shared_xaxes= True)
+            self.livefig.update_xaxes(title = self.timelbl.value,
+                                      row = nactive, col = 1)
+        else:
+            self.livefig.update_yaxes(title = "Values")
+            self.livefig.update_xaxes(title = self.timelbl.value)
+        active_count = 0
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
                 whichchn.append({'board':self.traces[i].board,
@@ -339,9 +359,17 @@ class DAQinstance():
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
-                self.livefig.add_scatter(y=[],x=[], name=tempstr)
+                if self.separate_traces_checkbox.value:
+                    scat = go.Scatter(y=[],x=[], name=tempstr)
+                    self.livefig.add_trace(scat, row = nactive-active_count,
+                                           col = 1)
+                    self.livefig.update_yaxes(title = self.traces[
+                        i].units.value, row = nactive-active_count,col = 1)
+                else:
+                    self.livefig.add_scatter(y=[],x=[], name=tempstr)
                 toplotx.append([])
                 toploty.append([])
+                active_count += 1
         #print('whichchn: '+str(whichchn))
         #print('gains: '+str(gains))
         DAQ = Process(target=DAQProc,
@@ -379,8 +407,8 @@ class DAQinstance():
                 data.append(pkg[1])
                 stdev.append(pkg[2])
             currenttime = time.time()
-            if (currenttime - lastupdatetime)>(0.3+len(toplotx[0])*len(
-                    toplotx)/4000):
+            if (currenttime - lastupdatetime)>(1+len(toplotx[0])*len(
+                    toplotx)/1000):
                 lastupdatetime = currenttime
                 for k in range(len(self.livefig.data)):
                     self.livefig.data[k].x=toplotx[k]
