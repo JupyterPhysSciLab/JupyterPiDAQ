@@ -477,6 +477,20 @@ def newRun(livefig):
     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
     runs[nrun - 1].setup()
 
+def update_runsdrp():
+    # get list of runs
+    runlst = [('Choose Run', -1)]
+    for i in range(len(runs)):
+        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
+    # buid selection menu
+    global runsdrp
+    runsdrp = widgets.Dropdown(
+        options=runlst,
+        value=-1,
+        description='Select Run #:',
+        disabled=False,
+    )
+    pass
 
 def showSelectedRunTable(change):
     global runsdrp
@@ -493,22 +507,16 @@ def showDataTable():
     10 em high scrolling table. Selection menu is removed after choice
     is made.
     """
-    # get list of runs
-    runlst = [('Choose Run', -1)]
-    for i in range(len(runs)):
-        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
-    # buid selection menu
+    update_runsdrp()
     global runsdrp
-    runsdrp = widgets.Dropdown(
-        options=runlst,
-        value=-1,
-        description='Select Run #:',
-        disabled=False,
-    )
     runsdrp.observe(showSelectedRunTable, names='value')
     display(runsdrp)
     # will display selected run and delete menu upon selection.
 
+def update_columns(change):
+    global runsdrp
+    whichrun = runsdrp.value
+    return runs[whichrun].pandadf.columns
 
 def newCalculatedColumn():
     """
@@ -517,3 +525,6 @@ def newCalculatedColumn():
     runs.
     """
     print("Sorry, not yet implemented.")
+    update_runsdrp()
+    global runsdrp
+    runsdrp.observe(update_columns, names = 'value')
