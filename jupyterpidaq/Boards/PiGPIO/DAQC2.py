@@ -65,6 +65,7 @@ class Board_DAQC2(Board):
         sensorlist = ['RawAtoD',
                       'VernierSSTemp',
                       'VernierGasP',
+                      'VernierGasP_OLD',
                       'VernierpH',
                       'VernierFlatpH'
                       ]

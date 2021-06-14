@@ -129,6 +129,7 @@ def listSensors():
             'BuiltInThermistor',
             'VernierSSTemp',
             'VernierGasP',
+            'VernierGasP_OLD',
             'VernierpH',
             'VernierFlatpH'
             ]
@@ -475,7 +476,7 @@ class VernierGasP(RawAtoD):
 
     def __init__(self, Vdd):
         super().__init__(Vdd)
-        self.name = 'Vernier Absolute Gas Pressure Sensor'
+        self.name = 'Vernier Absolute Gas Pressure Sensor (New)'
         self.vendor = 'Vernier (manufactured after 2011)'
         self.units = self.units + ['Pa', 'kPa', 'Bar', 'Torr', 'mmHg', 'atm']
         self.Vdd = Vdd
@@ -535,6 +536,127 @@ class VernierGasP(RawAtoD):
         P_avg = .51710 * v_avg - .25860
         P_std = .51710 * v_std
         P_avg_std = .51710 * avg_std
+        return P_avg, P_std, P_avg_std
+
+    def Torr(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the voltage measurements
+        :param float avg_std: estimate of the standard deviation of the average
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (
+        not used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in Torr
+        """
+        P_avg, P_std, P_avg_std = self.Pa(v_avg, v_std, avg_std, avg_vdd)
+        P_avg = P_avg * 760.0 / 101325
+        P_std = P_std * 760.0 / 101325
+        P_avg_std = P_avg_std * 760.0 / 101325
+        return P_avg, P_std, P_avg_std
+
+    def mmHg(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the voltage measurements
+        :param float avg_std: estimate of the standard deviation of the average
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (
+        not used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in mmHg
+        """
+        return self.Torr(v_avg, v_std, avg_std, avg_vdd)
+
+    def atm(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the voltage measurements
+        :param float avg_std: estimate of the standard deviation of the average
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (
+        not used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in atm
+        """
+        P_avg, P_std, P_avg_std = self.Pa(v_avg, v_std, avg_std, avg_vdd)
+        P_avg = P_avg / 101325
+        P_std = P_std / 101325
+        P_avg_std = P_avg_std / 101325
+        return P_avg, P_std, P_avg_std
+
+class VernierGasP_OLD(RawAtoD):
+    """
+    This class contains the definitions for Vernier absolute gas pressure
+    sensor, GPS-BTA (pre 2011 manufacture. Label does not depict a caliper
+    with the registered trademark symbol).
+    """
+
+    def __init__(self, Vdd):
+        super().__init__(Vdd)
+        self.name = 'Vernier Absolute Gas Pressure Sensor (New)'
+        self.vendor = 'Vernier (manufactured after 2011)'
+        self.units = self.units + ['Pa', 'kPa', 'Bar', 'Torr', 'mmHg', 'atm']
+        self.Vdd = Vdd
+        pass
+
+    ###
+    # Sensor specific units. Notice the function names must match the
+    # string used for the units.
+    ###
+
+    def Pa(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the raw voltage
+        :param float avg_std: estimated standard deviation of v_avg
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (not
+        used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in Pascals
+        """
+        P_avg = 46480 * v_avg
+        P_std = 46480 * v_std
+        P_avg_std = 46480 * avg_std
+        return P_avg, P_std, P_avg_std
+
+    def kPa(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the raw voltage
+        :param float avg_std: estimated standard deviation of v_avg
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (not
+        used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in kiloPascals
+        """
+        P_avg = 46.480 * v_avg
+        P_std = 46.480 * v_std
+        P_avg_std = 46.480 * avg_std
+        return P_avg, P_std, P_avg_std
+
+    def Bar(self, v_avg, v_std, avg_std, avg_vdd):
+        """
+
+        :param float v_avg: average raw voltage
+        :param float v_std: standard deviation of the raw voltage
+        :param float avg_std: estimated standard deviation of v_avg
+        :param float avg_vdd: the Vdd measured simultaneously with v_avg (not
+        used)
+        :return list:
+
+        Returns: P_avg, P_std, P_avg_std all in Bars
+        """
+        P_avg = .46480 * v_avg
+        P_std = .46480 * v_std
+        P_avg_std = .46480 * avg_std
         return P_avg, P_std, P_avg_std
 
     def Torr(self, v_avg, v_std, avg_std, avg_vdd):
