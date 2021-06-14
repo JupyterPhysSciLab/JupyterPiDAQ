@@ -407,7 +407,12 @@ class DAQinstance():
                 data.append(pkg[1])
                 stdev.append(pkg[2])
             currenttime = time.time()
-            if (currenttime - lastupdatetime)>(0.8+len(toplotx[0])*len(
+            mindelay = 1.0
+            if self.separate_traces_checkbox.value:
+                mindelay = nactive*1.0
+            else:
+                mindelay = nactive*0.5
+            if (currenttime - lastupdatetime)>(mindelay+len(toplotx[0])*len(
                     toplotx)/1000):
                 lastupdatetime = currenttime
                 for k in range(len(self.livefig.data)):
