@@ -55,6 +55,26 @@ function showDataTable(){
     currentcell.execute()
 }
 
+function newCalculatedColumn(){
+    //Insert a cell below the current selection
+    Jupyter.notebook.insert_cell_below();
+    Jupyter.notebook.select_next(true);
+    Jupyter.notebook.focus_cell();
+    var currentcell = Jupyter.notebook.get_selected_cell();
+     currentcell.set_text('newCalculatedColumn()');
+    currentcell.execute()
+}
+
+function newPlot(){
+    //Insert a cell below the current selection
+    Jupyter.notebook.insert_cell_below();
+    Jupyter.notebook.select_next(true);
+    Jupyter.notebook.focus_cell();
+    var currentcell = Jupyter.notebook.get_selected_cell();
+     currentcell.set_text('newPlot()');
+    currentcell.execute()
+}
+
 function createCmdMenu(){
     if(!document.getElementById('jupyterpiDAQcmdsmnu')){
         var newselect=document.createElement('select');
@@ -73,11 +93,19 @@ function createCmdMenu(){
             if (lastvalue=='Show data in table...'){
                 showDataTable()
             }
+            if (lastvalue=='Calculate new column...'){
+                newCalculatedColumn()
+            }
+            if (lastvalue=='Insert new plot after selection...'){
+                newPlot()
+            }
         }
         var optiontxt = '<option title="Insert data aquisition related command.">DAQ Commands</option>';
         optiontxt+='<option title="Insert cell below selected and start new run.">Insert New Run after selection...</option>';
         optiontxt+='<option title="Add new run at end of notebook.">Append New Run to end...</option>';
         optiontxt+='<option title="Insert show data table command at end of current cell.">Show data in table...</option>';
+        optiontxt+='<option title="Calculate new column below current cell.">Calculate new column...</option>';
+        optiontxt+='<option title="New plot below current cell.">Insert new plot after selection...</option>';
         newselect.innerHTML=optiontxt;
         document.getElementById('maintoolbar-container').appendChild(newselect);
     }

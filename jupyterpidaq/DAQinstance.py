@@ -31,13 +31,20 @@ print('Importing drivers and searching for available data acquisition '
 
 # imports below must work. Allow normal python error response.
 import ipywidgets as widgets
-import matplotlib.pyplot as plt
+from pandas_GUI import *
+print ('.',end='')
+
 from plotly import io as pio
 pio.templates.default = "simple_white" #default plot format
 from plotly import graph_objects as go
+print ('.',end='')
 
 import numpy as np
+print ('.',end='')
+
 import pandas as pd
+print ('.',end='')
+
 from IPython.display import display, HTML
 from IPython.display import Javascript as JS
 
@@ -282,9 +289,9 @@ class DAQinstance():
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
                 svname + '</span>'))
             # Save the notebook with current widget states (plotly plots).
-            jscode = '<script>Jupyter.actions.call(' \
-                     '"widgets:save-with-widgets")</script>'
-            display(HTML(jscode))
+            jscode = 'Jupyter.actions.call(' \
+                     '"widgets:save-with-widgets");'
+            display(JS(jscode))
 
     def fillpandadf(self):
         datacolumns = []
@@ -520,11 +527,24 @@ def update_columns(change):
 
 def newCalculatedColumn():
     """
-    Simple GUI for generating an expression for a column calculated from other
-    columns in a data set. The new column can be added to a single run or all
-    runs.
+    Uses jupyter-pandas-GUI.new_pandas_column_GUI to provide a GUI expression
+    composer. This method finds the datasets and launches the GUI.
     """
-    print("Sorry, not yet implemented.")
-    update_runsdrp()
-    global runsdrp
-    runsdrp.observe(update_columns, names = 'value')
+    df_info = []
+    for i in range(len(runs)):
+        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                        str(runs[i].title)])
+    new_pandas_column_GUI(df_info)
+    pass
+
+def newPlot():
+    """
+    Uses jupyter-pandas-GUI.plot_pandas_GUI to provide a GUI expression
+    composer. This method finds the datasets and launches the GUI.
+    """
+    df_info = []
+    for i in range(len(runs)):
+        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                        str(runs[i].title)])
+    plot_pandas_GUI(df_info)
+    pass

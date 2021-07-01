@@ -20,7 +20,6 @@ setuptools.setup(
     ],
     include_package_data=True,
     install_requires=[
-        # 'python>=3.6',
         #RPi.GPIO is required by pi-plates, not sure why not included in the
         # pi-plates setup.py.
         'RPi.GPIO>=0.7.0',
@@ -33,6 +32,7 @@ setuptools.setup(
         'jupyter>=1.0.0',
         'jupyter-contrib-nbextensions>=0.5.1',
         'pandas>=1.0.0'
+        'jupyter-pandas-GUI>=0.5.0'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
