@@ -13,7 +13,7 @@ for Raspberry Pis:
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
 * A demo mode will run on any computer with a Jupyter notebook install and
-Python 3.6+.
+Python 3.6+. You can try the demo mode in binder.
 
 The goal is for the user interface to be as close to self-explanatory as
  possible. However, documentation is being developed along with some example
