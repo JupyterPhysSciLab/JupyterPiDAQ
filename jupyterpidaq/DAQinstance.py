@@ -31,13 +31,20 @@ print('Importing drivers and searching for available data acquisition '
 
 # imports below must work. Allow normal python error response.
 import ipywidgets as widgets
-import matplotlib.pyplot as plt
+from pandas_GUI import *
+print ('.',end='')
+
 from plotly import io as pio
 pio.templates.default = "simple_white" #default plot format
 from plotly import graph_objects as go
+print ('.',end='')
 
 import numpy as np
+print ('.',end='')
+
 import pandas as pd
+print ('.',end='')
+
 from IPython.display import display, HTML
 from IPython.display import Javascript as JS
 
@@ -295,9 +302,9 @@ class DAQinstance():
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
                 svname + '</span>'))
             # Save the notebook with current widget states (plotly plots).
-            jscode = '<script>Jupyter.actions.call(' \
-                     '"widgets:save-with-widgets")</script>'
-            display(HTML(jscode))
+            jscode = 'Jupyter.actions.call(' \
+                     '"widgets:save-with-widgets");'
+            display(JS(jscode))
 
     def fillpandadf(self):
         datacolumns = []
@@ -507,6 +514,20 @@ def newRun(livefig):
     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
     runs[nrun - 1].setup()
 
+def update_runsdrp():
+    # get list of runs
+    runlst = [('Choose Run', -1)]
+    for i in range(len(runs)):
+        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
+    # buid selection menu
+    global runsdrp
+    runsdrp = widgets.Dropdown(
+        options=runlst,
+        value=-1,
+        description='Select Run #:',
+        disabled=False,
+    )
+    pass
 
 def showSelectedRunTable(change):
     global runsdrp
@@ -523,27 +544,37 @@ def showDataTable():
     10 em high scrolling table. Selection menu is removed after choice
     is made.
     """
-    # get list of runs
-    runlst = [('Choose Run', -1)]
-    for i in range(len(runs)):
-        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
-    # buid selection menu
+    update_runsdrp()
     global runsdrp
-    runsdrp = widgets.Dropdown(
-        options=runlst,
-        value=-1,
-        description='Select Run #:',
-        disabled=False,
-    )
     runsdrp.observe(showSelectedRunTable, names='value')
     display(runsdrp)
     # will display selected run and delete menu upon selection.
 
+def update_columns(change):
+    global runsdrp
+    whichrun = runsdrp.value
+    return runs[whichrun].pandadf.columns
 
 def newCalculatedColumn():
     """
-    Simple GUI for generating an expression for a column calculated from other
-    columns in a data set. The new column can be added to a single run or all
-    runs.
+    Uses jupyter-pandas-GUI.new_pandas_column_GUI to provide a GUI expression
+    composer. This method finds the datasets and launches the GUI.
     """
-    print("Sorry, not yet implemented.")
+    df_info = []
+    for i in range(len(runs)):
+        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                        str(runs[i].title)])
+    new_pandas_column_GUI(df_info)
+    pass
+
+def newPlot():
+    """
+    Uses jupyter-pandas-GUI.plot_pandas_GUI to provide a GUI expression
+    composer. This method finds the datasets and launches the GUI.
+    """
+    df_info = []
+    for i in range(len(runs)):
+        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                        str(runs[i].title)])
+    plot_pandas_GUI(df_info)
+    pass
