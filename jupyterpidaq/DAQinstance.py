@@ -111,7 +111,20 @@ except FileNotFoundError:
 
 # Data Aquistion Instance (a run).
 class DAQinstance():
-    def __init__(self, idno, livefig, title='None', ntraces=4):
+    def __init__(self, idno, livefig, title='None', ntraces=4, **kwargs):
+        """
+
+        :param idno:
+        :param livefig:
+        :param title:
+        :param ntraces:
+        :param kwargs:
+            :ignore_skew: bool if True only a single average collection time
+            will be recorded for each time in a multichannel data
+            collection. If False a separate set of time will be recorded for
+            each channel.
+        """
+        self.ignore_skew = kwargs.pop('ignore_skew',True)
         self.idno = idno
         self.livefig = livefig
         self.title = str(title)
@@ -296,14 +309,21 @@ class DAQinstance():
             if (self.traces[i].isactive):
                 chncnt += 1
         for i in range(chncnt):
-            datacolumns.append(temptimes[i])
+            if self.ignore_skew and i > 0:
+                pass
+            else:
+                datacolumns.append(temptimes[i])
             datacolumns.append(tempdata[i])
             datacolumns.append(tempstdev[i])
         titles = []
         # Column labels.
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
-                titles.append(self.traces[
+                if self.ignore_skew:
+                    if i == 0:
+                        titles.append(self.timelbl.value)
+                else:
+                    titles.append(self.traces[
                                   i].tracelbl.value + '_' + self.timelbl.value)
                 titles.append(
                     self.traces[i].tracelbl.value + '(' + self.traces[
@@ -389,6 +409,9 @@ class DAQinstance():
                 self.lastpkgstr = str(pkg)
                 #print(self.lastpkgstr)
                 # convert voltage to requested units.
+                tmptime = 0
+                if self.ignore_skew:
+                    tmptime = sum(pkg[0]) / len(pkg[0])
                 for i in range(len(pkg[0])):
                     avg = pkg[1][i]
                     std = pkg[2][i]
@@ -401,7 +424,10 @@ class DAQinstance():
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std
-                    toplotx[i].append(pkg[0][i])
+                    if self.ignore_skew:
+                        toplotx[i].append(tmptime)
+                    else:
+                        toplotx[i].append(pkg[0][i])
                     toploty[i].append(avg)
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
@@ -445,7 +471,11 @@ class DAQinstance():
                     pkg[1][i] = avg
                     pkg[2][i] = std
                     pkg[3][i] = avg_std
-                    toplotx[i].append(pkg[0][i])
+                    if self.ignore_skew:
+                        tmptime = sum(pkg[0])/len(pkg[0])
+                        toplotx[i].append(tmptime)
+                    else:
+                        toplotx[i].append(pkg[0][i])
                     toploty[i].append(avg)
                     #print(pkg[0][i])
                     #print(avg)
