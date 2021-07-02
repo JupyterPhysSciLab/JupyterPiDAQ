@@ -438,7 +438,7 @@ class DAQinstance():
                     toploty[i].append(avg)
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
-                stdev.append(pkg[2])
+                stdev.append(pkg[3])
             currenttime = time.time()
             mindelay = 1.0
             if self.separate_traces_checkbox.value:
@@ -488,7 +488,7 @@ class DAQinstance():
                     #print(avg)
                 timestamp.append(pkg[0])
                 data.append(pkg[1])
-                stdev.append(pkg[2])
+                stdev.append(pkg[3])
             PLTCTL.send('send')
             time.sleep(0.2)
             if PLTCTL.poll():
