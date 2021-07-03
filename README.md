@@ -1,5 +1,7 @@
 ## JupyterPiDAQ
-
+[Introduction](#introduction) | [Installation](#installation) | 
+[Change Log](#change-log) | [License](#license)
+### Introduction:
 This software allows live collection and plotting of 
 analog data in  a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
@@ -13,13 +15,14 @@ for Raspberry Pis:
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
 * A demo mode will run on any computer with a Jupyter notebook install and
-Python 3.6+. You can try the demo mode in binder.
+Python 3.6+. You can try the demo mode in binder
+  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD).
 
 The goal is for the user interface to be as close to self-explanatory as
  possible. However, documentation is being developed along with some example
   experiments.
 
-__Sensors:__
+##### Sensors:
 Like many commercial educational packages the software knows about the
 properties of some sensors, so can collect data directly in the units
 appropriate for the sensor, in addition to the raw voltage signal returned
@@ -36,6 +39,8 @@ code may provide additional sensors not listed here:
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 12 V.
   * Vernier SS temperature probe (V, mV, K, C, F).
+  * Vernier pressure old and new pressure sensors (V, Pa, kPa, Bar, Torr, 
+    mmHg, atm)  
   * Vernier standard pH probe (V, mV, pH).
   * Vernier flat (tris compatible) pH probe (V, mV, pH).
   * Compatible with standard Vernier analog probes. Default calibrations
@@ -140,3 +145,34 @@ install as a special kernel when you are the user.
     1. More information is available in the Jupyter/Ipython documentation. 
     A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
+
+### Change Log
+ * 0.7.0
+    * Switched to plotly widget for plotting.
+    * Added Vernier pressure sensor calibrations (old and new).
+    * Jupyter widgets based new calculated column GUI.
+    * Jupyter widgets based new plot GUI.
+    * Default to providing only one time for channels collected nearly 
+      simultaneously.
+    * As reported values are averages, switched to reporting the estimated 
+      standard deviation of the average rather than the deviation of all the 
+      readings used to create the average.
+ * 0.6.0 
+   * Initial release.
+   * Live data collection.
+   * Recognized sensors: ADS1115 boards (voltage, built-in thermistor, 
+     Vernier SS temperature probe), DAQC2 boards (voltage,Vernier SS 
+     temperature probe, Vernier standard pH probe, Vernier flat pH probe). 
+     
+### License:
+[This software is distributed under the GNU V3 license](https://gnu.org/licenses).
+This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+Copyright - Jonathan Gutow, 2021.

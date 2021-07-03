@@ -3,7 +3,7 @@
 # also allows for annotation, analysis and display of the data using common
 # python tools. Common activities can be done using menus and buttons rather
 # than typing python commands.
-# J. Gutow <gutow@uwosh.edu> March 17, 2019
+# J. Gutow <gutow@uwosh.edu> July 2021
 # license GPL V3 or greater.
 
 ######

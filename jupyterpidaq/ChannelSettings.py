@@ -1,6 +1,6 @@
 # Class that manages getting settings for a channel to use in JupyterPiDAQ
 # By Jonathan Gutow <gutow@uwosh.edu>
-# June 2020
+# July 2021
 # license GPL3+
 
 from ipywidgets import widgets, Layout
