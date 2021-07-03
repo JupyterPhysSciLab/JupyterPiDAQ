@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 setuptools.setup(
     name="JupyterPiDAQ",
     url = "https://github.com/JupyterPhysSciLab/JupyterPiDAQ",
-    version="0.7.0rc0",
+    version="0.7.0rc1",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -27,12 +27,12 @@ setuptools.setup(
         'Adafruit-ADS1x15>=1.0.2',
         'pi-plates>=6.0',
         'numpy>=1.13',
-        'matplotlib>=1.0',
+        #'matplotlib>=1.0',
         'plotly>=4.14.3',
         'jupyter>=1.0.0',
         'jupyter-contrib-nbextensions>=0.5.1',
-        'pandas>=1.0.0'
-        'jupyter-pandas-GUI>=0.5.0'
+        'pandas>=1.0.0',
+        'jupyter-pandas-GUI>=0.5.0',
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
