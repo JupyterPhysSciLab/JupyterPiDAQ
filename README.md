@@ -2,8 +2,8 @@
 [Introduction](#introduction) | [Installation](#installation) | 
 [Change Log](#change-log) | [License](#license)
 ### Introduction:
-This software allows live collection and plotting of 
-analog data in  a Jupyter notebook. The package was initially developed
+This software allows realtime collection and plotting of 
+digitized data in  a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
 the Raspberry Pi.  However, as the development has progressed the data
 acquisition board drivers have been separated out of the user interface,
@@ -16,8 +16,8 @@ also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. You can try the demo mode in binder
-  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD).
-
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD?filepath=usage_examples)
+  
 The goal is for the user interface to be as close to self-explanatory as
  possible. However, documentation is being developed along with some example
   experiments.
@@ -39,8 +39,7 @@ code may provide additional sensors not listed here:
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 12 V.
   * Vernier SS temperature probe (V, mV, K, C, F).
-  * Vernier pressure old and new pressure sensors (V, Pa, kPa, Bar, Torr, 
-    mmHg, atm)  
+  * Vernier old and new pressure sensors (V, Pa, kPa, Bar, Torr, mmHg, atm)  
   * Vernier standard pH probe (V, mV, pH).
   * Vernier flat (tris compatible) pH probe (V, mV, pH).
   * Compatible with standard Vernier analog probes. Default calibrations
@@ -83,7 +82,7 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
    `$ pip install -U JupyterPiDAQ`. This can take a long time, especially on a
    Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
    without at least 1 GB of swap. See: [Build Jupyter on a Pi](
-   https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian)
+   https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian)
    for a discussion of adding swap space on a Pi.
 1. Still within the environment shell test
    this by starting jupyter `$ jupyter notebook`. Jupyter should launch in your browser.

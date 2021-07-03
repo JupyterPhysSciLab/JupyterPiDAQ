@@ -181,6 +181,8 @@ class Board_DAQC2(Board):
             ref.append(DAQC2plate.getADC(self.addr, 8))
         time_stamp = (starttime + endtime) / 2
         ndata = len(value)
+        logging.debug('channel:'+chan+', starttime:'+starttime+', '
+                      'endtime:'+endtime+', ndata:'+ndata+'.')
         V_avg = sum(value) / ndata
         Vdd_avg = sum(ref) / ndata
         stdev = np.std(value, ddof=1, dtype=np.float64)
