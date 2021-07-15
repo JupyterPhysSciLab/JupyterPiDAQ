@@ -23,9 +23,6 @@ logging.basicConfig(filename=logname, level=logging.INFO)
 from IPython import get_ipython
 
 ipython = get_ipython()
-if ipython:
-    ipython.magic("matplotlib notebook")
-# these % magics are important inside the notebook
 print('Importing drivers and searching for available data acquisition '
       'hardware.',end='')
 
