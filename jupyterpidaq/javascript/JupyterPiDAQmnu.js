@@ -107,7 +107,14 @@ function createCmdMenu(){
         optiontxt+='<option title="Calculate new column below current cell.">Calculate new column...</option>';
         optiontxt+='<option title="New plot below current cell.">Insert new plot after selection...</option>';
         newselect.innerHTML=optiontxt;
-        document.getElementById('maintoolbar-container').appendChild(newselect);
+        if(document.getElementById('maintoolbar-container')){ //classic Jupyter
+            document.getElementById('maintoolbar-container').appendChild(newselect);
+        }
+        if(document.getElementsByClassName('jp-NotebookPanel-toolbar')){ //JLab
+            document.getElementsByClassName('jp-NotebookPanel-toolbar')[0]
+            .appendChild(newselect); // If there is more than one only add to
+            //first.
+        }
     }
 }
 
