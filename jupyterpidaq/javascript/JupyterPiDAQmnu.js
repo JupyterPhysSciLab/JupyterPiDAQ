@@ -110,7 +110,8 @@ function createCmdMenu(){
         if(document.getElementById('maintoolbar-container')){ //classic Jupyter
             document.getElementById('maintoolbar-container').appendChild(newselect);
         }
-        if(document.getElementsByClassName('jp-NotebookPanel-toolbar')){ //JLab
+        if(document.getElementsByClassName('jp-NotebookPanel-toolbar')[0]){
+        //JLab
             document.getElementsByClassName('jp-NotebookPanel-toolbar')[0]
             .appendChild(newselect); // If there is more than one only add to
             //first.
