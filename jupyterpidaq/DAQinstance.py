@@ -340,7 +340,7 @@ class DAQinstance():
 
     def updatingplot(self):
         """
-        Runs until a check of self.collectbtn.description does not return
+        Runs until a check of self.collectbtn.desdcf63064cription does not return
         'Stop Collecting'. This would probably be more efficient if set a
         boolean.
         """
