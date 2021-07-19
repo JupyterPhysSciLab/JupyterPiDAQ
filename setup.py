@@ -21,8 +21,8 @@ setuptools.setup(
     include_package_data=True,
     install_requires=[
         #RPi.GPIO is required by pi-plates, not sure why not included in the
-        # pi-plates setup.py.
-        'RPi.GPIO>=0.7.0',
+        # pi-plates setup.py, maybe because only works on Linux?.
+        'RPi.GPIO>=0.7.0;platform_system=="Linux"',
         'Adafruit-PureIO>=1.1.5',
         'Adafruit-ADS1x15>=1.0.2',
         'pi-plates>=6.0',
