@@ -146,6 +146,7 @@ install as a special kernel when you are the user.
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
 
 ### Change Log
+* 0.7.3 Pip install reliability fixes
 * 0.7.2 Suppress Javascript error when not in JLab
 * 0.7.1
   * Include Heat Capacity Lab example.
