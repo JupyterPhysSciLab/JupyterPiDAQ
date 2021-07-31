@@ -132,7 +132,7 @@ class DAQinstance():
         self.idno = idno
         self.livefig = livefig
         self.title = str(title)
-        self.averaging_time = 0.1  # seconds
+        self.averaging_time = 0.1  # seconds adjusted based on collection rate
         self.gain = [1] * ntraces
         self.data = []
         self.timestamp = []
@@ -147,7 +147,7 @@ class DAQinstance():
         self.units = []
         for i in range(self.ntraces):
             self.traces.append(ChannelSettings(i, availboards))
-        self.ratemax = 3.0  # Hz
+        self.ratemax = 20.0  # Hz
         self.rate = 1.0  # Hz
         self.deltamin = 1 / self.ratemax
         self.delta = 1.0 / self.rate
@@ -396,6 +396,10 @@ class DAQinstance():
                 active_count += 1
         #print('whichchn: '+str(whichchn))
         #print('gains: '+str(gains))
+        # Use up to 30% of the time for averaging if channels were spaced
+        # evenly between data collection times (with DACQ2 they appear
+        # more synchronous than that).
+        self.averaging_time = self.delta/nactive/3
         DAQ = Process(target=DAQProc,
                       args=(
                       whichchn, gains, self.averaging_time, self.delta,
