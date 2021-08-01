@@ -28,7 +28,7 @@ setuptools.setup(
         'pi-plates>=7.21',
         'numpy>=1.21',
         #'matplotlib>=1.0',
-        'plotly>=5.1.0',
+        'plotly==4.14.3', # 8-2021: 5.XX series fails on save widget state.
         'jupyter>=1.0.0',
         'jupyter-contrib-nbextensions>=0.5.1',
         'pandas>=1.3.0',
