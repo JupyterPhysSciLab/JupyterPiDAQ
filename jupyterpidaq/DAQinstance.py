@@ -123,10 +123,10 @@ class DAQinstance():
         :param title:
         :param ntraces:
         :param kwargs:
-            :ignore_skew: bool if True only a single average collection time
-            will be recorded for each time in a multichannel data
-            collection. If False a separate set of time will be recorded for
-            each channel.
+            :ignore_skew: bool (default: True) if True only a single average
+            collection time will be recorded for each time in a multichannel
+            data collection. If False a separate set of time will be
+            recorded for each channel.
         """
         self.ignore_skew = kwargs.pop('ignore_skew',True)
         self.idno = idno
