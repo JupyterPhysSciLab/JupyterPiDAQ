@@ -117,11 +117,13 @@ except FileNotFoundError:
 class DAQinstance():
     def __init__(self, idno, livefig, title='None', ntraces=4, **kwargs):
         """
+        Data Aquistion Instance (a run).
 
-        :param idno:
-        :param livefig:
-        :param title:
-        :param ntraces:
+        :param idno : id number you wish to use to keep track
+        :param livefig: plotly FigureWidget to use for live display
+        :param title: optional name
+        :param ntraces: number of traces (default = 4) more than 4 easily
+            overwhelms a pi4.
         :param kwargs:
             :ignore_skew: bool (default: True) if True only a single average
             collection time will be recorded for each time in a multichannel
