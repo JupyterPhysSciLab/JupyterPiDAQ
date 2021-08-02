@@ -117,22 +117,24 @@ except FileNotFoundError:
 class DAQinstance():
     def __init__(self, idno, livefig, title='None', ntraces=4, **kwargs):
         """
+        Data Aquistion Instance (a run).
 
-        :param idno:
-        :param livefig:
-        :param title:
-        :param ntraces:
+        :param idno : id number you wish to use to keep track
+        :param livefig: plotly FigureWidget to use for live display
+        :param title: optional name
+        :param ntraces: number of traces (default = 4) more than 4 easily
+            overwhelms a pi4.
         :param kwargs:
-            :ignore_skew: bool if True only a single average collection time
-            will be recorded for each time in a multichannel data
-            collection. If False a separate set of time will be recorded for
-            each channel.
+            :ignore_skew: bool (default: True) if True only a single average
+            collection time will be recorded for each time in a multichannel
+            data collection. If False a separate set of time will be
+            recorded for each channel.
         """
         self.ignore_skew = kwargs.pop('ignore_skew',True)
         self.idno = idno
         self.livefig = livefig
         self.title = str(title)
-        self.averaging_time = 0.1  # seconds
+        self.averaging_time = 0.1  # seconds adjusted based on collection rate
         self.gain = [1] * ntraces
         self.data = []
         self.timestamp = []
@@ -147,7 +149,7 @@ class DAQinstance():
         self.units = []
         for i in range(self.ntraces):
             self.traces.append(ChannelSettings(i, availboards))
-        self.ratemax = 3.0  # Hz
+        self.ratemax = 20.0  # Hz
         self.rate = 1.0  # Hz
         self.deltamin = 1 / self.ratemax
         self.delta = 1.0 / self.rate
@@ -396,6 +398,10 @@ class DAQinstance():
                 active_count += 1
         #print('whichchn: '+str(whichchn))
         #print('gains: '+str(gains))
+        # Use up to 30% of the time for averaging if channels were spaced
+        # evenly between data collection times (with DACQ2 they appear
+        # more synchronous than that).
+        self.averaging_time = self.delta/nactive/3
         DAQ = Process(target=DAQProc,
                       args=(
                       whichchn, gains, self.averaging_time, self.delta,
