@@ -1,4 +1,4 @@
-[Introduction](#introdcution) | [Installation](Installation.md) | 
+[Introduction](#introduction) | [Installation](Installation.md) | 
 [Usage](#usage) |
 ### Introduction
  This software allows realtime collection and plotting of 
@@ -15,6 +15,10 @@ Python 3.6+. You can try the demo mode without installing on your own
  Example notebooks can be found in the "usage_examples" folder.
 
 ### Usage
+[Launch the software](#starting-jupyterpidaq) |
+[Collect data]() | 
+[Analyze data]() | 
+[Plotting data]()
 #### Starting JupyterPiDAQ
 A working Jupyter notebook installation with JupyterPiDAQ installed is
 required. If you need to install the software see the [Installation 
