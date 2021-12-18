@@ -1,8 +1,8 @@
 ## Installation
-Initial setup: [On Raspberry Pi](raspberry-pi-initial-setup) | 
-[On non-Pi Systems](non-pi-based-system-initial-setup)
+Initial setup: [On Raspberry Pi](#raspberry-pi-initial-setup) | 
+[On non-Pi Systems](#non-pi-based-system-initial-setup)
 
-[Final Set up](final-set-up)
+[Final Set up](#final-set-up)
 ### Raspberry Pi Initial Setup
 Unless you only want to run in Demo mode make sure you have one of the 
 compatible interface boards installed. The current options are:
@@ -14,8 +14,8 @@ also available from other vendors);
   and the `Boards` subpackage of `jupyterpidaq` for examples and 
   information on how to define the code interface for a board.
 
-OS specific: [Ubuntu on Pi](ubuntu-on-pi) | 
-[Raspberrian on Pi](raspberrian-on-pi)
+OS specific: [Ubuntu on Pi](#_ubuntu-on-pi_) | 
+[Raspberrian on Pi](#_raspberrian-on-pi_)
 #### _Ubuntu on Pi_
 
 By default in Ubuntu 20.04 for Pis the gpio and spi groups do not exist.
@@ -48,7 +48,7 @@ instructions at [python.org](https://python.org).
 #### _Generic Linux_
 If your system hardware 
 has GPIO pins and a GPIO interface board, you should try following the 
-instructions for a [Pi based system](raspberry-pi-initial-setup) above. If 
+instructions for a [Pi based system](#raspberry-pi-initial-setup) above. If 
 you figure out how to make this work on other SBCs or systems with GPIO, 
 please submit a pull request updating these instructions.
 #### _MacOS_

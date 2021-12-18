@@ -22,7 +22,7 @@ Instructions](Installation.md). There are two common ways this may be set
 up, that lead to slightly different steps for starting the software:
 1. __A special kernel__ may be set up that can be used in any Jupyter notebook 
    install for the current user (see the end of the
-   [Installation instruction](installation.md)). 
+   [Installation instruction](Installation.md)). 
     1. In this case launch
    Jupyter, in which ever directory you want to work, using the 
    command: `jupyter notebook`.
@@ -39,7 +39,7 @@ up, that lead to slightly different steps for starting the software:
    starting the software.
     2. Then enter the virtual environment with the command `pipenv shell`. 
        This assumes you set up `pipenv` as described in the 
-       [Installation instructions](installation.md).
+       [Installation instructions](Installation.md).
     3. Launch Jupyter using the command: `jupyter notebook`.
     4. Open a new python notebook.
     5. Initialize the data acquisition 
