@@ -15,7 +15,8 @@ for Raspberry Pis:
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
 * A demo mode will run on any computer with a Jupyter notebook install and
-Python 3.6+. You can try the demo mode in binder
+Python 3.6+. You can try the demo mode without installing on your own 
+  computer by launching an instance on the MyBinder servers:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD?filepath=usage_examples)
   
 The goal is for the user interface to be as close to self-explanatory as
