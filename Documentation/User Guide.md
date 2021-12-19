@@ -1,5 +1,5 @@
 [Introduction](#introduction) | 
-[Usage](#usage) |
+[Usage](#usage)
 ### Introduction
  This software allows realtime collection and plotting of 
 digitized data in  a Jupyter notebook using either of the following two
