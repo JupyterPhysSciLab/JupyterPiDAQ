@@ -46,9 +46,6 @@ up, that lead to slightly different steps for starting the software:
        [Installation instructions](Installation.md).
     3. Launch Jupyter using the command: `jupyter notebook`.
     4. Open a new python notebook.
-    5. Initialize the data acquisition 
-       tools by putting the statement `from jupyterpidaq.DAQinstance import 
-       *` into the first cell and clicking on the 'Run' button.
 #### Initialize the Data Acquisition Tools
 Initialize the data acquisition tools by putting the statement `from 
 jupyterpidaq.DAQinstance import *` into the first cell and clicking on the 
