@@ -1,4 +1,4 @@
-[Introduction](#introduction) | [Installation](Installation.md) | 
+[Introduction](#introduction) | 
 [Usage](#usage) |
 ### Introduction
  This software allows realtime collection and plotting of 
