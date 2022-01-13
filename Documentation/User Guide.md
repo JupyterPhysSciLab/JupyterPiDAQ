@@ -83,15 +83,15 @@ __Figure 2__: Image of the GUI for setting up a data collection run.
 3. Once a trace is activated you can give it a title and must select: the 
    data acquisition board, channel, sensor, units and gain from the 
    available drop-down menus.
-4. Once your traces are set up decide whether they should be displayed in 
+4. Once all your traces are set up decide whether they should be displayed in 
    multiple stacked graphs or all on the same graph. Uncheck the box to 
    display all on one graph.
 5. Select the data collection rate (3 Hz is currently the maximum rate).
-6. When everything is set they way you wish, click on the "Set Parameters" 
+6. When everything is set the way you wish, click on the "Set Parameters" 
    button. The collection parameters will be displayed and a button to 
    start the data collection will appear.
 7. The "start" button will convert to a "stop" button once data collection 
-   is started. The data graph(s) will update a roughly 1 Hz, so you can 
+   is started. The data graph(s) will update at roughly 1 Hz, so you can 
    monitor the progress of the data collection.
 8. Click the "stop" button to end data collection. It can take 
    a while to stop if the data collection has got ahead of the graphic 

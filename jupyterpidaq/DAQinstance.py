@@ -257,10 +257,13 @@ class DAQinstance():
         self.defaultparamtxt += '</tr></table>'
         self.defaultparamtxt += '</div>'
         self.runtitle.close()
+        del self.runtitle
         self.setup_layout.close()
-        display(HTML(self.defaultparamtxt))
+        del self.setup_layout
+        display(HTML(self.defaultcollecttxt))
         self.collectbtn.on_click(self.collectclick)
         display(self.collectbtn)
+        display(HTML(self.defaultparamtxt))
 
     def setup(self):
         self.setupbtn.on_click(self.setupclick)
@@ -296,7 +299,8 @@ class DAQinstance():
                                                       time.localtime()) + '.csv'
             self.pandadf.to_csv(svname)
             self.collectbtn.close()
-            display(self.collecttxt)
+            del self.collectbtn
+            #display(self.collecttxt)
             display(HTML(
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
                 svname + '</span>'))
