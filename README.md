@@ -147,6 +147,10 @@ install as a special kernel when you are the user.
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
 
 ### Change Log
+* 0.7.4.1
+  * Improved layout of data collection
+  * Better widget cleanup
+  * Readme fixes
 * 0.7.3 Pip install reliability fixes
 * 0.7.2 Suppress Javascript error when not in JLab
 * 0.7.1
@@ -163,12 +167,12 @@ install as a special kernel when you are the user.
     * As reported values are averages, switched to reporting the estimated 
       standard deviation of the average rather than the deviation of all the 
       readings used to create the average.
- * 0.6.0 
-   * Initial release.
-   * Live data collection.
-   * Recognized sensors: ADS1115 boards (voltage, built-in thermistor, 
-     Vernier SS temperature probe), DAQC2 boards (voltage,Vernier SS 
-     temperature probe, Vernier standard pH probe, Vernier flat pH probe). 
+* 0.6.0 
+  * Initial release.
+  * Live data collection.
+  * Recognized sensors: ADS1115 boards (voltage, built-in thermistor, 
+    Vernier SS temperature probe), DAQC2 boards (voltage,Vernier SS 
+    temperature probe, Vernier standard pH probe, Vernier flat pH probe). 
      
 ### License:
 [This software is distributed under the GNU V3 license](https://gnu.org/licenses).
