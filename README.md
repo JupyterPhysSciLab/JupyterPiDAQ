@@ -17,7 +17,7 @@ also available from other vendors);
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. You can try the demo mode without installing on your own 
   computer by launching an instance on the MyBinder servers:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD?filepath=usage_examples)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD?urlpath=/tree/usage_examples)
   
 The goal is for the user interface to be as close to self-explanatory as
  possible. However, documentation is being developed along with some example
