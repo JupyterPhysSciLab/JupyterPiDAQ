@@ -2,7 +2,7 @@
 
 1. Copy an existing sensor class paste it into the end of
 sensors.py and rename it.
-1. Update/delete functions for each valid uint within the new
+1. Update/delete functions for each valid unit within the new
 class as necessary.
 1. Update the sensor name, vendor and available units in the
 `__init__` function.
