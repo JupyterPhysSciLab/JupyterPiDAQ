@@ -1,9 +1,12 @@
 ## Installation
+
 Initial setup: [On Raspberry Pi](#raspberry-pi-initial-setup) | 
 [On non-Pi Systems](#non-pi-based-system-initial-setup)
 
 [Final Set up](#final-set-up)
+
 ### Raspberry Pi Initial Setup
+
 Unless you only want to run in Demo mode make sure you have one of the 
 compatible interface boards installed. The current options are:
 * Adafruit compliant ADS1115 boards 
@@ -16,7 +19,8 @@ also available from other vendors);
 
 OS specific: [Ubuntu on Pi](#_ubuntu-on-pi_) | 
 [Raspberrian on Pi](#_raspberrian-on-pi_)
-#### _Ubuntu on Pi_
+
+#### *Ubuntu on Pi*
 
 By default in Ubuntu 20.04 for Pis the gpio and spi groups do not exist.
 The i2c group does (not always).
@@ -40,21 +44,30 @@ python3-pigpio python3-gpiozero python3-rpi.gpio`.
    python 3: `python3 -m pip --version` or `pip3 --version`. If you do not, 
    install using `apt 
    install python3-pip`.
-#### _Raspberrian on Pi_
+7. 
+#### *Raspberrian on Pi*
+
 (TBD)
+
 ### Non-Pi based System Initial Setup
+
 Make sure that Python >=3.6 is installed: `python3 -v`. If not follow 
 instructions at [python.org](https://python.org).
-#### _Generic Linux_
+
+#### *Generic Linux*
+
 If your system hardware 
 has GPIO pins and a GPIO interface board, you should try following the 
 instructions for a [Pi based system](#raspberry-pi-initial-setup) above. If 
 you figure out how to make this work on other SBCs or systems with GPIO, 
 please submit a pull request updating these instructions.
-#### _MacOS_
-#### _Windows (Please, no.....)_
+
+#### *MacOS*
+
+#### *Windows (Please, no.....)*
 
 ### Final Set Up
+
 Make sure the user you will be running the software under is a member of the 
 groups `dialout`, `spi` and if it exists`i2c`. It is recommended that you 
 install JupyterPiDAQ in its own 

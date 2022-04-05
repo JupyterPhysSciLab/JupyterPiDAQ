@@ -24,7 +24,9 @@
 
         <h2>Contents</h2>
         <ul>
+  <li><a href="#user-guide">User Guide</a></li>
   <li><a href="#installation">Installation</a></li>
+  <li><a href="#development-notes">Development Notes</a></li>
 </ul>
 
 
@@ -52,7 +54,9 @@
                     <h1 class="modulename">
 jupyterpidaq    </h1>
 
-                        <div class="docstring"><p><a href="#introduction">Introduction</a> | 
+                        <div class="docstring"><h2 id="user-guide">User Guide</h2>
+
+<p><a href="#introduction">Introduction</a> | 
 <a href="#usage">Usage</a></p>
 
 <h3 id="introduction">Introduction</h3>
@@ -261,7 +265,7 @@ information on how to define the code interface for a board.</li>
 <p>OS specific: <a href="#_ubuntu-on-pi_">Ubuntu on Pi</a> | 
 <a href="#_raspberrian-on-pi_">Raspberrian on Pi</a></p>
 
-<h4 id="_ubuntu-on-pi_">_Ubuntu on Pi_</h4>
+<h4 id="ubuntu-on-pi"><em>Ubuntu on Pi</em></h4>
 
 <p>By default in Ubuntu 20.04 for Pis the gpio and spi groups do not exist.
 The i2c group does (not always).</p>
@@ -285,8 +289,9 @@ and read permission for everyone else.</li>
 <li>Make sure you have <a href="https://pip.pypa.io/en/stable/">pip</a> installed for 
 python 3: <code>python3 -m pip --version</code> or <code>pip3 --version</code>. If you do not, 
 install using <code>apt 
-install python3-pip</code>.
-<h4 id="_raspberrian-on-pi_">_Raspberrian on Pi_</h4></li>
+install python3-pip</code>.</li>
+<li>
+<h4 id="raspberrian-on-pi"><em>Raspberrian on Pi</em></h4></li>
 </ol>
 
 <p>(TBD)</p>
@@ -296,7 +301,7 @@ install python3-pip</code>.
 <p>Make sure that Python &gt;=3.6 is installed: <code>python3 -v</code>. If not follow 
 instructions at <a href="https://python.org">python.org</a>.</p>
 
-<h4 id="_generic-linux_">_Generic Linux_</h4>
+<h4 id="generic-linux"><em>Generic Linux</em></h4>
 
 <p>If your system hardware 
 has GPIO pins and a GPIO interface board, you should try following the 
@@ -304,9 +309,9 @@ instructions for a <a href="#raspberry-pi-initial-setup">Pi based system</a> abo
 you figure out how to make this work on other SBCs or systems with GPIO, 
 please submit a pull request updating these instructions.</p>
 
-<h4 id="_macos_">_MacOS_</h4>
+<h4 id="macos"><em>MacOS</em></h4>
 
-<h4 id="_windows-please-no_">_Windows (Please, no.....)_</h4>
+<h4 id="windows-please-no"><em>Windows (Please, no.....)</em></h4>
 
 <h3 id="final-set-up">Final Set Up</h3>
 
@@ -363,6 +368,8 @@ found <a href="https://janakiev.com/til/jupyter-virtual-envs/">here</a>. </li>
 </ol></li>
 </ol>
 
+<h2 id="development-notes">Development Notes</h2>
+
 <h3 id="adding-new-sensor-code">Adding New Sensor Code</h3>
 
 <ol>
@@ -374,17 +381,20 @@ class as necessary.</li>
 <code>__init__</code> function.</li>
 <li>Add the new sensor classname to the list of available sensors
 in <code>listSensors</code> at about line 120 of sensors.py.</li>
-<li><p>Add the new sensor classname to <code>getsensors</code> of ADCsim.py,
+<li>Add the new sensor classname to <code>getsensors</code> of ADCsim.py,
 ADCsim_line.py and any board (e.g. DAQC2.py) with which the sensor
-can be used. _Do not guess if a sensor works with a particular
-board. Test it!_</p>
+can be used. <em>Do not guess if a sensor works with a particular
+board. Test it!</em></li>
+</ol>
 
-<h3 id="running-tests">Running Tests</h3></li>
-<li><p>Install updated pytest in the virtual environment:</p>
+<h3 id="running-tests">Running Tests</h3>
 
-<pre><code>pipenv shell
+<ol>
+<li>Install updated pytest in the virtual environment:
+<code>
+pipenv shell
 pip install -U pytest
-</code></pre></li>
+</code></li>
 <li>Run tests ignoring the manual tests in the <code>dev_testing</code> directory:
 <code>python -m pytest --ignore='dev_testing'</code>.</li>
 </ol>
@@ -434,6 +444,18 @@ environment.</li>
 <li>Make sure it works by installing it in a clean virtual environment. This
 is the same as on test.pypi.org except without <code>-i https://test.pypy...</code>. If
 it does not work, pull the release.</li>
+</ol>
+
+<h3 id="building-documentation">Building Documentation</h3>
+
+<ol>
+<li>Install or update pdoc into the virtual environment <code>pip install -U pdoc</code>.</li>
+<li>Make edits to the <code>.md</code> files within the docs folder that are to be 
+included in the first page (see <code>__init__.py</code> of the jupyterpidaq package).</li>
+<li>At the root level run <code>pdoc --logo docs/XXX.svg --logo-link 
+https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
+"JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq</code> Unless you are on a 
+Raspbery Pi this will throw an error about <code>import RPi.GPIO</code>. Just ignore.</li>
 </ol>
 </div>
 

@@ -1,17 +1,20 @@
+## Development Notes
+
 ### Adding New Sensor Code
 
 1. Copy an existing sensor class paste it into the end of
 sensors.py and rename it.
-1. Update/delete functions for each valid unit within the new
+2. Update/delete functions for each valid unit within the new
 class as necessary.
-1. Update the sensor name, vendor and available units in the
+3. Update the sensor name, vendor and available units in the
 `__init__` function.
-1. Add the new sensor classname to the list of available sensors
+4. Add the new sensor classname to the list of available sensors
 in `listSensors` at about line 120 of sensors.py.
-1. Add the new sensor classname to `getsensors` of ADCsim.py,
+5. Add the new sensor classname to `getsensors` of ADCsim.py,
 ADCsim_line.py and any board (e.g. DAQC2.py) with which the sensor
-can be used. _Do not guess if a sensor works with a particular
-board. Test it!_
+can be used. *Do not guess if a sensor works with a particular
+board. Test it!*
+
 ### Running Tests
 
 1. Install updated pytest in the virtual environment:
@@ -57,8 +60,18 @@ board. Test it!_
 Proceed only if testing of the build is successful.
 
 1. Double check the version number in setup.py.
-1. Rebuild the release: `python -m setup sdist bdist_wheel`.
-1. Upload it: `python -m twine upload dist/*`
-1. Make sure it works by installing it in a clean virtual environment. This
+2. Rebuild the release: `python -m setup sdist bdist_wheel`.
+3. Upload it: `python -m twine upload dist/*`
+4. Make sure it works by installing it in a clean virtual environment. This
    is the same as on test.pypi.org except without `-i https://test.pypy...`. If
    it does not work, pull the release.
+
+### Building Documentation
+
+1. Install or update pdoc into the virtual environment `pip install -U pdoc`.
+2. Make edits to the `.md` files within the docs folder that are to be 
+   included in the first page (see `__init__.py` of the jupyterpidaq package).
+3. At the root level run `pdoc --logo docs/XXX.svg --logo-link 
+   https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
+   "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq` Unless you are on a 
+   Raspbery Pi this will throw an error about `import RPi.GPIO`. Just ignore.
