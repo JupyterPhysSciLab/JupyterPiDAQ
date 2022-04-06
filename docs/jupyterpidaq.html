@@ -17,7 +17,7 @@
         <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
         <input id="togglestate" type="checkbox" aria-hidden="true" tabindex="-1">
         <div>
-<a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/">            <img src="JupyterPiDAQ-logo.svg" class="logo" alt="project logo"/>
+<a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/">            <img src="https://jupyterphysscilab.github.io/JupyterPiDAQ/JupyterPiDAQ-logo.svg" class="logo" alt="project logo"/>
 </a>
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
@@ -452,7 +452,8 @@ it does not work, pull the release.</li>
 <li>Install or update pdoc into the virtual environment <code>pip install -U pdoc</code>.</li>
 <li>Make edits to the <code>.md</code> files within the docs folder that are to be 
 included in the first page (see <code>__init__.py</code> of the jupyterpidaq package).</li>
-<li>At the root level run <code>pdoc --logo docs/JupyterPiDAQ-logo.svg --logo-link 
+<li>At the root level run <code>pdoc 
+--logo https://jupyterphysscilab.github.io/JupyterPiDAQ/JupyterPiDAQ-logo.svg --logo-link 
 https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
 "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq</code> Unless you are on a 
 Raspbery Pi this will throw an error about <code>import RPi.GPIO</code>. Just ignore.</li>

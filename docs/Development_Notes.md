@@ -71,7 +71,8 @@ Proceed only if testing of the build is successful.
 1. Install or update pdoc into the virtual environment `pip install -U pdoc`.
 2. Make edits to the `.md` files within the docs folder that are to be 
    included in the first page (see `__init__.py` of the jupyterpidaq package).
-3. At the root level run `pdoc --logo docs/JupyterPiDAQ-logo.svg --logo-link 
+3. At the root level run `pdoc 
+--logo https://jupyterphysscilab.github.io/JupyterPiDAQ/JupyterPiDAQ-logo.svg --logo-link 
    https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
    "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq` Unless you are on a 
    Raspbery Pi this will throw an error about `import RPi.GPIO`. Just ignore.
