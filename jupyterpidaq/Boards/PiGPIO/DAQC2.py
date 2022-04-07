@@ -7,7 +7,11 @@ import numpy as np
 
 import logging
 
-from piplates import DAQC2plate
+try:
+    from piplates import DAQC2plate
+except RuntimeError as e:
+    print("DAQC2plate: "+str(e))
+    DAQC2plate = None
 
 from jupyterpidaq.Boards import Board
 
