@@ -13,12 +13,13 @@ compatible interface boards installed. The current options are:
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
-* If you wish to use different interfaces  see the [Development Notes](Development_Notes.md)
+* If you wish to use different interfaces  see the [Development
+ Notes](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#development-notes)
   and the `Boards` subpackage of `jupyterpidaq` for examples and 
   information on how to define the code interface for a board.
 
-OS specific: [Ubuntu on Pi](#_ubuntu-on-pi_) | 
-[Raspberrian on Pi](#_raspberrian-on-pi_)
+OS specific: [Ubuntu on Pi](#*ubuntu-on-pi*) | 
+[Raspberrian on Pi](#*raspberrian-on-pi*)
 
 #### *Ubuntu on Pi*
 
@@ -52,15 +53,26 @@ python3-pigpio python3-gpiozero python3-rpi.gpio`.
 ### Non-Pi based System Initial Setup
 
 Make sure that Python >=3.6 is installed: `python3 -v`. If not follow 
-instructions at [python.org](https://python.org).
+instructions at [python.org](https://python.org). This software should run 
+on any computer capable of supporting the necessary version of Python. 
+Howevever, it will only run in demo mode if the computer does not support 
+one of the compatible A-to-D boards.
 
 #### *Generic Linux*
 
-If your system hardware 
+* If your system hardware 
 has GPIO pins and a GPIO interface board, you should try following the 
 instructions for a [Pi based system](#raspberry-pi-initial-setup) above. If 
 you figure out how to make this work on other SBCs or systems with GPIO, 
 please submit a pull request updating these instructions.
+* If your system hardware does not support GPIO and one of the compatible 
+  interface boards, the software will run in demo mode.
+
+NOTE: If a binary distribution (whl or wheel) is not available for your
+platform, some of the required packages may need to be compiled. If you get
+compilation errors when installing try getting the python header and 
+development files for your platform. To get them on most *nix platforms use the
+command `$ sudo apt install python3-dev`.
 
 #### *MacOS*
 
