@@ -165,10 +165,11 @@ The GUI destroys itself once you complete step 4.
 
 ##### Fitting data
 
-There is not yet a menu item, but a GUI for defining fits (linear, 
-polynomial, exponential decay, sine and Gaussian) is accessible by issuing the 
-command 
-`fit_pandas_GUI()` in an empty cell.
+A GUI for defining simple fits (linear, polynomial, exponential decay, sine 
+and Gaussian) can be launched by selecting "Insert new Fit after selection..
+." from the menu. This will create the GUI to lead you through selecting 
+and fitting the data. The code is created in the cell immediately below the 
+GUI.
 
 ![Fit Pandas GUI](fit_gaussian_tab1.png)
 

@@ -585,3 +585,15 @@ def newPlot():
                         str(runs[i].title)])
     plot_pandas_GUI(df_info)
     pass
+
+def newFit():
+    """
+    Uses jupyter-pandas-GUI.fit_pandas_GUI to provide a GUI expression
+    composer. This method finds the datasets and launches the GUI.
+    """
+    df_info = []
+    for i in range(len(runs)):
+        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                        str(runs[i].title)])
+    fit_pandas_GUI(df_info)
+    pass
