@@ -1,3 +1,4 @@
+## Three Channel Adapter Board for Vernier Sensors
 ### Board plans
 ![board plans](VernierAdapter.svg)
 ### Etching the board

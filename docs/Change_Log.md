@@ -24,4 +24,4 @@
   * Live data collection.
   * Recognized sensors: ADS1115 boards (voltage, built-in thermistor, 
     Vernier SS temperature probe), DAQC2 boards (voltage,Vernier SS 
-    temperature probe, Vernier standard pH probe, Vernier flat pH probe). 
+    temperature probe, Vernier standard pH probe, Vernier flat pH probe).
