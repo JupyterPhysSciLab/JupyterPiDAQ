@@ -30,9 +30,10 @@ def find_boards():
     """
     boards = []
     tmpmod = None
-    for addr in range(len(DAQC2plate.daqc2sPresent)):
-        if DAQC2plate.daqc2sPresent[addr] == 1:
-            boards.append(Board_DAQC2(addr))
+    if DAQC2plate:
+        for addr in range(len(DAQC2plate.daqc2sPresent)):
+            if DAQC2plate.daqc2sPresent[addr] == 1:
+                boards.append(Board_DAQC2(addr))
     return boards
 
 
