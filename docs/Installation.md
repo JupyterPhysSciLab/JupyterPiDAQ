@@ -45,7 +45,7 @@ python3-pigpio python3-gpiozero python3-rpi.gpio`.
    python 3: `python3 -m pip --version` or `pip3 --version`. If you do not, 
    install using `apt 
    install python3-pip`.
-7. 
+
 #### *Raspberrian on Pi*
 
 (TBD)

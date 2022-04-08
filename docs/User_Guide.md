@@ -31,27 +31,27 @@ Python 3.6+. You can try the demo mode without installing on your own
 
 A working Jupyter notebook installation with JupyterPiDAQ installed is
 required. If you need to install the software see the [Installation 
-Instructions](Installation.html). There are two common ways this may be set 
+Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation). There are two common ways this may be set 
 up, that lead to slightly different steps for starting the software:
 1. *A special kernel* may be set up that can be used in any Jupyter notebook 
-   install for the current user (see the end of the
-   [Installation instruction](Installation.html)). 
-    1. In this case launch
+   install for the current user (see the very end of the
+   [Installation Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation)). 
+   * In this case launch
    Jupyter, in which ever directory you want to work, using the 
    command: `jupyter notebook`.
-    2. Open a new notebook and choose the kernel 
+   * Open a new notebook and choose the kernel 
    for `JupyterPiDAQ`. The kernel name will depend upon what was chosen 
    during installation.
 2. **Only for use within the directory structure of the virtual environment** 
    that was set up for the software. 
-    1. In this case you must navigate to the 
+   * In this case you must navigate to the 
    directory of the virtual environment using the `cd` command before 
    starting the software.
-    2. Then enter the virtual environment with the command `pipenv shell`. 
+   * Then enter the virtual environment with the command `pipenv shell`. 
        This assumes you set up `pipenv` as described in the 
-       [Installation instructions](Installation.html).
-    3. Launch Jupyter using the command: `jupyter notebook`.
-    4. Open a new python notebook.
+       [Installation instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation).
+   * Launch Jupyter using the command: `jupyter notebook`.
+   * Open a new python notebook.
 
 #### Initialize the Data Acquisition Tools
 

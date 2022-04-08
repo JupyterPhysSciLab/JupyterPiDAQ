@@ -1,4 +1,4 @@
-### Releases
+## Change Log
 * 0.7.4.1
   * Improved layout of data collection
   * Better widget cleanup

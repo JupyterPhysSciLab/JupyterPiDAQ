@@ -127,3 +127,4 @@ Proceed only if testing of the build is successful.
    https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
    "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq` Unless you are on a 
    Raspbery Pi this will throw an error about `import`. Just ignore.
+
