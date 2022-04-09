@@ -1,14 +1,22 @@
 ## Change Log
+* 0.7.5
+  * Added fitting to DAQ command menu.
+  * Documentation Enhancements:
+    * github.io website.
+    * First pass as API docs.
+    * Reorganized documentation.
+    * MyBinder link now forces launch in classic notebook.
+    * Added plans for adapter board to connect Vernier Sensors.
 * 0.7.4.1
-  * Improved layout of data collection
-  * Better widget cleanup
-  * Readme fixes
-* 0.7.3 Pip install reliability fixes
-* 0.7.2 Suppress Javascript error when not in JLab
+  * Improved layout of data collection.
+  * Better widget cleanup.
+  * Readme fixes.
+* 0.7.3 Pip install reliability fixes.
+* 0.7.2 Suppress Javascript error when not in JLab.
 * 0.7.1
   * Include Heat Capacity Lab example.
-  * Make menu show up in JLab (still not functional)
-  * Remove matplotlib baggage  
+  * Make menu show up in JLab (still not functional).
+  * Remove matplotlib baggage.
 * 0.7.0
     * Switched to plotly widget for plotting.
     * Added Vernier pressure sensor calibrations (old and new).

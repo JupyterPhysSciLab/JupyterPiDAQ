@@ -76,10 +76,13 @@
             <li>
                     <a class="function" href="#newPlot">newPlot</a>
             </li>
+            <li>
+                    <a class="function" href="#newFit">newFit</a>
+            </li>
     </ul>
 
 
-            <footer>JupyterPiDAQ v0.7.4.1</footer>
+            <footer>JupyterPiDAQ v0.7.5</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev">
             built with <span class="visually-hidden">pdoc</span><img
@@ -682,6 +685,18 @@
         <span class="n">df_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pandadf</span><span class="p">,</span> <span class="s1">&#39;runs[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;].pandadf&#39;</span><span class="p">,</span>
                         <span class="nb">str</span><span class="p">(</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">)])</span>
     <span class="n">plot_pandas_GUI</span><span class="p">(</span><span class="n">df_info</span><span class="p">)</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">newFit</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses jupyter-pandas-GUI.fit_pandas_GUI to provide a GUI expression</span>
+<span class="sd">    composer. This method finds the datasets and launches the GUI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">runs</span><span class="p">)):</span>
+        <span class="n">df_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pandadf</span><span class="p">,</span> <span class="s1">&#39;runs[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;].pandadf&#39;</span><span class="p">,</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">)])</span>
+    <span class="n">fit_pandas_GUI</span><span class="p">(</span><span class="n">df_info</span><span class="p">)</span>
     <span class="k">pass</span>
 </pre></div>
 
@@ -1803,6 +1818,37 @@ composer. This method finds the datasets and launches the GUI.</p>
         </details>
 
             <div class="docstring"><p>Uses jupyter-pandas-GUI.plot_pandas_GUI to provide a GUI expression
+composer. This method finds the datasets and launches the GUI.</p>
+</div>
+
+
+                </section>
+                <section id="newFit">
+                            <div class="attr function"><a class="headerlink" href="#newFit">#&nbsp;&nbsp</a>
+
+        
+            <span class="def">def</span>
+            <span class="name">newFit</span><span class="signature">()</span>:
+    </div>
+
+            <details>
+            <summary>View Source</summary>
+            <div class="pdoc-code codehilite"><pre><span></span><span class="k">def</span> <span class="nf">newFit</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses jupyter-pandas-GUI.fit_pandas_GUI to provide a GUI expression</span>
+<span class="sd">    composer. This method finds the datasets and launches the GUI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">runs</span><span class="p">)):</span>
+        <span class="n">df_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pandadf</span><span class="p">,</span> <span class="s1">&#39;runs[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;].pandadf&#39;</span><span class="p">,</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">runs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">)])</span>
+    <span class="n">fit_pandas_GUI</span><span class="p">(</span><span class="n">df_info</span><span class="p">)</span>
+    <span class="k">pass</span>
+</pre></div>
+
+        </details>
+
+            <div class="docstring"><p>Uses jupyter-pandas-GUI.fit_pandas_GUI to provide a GUI expression
 composer. This method finds the datasets and launches the GUI.</p>
 </div>
 
