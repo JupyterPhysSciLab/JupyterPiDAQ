@@ -1,12 +1,9 @@
 ## Change Log
 * 0.7.5
   * Added fitting to DAQ command menu.
-  * Documentation Enhancements:
-    * github.io website.
-    * First pass as API docs.
-    * Reorganized documentation.
-    * MyBinder link now forces launch in classic notebook.
-    * Added plans for adapter board to connect Vernier Sensors.
+  * Documentation Enhancements: github.io website; first pass as API docs; 
+    reorganized documentation; MyBinder link now forces launch in classic 
+    notebook; added plans for adapter board to connect Vernier Sensors.
 * 0.7.4.1
   * Improved layout of data collection.
   * Better widget cleanup.
