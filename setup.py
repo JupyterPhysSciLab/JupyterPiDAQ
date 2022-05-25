@@ -33,6 +33,7 @@ setuptools.setup(
         'jupyter-contrib-nbextensions>=0.5.1',
         'pandas>=1.3.0',
         'jupyter-pandas-GUI>=0.6.1',
+        'JPSLMenus'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

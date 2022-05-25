@@ -86,51 +86,37 @@ function newFit(){
 }
 
 function createCmdMenu(){
-    if(!document.getElementById('jupyterpiDAQcmdsmnu')){
-        var newselect=document.createElement('select');
-        newselect.id = 'jupyterpiDAQcmdsmnu';
-        newselect.classList.add('form-control'); //class to match notebook formatting
-        newselect.classList.add('select-xs'); //class to match notebook formatting
-        newselect.onchange=function(){
-            var lastvalue = this.value;
-            this.value='DAQ Commands';
-            if (lastvalue=='Insert New Run after selection...'){
-                insertnewRun();
-            }
-            if (lastvalue=='Append New Run to end...'){
-                addnewRun();
-            }
-            if (lastvalue=='Show data in table...'){
-                showDataTable();
-            }
-            if (lastvalue=='Calculate new column...'){
-                newCalculatedColumn();
-            }
-            if (lastvalue=='Insert new plot after selection...'){
-                newPlot();
-            }
-            if (lastvalue=='Insert new fit after selection...'){
-                newFit();
-            }
-
-        }
-        var optiontxt = '<option title="Insert data aquisition related command.">DAQ Commands</option>';
-        optiontxt+='<option title="Insert cell below selected and start new run.">Insert New Run after selection...</option>';
-        optiontxt+='<option title="Add new run at end of notebook.">Append New Run to end...</option>';
-        optiontxt+='<option title="Insert show data table command at end of current cell.">Show data in table...</option>';
-        optiontxt+='<option title="Calculate new column below current cell.">Calculate new column...</option>';
-        optiontxt+='<option title="New plot below current cell.">Insert new plot after selection...</option>';
-        optiontxt+='<option title="New fit below current cell.">Insert new fit after selection...</option>';
-        newselect.innerHTML=optiontxt;
-        if(document.getElementById('maintoolbar-container')){ //classic Jupyter
-            document.getElementById('maintoolbar-container').appendChild(newselect);
-        }
-        if(document.getElementsByClassName('jp-NotebookPanel-toolbar')[0]){
-        //JLab
-            document.getElementsByClassName('jp-NotebookPanel-toolbar')[0]
-            .appendChild(newselect); // If there is more than one only add to
-            //first.
-        }
+    if(!document.getElementById('jupyterpiDAQ')){
+        var instrun = {'type':'action',
+                            'title':'Insert New Run after selection...',
+                            'data':"insertnewRun();"
+                          };
+        var appendrun = {'type':'action',
+                         'title':'Append New Run to end...',
+                         'data':"addnewRun();"
+                          };
+        var showdata = {'type':'action',
+                        'title':'Show data in table...',
+                        'data':"showDataTable();"
+                        };
+        var calccol = {'type':'action',
+                       'title':'Calculate new column...',
+                       'data':"newCalculatedColumn();"
+                        };
+        var istplt = {'type':'action',
+                       'title':'Insert new plot after selection...',
+                       'data':"newPlot();"
+                        };
+        var istfit = {'type':'action',
+                       'title':'Insert new fit after selection...',
+                       'data':"newFit();"
+                        };
+        var menu = {'type':'menu',
+                    'title':'JupyterPiDAQ',
+                    'data':[instrun, appendrun, showdata, calccol, istplt,
+                    istfit]
+                    };
+        JPSLMenus.build(menu);
     }
 }
 
