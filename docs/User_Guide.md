@@ -62,7 +62,7 @@ etc...) and searches for compatible hardware. On a Raspberry Pi this takes a
 number of seconds. If no compatible A-to-D boards are found, demo mode is used.
 In demo mode the A-to-D board is simulated by a random number generator.
 
-When setup is done a new menu appears at the end of the toolbar (figure 1).
+When setup is done a new menu appears at the end of the menubar (figure 1).
 
 ![DAQ Menu](DAQmenu.png)
 
@@ -70,8 +70,8 @@ When setup is done a new menu appears at the end of the toolbar (figure 1).
 initialized.
 
 The menu options insert jupyter widget based GUIs for starting a run,
-displaying the data as tables or plots, or composing an expression to calculate
-a new column in a DataFrame.
+displaying the data as tables or plots, composing an expression to calculate
+a new column in a DataFrame, or fitting data.
 
 #### Collecting data
 
