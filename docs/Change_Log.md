@@ -1,4 +1,6 @@
 ## Change Log
+* 0.7.6
+  * Converted to fancy menus (could make hierarchical).
 * 0.7.5
   * Added fitting to DAQ command menu.
   * Documentation Enhancements: github.io website; first pass as API docs; 

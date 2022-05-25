@@ -86,7 +86,7 @@ function newFit(){
 }
 
 function createCmdMenu(){
-    if(!document.getElementById('jupyterpiDAQ')){
+    if(!document.getElementById('DAQ_commands')){
         var instrun = {'type':'action',
                             'title':'Insert New Run after selection...',
                             'data':"insertnewRun();"
@@ -112,7 +112,7 @@ function createCmdMenu(){
                        'data':"newFit();"
                         };
         var menu = {'type':'menu',
-                    'title':'JupyterPiDAQ',
+                    'title':'DAQ commands',
                     'data':[instrun, appendrun, showdata, calccol, istplt,
                     istfit]
                     };
@@ -121,7 +121,7 @@ function createCmdMenu(){
 }
 
 function deleteCmdMenu(){
-    if(document.getElementById('jupyterpiDAQcmdsmnu')){
-        document.getElementById('jupyterpiDAQcmdsmnu').remove();
+    if(document.getElementById('DAQ_commands')){
+        document.getElementById('DAQ_commands').remove();
     }
 }
