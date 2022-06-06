@@ -209,6 +209,8 @@ class DAQinstance():
     def setupclick(self, btn):
         # Could just use the values in widgets, but this forces intentional
         # selection and locks them for the run.
+        # TODO delete cell with setup widgets, replace with a cell that
+        #  displays the setup parameters and the live collection.
         self.title = self.runtitle.value
         self.rate = self.rateinp.value
         self.delta = 1 / self.rate
@@ -519,7 +521,9 @@ def newRun(livefig):
     """
     nrun = len(runs) + 1
     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
-    runs[nrun - 1].setup()
+    runs[nrun - 1].setup() # TODO: Run in a separate cell that deletes itself
+    # when
+    # finished with setup
 
 def update_runsdrp():
     # get list of runs
