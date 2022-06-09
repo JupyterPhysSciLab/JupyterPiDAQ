@@ -15,6 +15,8 @@ import time
 import logging
 
 # Start Logging
+import JPSLUtils
+
 logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
                                          time.localtime()) + '.log'
 logging.basicConfig(filename=logname, level=logging.INFO)
@@ -76,6 +78,12 @@ print('.',end='')
 
 # Sensor definitions
 from jupyterpidaq.Sensors import sensors
+
+print('.',end='')
+
+# JPSL Utilities
+from JPSLMenus import *
+from JPSLUtils import *
 
 print('.',end='')
 
@@ -211,68 +219,124 @@ class DAQinstance():
         # selection and locks them for the run.
         # TODO delete cell with setup widgets, replace with a cell that
         #  displays the setup parameters and the live collection.
-        self.title = self.runtitle.value
-        self.rate = self.rateinp.value
+        from copy import copy
+        self.title = copy(self.runtitle.value)
+        self.rate = copy(self.rateinp.value)
         self.delta = 1 / self.rate
+        self.separate_plots = copy(self.separate_traces_checkbox.value)
         self.defaultparamtxt = '<div id="DAQRun_' + str(self.idno) + '_param">'
-        self.defaultparamtxt += '<p style="font-weight:bold;">Parameters for run "' + str(
-            self.title)
-        self.defaultparamtxt += '" (run id#: ' + str(
-            self.idno) + ') set to:</p>'
-        self.defaultparamtxt += '<table><tr><td style="font-weight:bold;">Approx. Rate (Hz):</td><td>' + str(
-            self.rate) + '</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;">Approx. Delta (s):</td><td>' + str(
-            self.delta) + '</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;">X-label: </td><td>' + self.timelbl.value + '</td></tr></table>'
+        self.defaultparamtxt += '<table id="run_id" border=1><tbody><tr>' \
+                                '<th>Title</th><th>Id #</th></tr>'
+        self.defaultparamtxt += '<tr><td>'+str(self.title)+'</td>' \
+                                '<td>'+ str(self.idno) + '</td></tr></table>'
+        self.defaultparamtxt += '<table id = "run_param" border = 1>' \
+                                '<tr style="text-align:center;">' \
+                                '<th>Approx. Rate (Hz)</th>' \
+                                '<th>Approx. Delta (s)</th>' \
+                                '<th>X-label </th>'\
+                                '<th>X-cols</th>'\
+                                '<th>Y-cols</th>'\
+                                '<th>err-cols<sup ' \
+                                'style="color:blue;">a</sup></th>'\
+                                '<th>One Plot</th>' \
+                                '<tr style="text-align:center;">'
+
+        self.defaultparamtxt += '<td>'+ str(self.rate) + '</td>'
+        self.defaultparamtxt += '<td>' + str(self.delta) + '</td>'
+        self.defaultparamtxt += '<td>' + self.timelbl.value + '</td>'
+        xlist = '['
+        ylist = '['
+        errlist = '['
+        if self.ignore_skew:
+            xlist+='0]'
+            tempcount = 0
+            for k in self.traces:
+                if k.isactive:
+                    ylist += str(2*tempcount+1)+','
+                    errlist += str(2*tempcount +2) + ','
+                    tempcount +=1
+            ylist = ylist[:-1]+']'
+            errlist = errlist[:-1] + ']'
+        else:
+            tempcount = 0
+            for k in self.traces:
+                if k.isactive:
+                    xlist += str(3*tempcount)+','
+                    ylist += str(3*tempcount +1)+','
+                    errlist += str(3 * tempcount + 2) + ','
+                    tempcount +=1
+            xlist = xlist[:-1]+']'
+            ylist = ylist[:-1]+']'
+            errlist = errlist[:-1] + ']'
+        self.defaultparamtxt += '<td>'+xlist+'</td><td>'+ylist+'</td>'
+        self.defaultparamtxt += '<td>' + errlist + '</td>'
+        self.defaultparamtxt += '<td>'+str(not(self.separate_plots))+'</td>'
+        self.defaultparamtxt +='</tr></tbody>'
+        self.defaultparamtxt +='<tfoot><tr><td colspan = 7> <sup ' \
+                               'style="color:blue;">a</sup>The ' \
+                               'standard deviation of the ' \
+                               'number immediately to the left based on the ' \
+                               'variation in signal during the averaging time ' \
+                               'for the data point.</td></tr></tfoot></table>'
         # table of trace information
-        self.defaultparamtxt += '<table id="traceinfo" class="traceinfo"><tr>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Trace #</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Title</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Units</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Board</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Channel</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Sensor</td>'
-        self.defaultparamtxt += '<td style="font-weight:bold;text-align:center;">Gain</td>'
-        self.defaultparamtxt += '</tr><tr>'
+        self.defaultparamtxt += '<table id="traceinfo" class="traceinfo"' \
+                                'border = 1>'
+        self.defaultparamtxt += '<tr style="text-align:center;">'
+        self.defaultparamtxt += '<th>Trace #</th>'
+        self.defaultparamtxt += '<th>Title</th>'
+        self.defaultparamtxt += '<th>Units</th>'
+        self.defaultparamtxt += '<th>Board</th>'
+        self.defaultparamtxt += '<th>Channel</th>'
+        self.defaultparamtxt += '<th>Sensor</th>'
+        self.defaultparamtxt += '<th>Gain</th>'
+        self.defaultparamtxt += '</tr>'
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
                 self.tracemap.append(i)
-                self.defaultparamtxt += '<td style="text-align:center;">' + str(
+                self.defaultparamtxt += '<tr style="text-align:center;">'
+                self.defaultparamtxt += '<td>' + str(
                     i) + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                self.defaultparamtxt += '<td>' + \
                                         self.traces[
                                             i].tracelbl.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                self.defaultparamtxt += '<td>' + \
                                         self.traces[i].units.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                self.defaultparamtxt += '<td>' + \
                                         str(self.traces[i].boardchoice.value) +' ' + \
                                         self.traces[i].board.name + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                self.defaultparamtxt += '<td>' + \
                                         str(self.traces[i].channel) + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + \
+                self.defaultparamtxt += '<td >' + \
                                         self.traces[
                                             i].sensorchoice.value + '</td>'
-                self.defaultparamtxt += '<td style="text-align:center;">' + str(
+                self.defaultparamtxt += '<td>' + str(
                     self.traces[i].gains.value) + '</td>'
-            self.defaultparamtxt += '</tr><tr>'
+                self.defaultparamtxt += '</tr>'
             self.traces[i].hideGUI()
-        self.defaultparamtxt += '</tr></table>'
+        self.defaultparamtxt += '</table>'
         self.defaultparamtxt += '</div>'
         self.runtitle.close()
         del self.runtitle
         self.setup_layout.close()
         del self.setup_layout
-        display(HTML(self.defaultcollecttxt))
-        self.collectbtn.on_click(self.collectclick)
-        display(self.collectbtn)
-        display(HTML(self.defaultparamtxt))
+        JPSLUtils.new_cell_immediately_below()
+        cmdstr = 'doRun(runs[' + str(self.idno - 1) + '])'
+        cmdstr += '\\nruns[' + str(self.idno - 1) + '].livefig'
+        JPSLUtils.insert_text_into_next_cell(cmdstr)
+        JPSLUtils.select_containing_cell("RunSetUp")
+        JPSLUtils.select_cell_immediately_below()
+        JPSLUtils.OTJS('Jupyter.notebook.get_selected_cell().execute()')
+        pass
 
     def setup(self):
+        display(HTML("<h3 id ='RunSetUp' "
+                     "style='text-align:center;'>Set Run Parameters</h3>"))
         self.setupbtn.on_click(self.setupclick)
         display(self.runtitle)
         for i in range(self.ntraces):
             self.traces[i].setup()
         display(self.setup_layout)
+        pass
 
     def collectclick(self, btn):
         if (btn.description == 'Start Collecting'):
@@ -299,7 +363,7 @@ class DAQinstance():
             # save data to csv file so can be loaded elsewhere.
             svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
                                                       time.localtime()) + '.csv'
-            self.pandadf.to_csv(svname)
+            self.pandadf.to_csv(svname, index=False)
             self.collectbtn.close()
             del self.collectbtn
             #display(self.collecttxt)
@@ -348,7 +412,7 @@ class DAQinstance():
 
     def updatingplot(self):
         """
-        Runs until a check of self.collectbtn.desdcf63064cription does not return
+        Runs until a check of self.collectbtn.description does not return
         'Stop Collecting'. This would probably be more efficient if set a
         boolean.
         """
@@ -372,7 +436,7 @@ class DAQinstance():
         for k in self.traces:
             if k.isactive:
                 nactive += 1
-        if self.separate_traces_checkbox.value:
+        if self.separate_plots:
             self.livefig.set_subplots(rows = nactive, cols = 1,
                                       shared_xaxes= True)
             self.livefig.update_xaxes(title = self.timelbl.value,
@@ -391,7 +455,7 @@ class DAQinstance():
                 timelegend.append('time_' + tempstr)
                 datalegend.append(tempstr)
                 stdevlegend.append('stdev_' + tempstr)
-                if self.separate_traces_checkbox.value:
+                if self.separate_plots:
                     scat = go.Scatter(y=[],x=[], name=tempstr)
                     self.livefig.add_trace(scat, row = nactive-active_count,
                                            col = 1)
@@ -525,6 +589,17 @@ def newRun(livefig):
     # when
     # finished with setup
 
+def doRun(whichrun):
+    display(HTML(whichrun.defaultparamtxt))
+    if hasattr(whichrun, "collectbtn"):
+        # only show if hasn't already collected data
+        whichrun.collectbtn.on_click(whichrun.collectclick)
+        display(whichrun.collectbtn)
+    display(HTML(whichrun.defaultcollecttxt))
+    JPSLUtils.select_containing_cell("RunSetUp")
+    JPSLUtils.delete_selected_cell()
+    pass
+        
 def update_runsdrp():
     # get list of runs
     runlst = [('Choose Run', -1)]

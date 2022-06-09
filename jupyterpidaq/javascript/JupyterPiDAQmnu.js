@@ -1,7 +1,7 @@
 var insertruncount = 0
-var newrunstr = 'fig$ = go.FigureWidget() # Create figure to show data.\n'
-newrunstr += 'newRun(fig$) # Initiate run setup.\n'
-newrunstr += 'fig$ # Display the live figure.'
+var newrunstr = 'run_fig$ = go.FigureWidget() # Create figure to show data.\n'
+newrunstr += 'newRun(run_fig$) # Initiate run setup.'
+//newrunstr += 'fig$ # Display the live figure.'
 
 function insertnewRun(){
     //Insert a cell below the current selection
