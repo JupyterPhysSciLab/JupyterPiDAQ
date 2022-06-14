@@ -328,6 +328,7 @@ class DAQinstance():
                 traceinfo.appendChild(tr)
         run_info.appendChild(traceinfo)
         return run_info.asHTML()
+    
     def _load_from_html(self, file):
         """
         Loads data and parameters for a completed run from a saved html file.
@@ -410,7 +411,7 @@ class DAQinstance():
                 self.livefig.add_trace(scat, row=i+1, col=1)
             else:
                 self.livefig.add_trace(scat)
-    pass
+        pass
 
     def setupclick(self, btn):
         # Could just use the values in widgets, but this forces intentional
@@ -565,6 +566,7 @@ class DAQinstance():
         active_count = 0
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
+                active_count += 1
                 whichchn.append({'board':self.traces[i].board,
                                 'chnl':self.traces[i].channel})
                 gains.append(self.traces[i].toselectedgain)
@@ -575,15 +577,15 @@ class DAQinstance():
                 stdevlegend.append('stdev_' + tempstr)
                 if self.separate_plots:
                     scat = go.Scatter(y=[],x=[], name=tempstr)
-                    self.livefig.add_trace(scat, row = nactive-active_count,
+                    self.livefig.add_trace(scat, row = active_count,
                                            col = 1)
                     self.livefig.update_yaxes(title = self.traces[
-                        i].units.value, row = nactive-active_count,col = 1)
+                        i].units.value, row = active_count, col = 1)
                 else:
                     self.livefig.add_scatter(y=[],x=[], name=tempstr)
                 toplotx.append([])
                 toploty.append([])
-                active_count += 1
+                
         #print('whichchn: '+str(whichchn))
         #print('gains: '+str(gains))
         # Use up to 30% of the time for averaging if channels were spaced
