@@ -142,6 +142,7 @@ class DAQinstance():
         self.idno = idno
         self.livefig = livefig
         self.title = str(title)
+        self.svname = ''
         self.averaging_time = 0.1  # seconds adjusted based on collection rate
         self.gain = [1] * ntraces
         self.data = []
@@ -213,6 +214,203 @@ class DAQinstance():
         self.setup_layout = widgets.VBox([self.separate_traces_checkbox,
                                           self.setup_layout_bottom])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
+        
+    def _make_defaultparamtxt(self):
+        """
+        Uses AdvancedHTMLParser (mimics javascript) to generate valid HTML for
+        the default parameter text.
+        :return: valid html string for the default parameter text.
+        """
+        from AdvancedHTMLParser import AdvancedTag as domel
+        run_info=domel('div')
+        run_info.setAttribute('id','DAQRun_' + str(self.idno) + '_info')
+        run_info.setAttribute('class','run_info')
+        run_id = domel('table')
+        run_id.setAttribute('id','run_id')
+        run_id.setAttribute('border', '1')
+        tr = domel('tr')
+        tr.appendInnerHTML('<th>Title</th><th>Id #</th>')
+        run_id.appendChild(tr)
+        tr = domel('tr')
+        tr.appendInnerHTML('<td>' + str(self.title) + '</td>' \
+                            '<td>' + str(self.idno) + '</td>')
+        run_id.appendChild(tr)
+        run_info.appendChild(run_id)
+        # table of run parameters
+        run_param = domel('table')
+        run_param.setAttribute('border','1')
+        run_param.setAttribute('id','run_param')
+        tr = domel('tr')
+        tr.setAttribute('style','text-align:center;')
+        tr.appendInnerHTML('<th>Approx. Rate (Hz)</th>' \
+                                '<th>Approx. Delta (s)</th>' \
+                                '<th>X-label </th>' \
+                                '<th>X-cols</th>' \
+                                '<th>Y-cols</th>' \
+                                '<th>err-cols<sup ' \
+                                'style="color:blue;">a</sup></th>' \
+                                '<th>One Plot</th>' )
+        run_param.appendChild(tr)
+        run_info.appendChild(run_param)
+        tr = domel('tr')
+        tr.setAttribute('style','text-align:center;')
+        tr.appendInnerHTML('<td>' + str(self.rate) + '</td>' \
+                            '<td>' + str(self.delta) + '</td>' \
+                            '<td>' + self.timelbl.value + '</td>')
+        xlist = '['
+        ylist = '['
+        errlist = '['
+        if self.ignore_skew:
+            xlist += '0]'
+            tempcount = 0
+            for k in self.traces:
+                if k.isactive:
+                    ylist += str(2 * tempcount + 1) + ','
+                    errlist += str(2 * tempcount + 2) + ','
+                    tempcount += 1
+            ylist = ylist[:-1] + ']'
+            errlist = errlist[:-1] + ']'
+        else:
+            tempcount = 0
+            for k in self.traces:
+                if k.isactive:
+                    xlist += str(3 * tempcount) + ','
+                    ylist += str(3 * tempcount + 1) + ','
+                    errlist += str(3 * tempcount + 2) + ','
+                    tempcount += 1
+            xlist = xlist[:-1] + ']'
+            ylist = ylist[:-1] + ']'
+            errlist = errlist[:-1] + ']'
+        tr.appendInnerHTML('<td>' + xlist + '</td><td>' + ylist + '</td>')
+        td = domel('td')
+        td.appendText(errlist)
+        tr.appendChild(td)
+        td = domel('td')
+        td.appendText(str(not (self.separate_plots)))
+        tr.appendChild(td)
+        run_param.appendChild(tr)
+        footer = domel('tfoot')
+        tr = domel('tr')
+        td = domel('td')
+        td.setAttribute('colspan','7')
+        td.appendInnerHTML('<sup style="color:blue;">a</sup>The ' \
+                            'standard deviation of the ' \
+                            'number immediately to the left based on the ' \
+                            'variation in signal during the averaging time ' \
+                            'for the data point.')
+        tr.appendChild(td)
+        footer.appendChild(tr)
+        run_param.appendChild(footer)
+        # table of trace information
+        traceinfo = domel('table')
+        traceinfo.setAttribute('class','traceinfo')
+        traceinfo.setAttribute('id','traceinfo')
+        traceinfo.setAttribute('border','1')
+        tr = domel('tr')
+        tr.setAttribute('style','text-align:center;')
+        tr.appendInnerHTML('<th>Trace #</th><th>Title</th><th>Units</th>' \
+                            '<th>Board</th><th>Channel</th><th>Sensor</th>' \
+                            '<th>Gain</th>')
+        traceinfo.appendChild(tr)
+        for i in range(self.ntraces):
+            if (self.traces[i].isactive):
+                self.tracemap.append(i)
+                tr = domel('tr')
+                tr.setAttribute('style', 'text-align:center;')
+                tr.appendInnerHTML('<td>' + str(i) + '</td>' \
+                            '<td>' + self.traces[i].tracelbl.value + '</td>' \
+                            '<td>' + self.traces[i].units.value + '</td>' \
+                            '<td>' + str(self.traces[i].boardchoice.value) + \
+                            ' ' + self.traces[i].board.name + '</td>' \
+                            '<td>' + str(self.traces[i].channel) + '</td>' \
+                        '<td >' + self.traces[i].sensorchoice.value + '</td>' \
+                            '<td>' + str(self.traces[i].gains.value) + '</td>')
+                traceinfo.appendChild(tr)
+        run_info.appendChild(traceinfo)
+        return run_info.asHTML()
+    def _load_from_html(self, file):
+        """
+        Loads data and parameters for a completed run from a saved html file.
+        :param file: filename or path.
+        :return:
+        """
+        import pandas as pd
+        from JPSLUtils import find_pandas_dataframe_names
+        from IPython import get_ipython
+        from AdvancedHTMLParser import AdvancedHTMLParser as parser
+        from plotly import graph_objects as go
+        global_dict = get_ipython().user_ns # TODO, don't need?
+        whichrun = pd.read_html(file, attrs={'id': 'run_id'})[0]
+        run_title = whichrun['Title'][0]
+        run_id = whichrun['Id #'][0]
+        svname = pd.read_html(file, attrs={'id': 'file_info'})[0]['Saved ' \
+                                                                  'as'][0]
+        self.pandadf = pd.read_html(file, attrs={'class': 'dataframe'},
+                                    index_col=0)[0]
+        self.title = run_title
+        self.svname = svname
+        run_param = \
+        pd.read_html(file, attrs={'id': 'run_param'}, skiprows=[2])[0]
+        self.rate = run_param['Approx. Rate (Hz)'][0]
+        self.delta = run_param['Approx. Delta (s)'][0]
+        # reassiging timelbl to a value from a widget
+        self.timelbl = run_param['X-label'][0]
+        self.separate_plots = not (run_param['One Plot'][0])
+        xcols = list(map(int,run_param['X-cols'][0].replace('[',
+                                        '').replace(']','').split(',')))
+        ycols = list(map(int,run_param['Y-cols'][0].replace('[',
+                                        '').replace(']','').split(',')))
+        errcols = list(map(int,run_param['err-colsa'][0].replace('[',
+                                        '').replace(']', '').split(',')))
+        htmldatafile = parser(file)
+        ### TODO: Following section not really needed
+        idnode = htmldatafile.getElementById('run_id').getChildren()[1]. \
+                                                    getChildren()[1]
+        idnodetxt = idnode.text
+        idnode.removeText(idnodetxt)
+        idnode.appendText(str(run_id))
+        ##### May need to fuss with run_id outside of this utility
+        self.defaultparamtxt = htmldatafile.getElementsByClassName(
+            'run_info')[0].asHTML()
+        traceinfo = pd.read_html(file, attrs={'id': 'traceinfo'})[0]
+        for k in traceinfo.index:
+            # Do not refill the widgets. This truncates and changes the
+            # definitions of some things from widgets to values.
+            self.traces[k].isactive = True
+            self.traces[k].tracelbl= traceinfo['Title'][k]
+            self.traces[k].units = traceinfo['Units'][k]
+            boardchoice, boardname = (traceinfo['Board'][k]).split(' ',1)
+            self.traces[k].boardchoice = boardchoice
+            self.traces[k].board = boardname
+            self.traces[k].channel = traceinfo['Channel'][k]
+            self.traces[k].gains= traceinfo['Gain'][k]
+            self.traces[k].sensor = traceinfo['Sensor'][k]
+        # Plot
+        if self.separate_plots:
+            self.livefig.set_subplots(rows=len(ycols), cols=1,
+                                                  shared_xaxes=True)
+            self.livefig.update_xaxes(
+                title=self.timelbl, row=len(ycols), col=1)
+        else:
+            self.livefig.update_xaxes(title=self.timelbl)
+            self.livefig.update_yaxes(title="Values")
+        for i in range(len(ycols)):
+            namestr = self.pandadf.columns[ycols[i]]
+            xcol = None
+            if len(xcols) == 1:
+                xcol = xcols[0]
+            else:
+                xcol = xcols[i]
+            scat = go.Scatter(
+                y=self.pandadf.iloc[0:, ycols[i]],
+                x=self.pandadf.iloc[0:,xcol], name=namestr)
+            if self.separate_plots:
+                self.livefig.update_yaxes(title=self.traces[i].units,
+                    row=i+1, col=1)
+                self.livefig.add_trace(scat, row=i+1, col=1)
+            else:
+                self.livefig.add_trace(scat)
+    pass
 
     def setupclick(self, btn):
         # Could just use the values in widgets, but this forces intentional
@@ -224,97 +422,7 @@ class DAQinstance():
         self.rate = copy(self.rateinp.value)
         self.delta = 1 / self.rate
         self.separate_plots = copy(self.separate_traces_checkbox.value)
-        self.defaultparamtxt = '<div id="DAQRun_' + str(self.idno) + '_param">'
-        self.defaultparamtxt += '<table id="run_id" border=1><tbody><tr>' \
-                                '<th>Title</th><th>Id #</th></tr>'
-        self.defaultparamtxt += '<tr><td>'+str(self.title)+'</td>' \
-                                '<td>'+ str(self.idno) + '</td></tr></table>'
-        self.defaultparamtxt += '<table id = "run_param" border = 1>' \
-                                '<tr style="text-align:center;">' \
-                                '<th>Approx. Rate (Hz)</th>' \
-                                '<th>Approx. Delta (s)</th>' \
-                                '<th>X-label </th>'\
-                                '<th>X-cols</th>'\
-                                '<th>Y-cols</th>'\
-                                '<th>err-cols<sup ' \
-                                'style="color:blue;">a</sup></th>'\
-                                '<th>One Plot</th>' \
-                                '<tr style="text-align:center;">'
-
-        self.defaultparamtxt += '<td>'+ str(self.rate) + '</td>'
-        self.defaultparamtxt += '<td>' + str(self.delta) + '</td>'
-        self.defaultparamtxt += '<td>' + self.timelbl.value + '</td>'
-        xlist = '['
-        ylist = '['
-        errlist = '['
-        if self.ignore_skew:
-            xlist+='0]'
-            tempcount = 0
-            for k in self.traces:
-                if k.isactive:
-                    ylist += str(2*tempcount+1)+','
-                    errlist += str(2*tempcount +2) + ','
-                    tempcount +=1
-            ylist = ylist[:-1]+']'
-            errlist = errlist[:-1] + ']'
-        else:
-            tempcount = 0
-            for k in self.traces:
-                if k.isactive:
-                    xlist += str(3*tempcount)+','
-                    ylist += str(3*tempcount +1)+','
-                    errlist += str(3 * tempcount + 2) + ','
-                    tempcount +=1
-            xlist = xlist[:-1]+']'
-            ylist = ylist[:-1]+']'
-            errlist = errlist[:-1] + ']'
-        self.defaultparamtxt += '<td>'+xlist+'</td><td>'+ylist+'</td>'
-        self.defaultparamtxt += '<td>' + errlist + '</td>'
-        self.defaultparamtxt += '<td>'+str(not(self.separate_plots))+'</td>'
-        self.defaultparamtxt +='</tr></tbody>'
-        self.defaultparamtxt +='<tfoot><tr><td colspan = 7> <sup ' \
-                               'style="color:blue;">a</sup>The ' \
-                               'standard deviation of the ' \
-                               'number immediately to the left based on the ' \
-                               'variation in signal during the averaging time ' \
-                               'for the data point.</td></tr></tfoot></table>'
-        # table of trace information
-        self.defaultparamtxt += '<table id="traceinfo" class="traceinfo"' \
-                                'border = 1>'
-        self.defaultparamtxt += '<tr style="text-align:center;">'
-        self.defaultparamtxt += '<th>Trace #</th>'
-        self.defaultparamtxt += '<th>Title</th>'
-        self.defaultparamtxt += '<th>Units</th>'
-        self.defaultparamtxt += '<th>Board</th>'
-        self.defaultparamtxt += '<th>Channel</th>'
-        self.defaultparamtxt += '<th>Sensor</th>'
-        self.defaultparamtxt += '<th>Gain</th>'
-        self.defaultparamtxt += '</tr>'
-        for i in range(self.ntraces):
-            if (self.traces[i].isactive):
-                self.tracemap.append(i)
-                self.defaultparamtxt += '<tr style="text-align:center;">'
-                self.defaultparamtxt += '<td>' + str(
-                    i) + '</td>'
-                self.defaultparamtxt += '<td>' + \
-                                        self.traces[
-                                            i].tracelbl.value + '</td>'
-                self.defaultparamtxt += '<td>' + \
-                                        self.traces[i].units.value + '</td>'
-                self.defaultparamtxt += '<td>' + \
-                                        str(self.traces[i].boardchoice.value) +' ' + \
-                                        self.traces[i].board.name + '</td>'
-                self.defaultparamtxt += '<td>' + \
-                                        str(self.traces[i].channel) + '</td>'
-                self.defaultparamtxt += '<td >' + \
-                                        self.traces[
-                                            i].sensorchoice.value + '</td>'
-                self.defaultparamtxt += '<td>' + str(
-                    self.traces[i].gains.value) + '</td>'
-                self.defaultparamtxt += '</tr>'
-            self.traces[i].hideGUI()
-        self.defaultparamtxt += '</table>'
-        self.defaultparamtxt += '</div>'
+        self.defaultparamtxt = self._make_defaultparamtxt()
         self.runtitle.close()
         del self.runtitle
         self.setup_layout.close()
@@ -360,16 +468,26 @@ class DAQinstance():
             self.timestamp = timestamp
             self.stdev = stdev
             self.fillpandadf()
-            # save data to csv file so can be loaded elsewhere.
-            svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
-                                                      time.localtime()) + '.csv'
-            self.pandadf.to_csv(svname, index=False)
+            # save data to html file so it is human readable and can be loaded
+            # elsewhere.
+            self.svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
+                                        time.localtime()) + '.html'
+            svhtml = '<!DOCTYPE html>' \
+                     '<html><body>'+ self.defaultparamtxt + \
+                     '<table id="file_info" border="1"><tr><th>Saved as ' \
+                     '</th></tr><tr><td>' +  \
+                     self.svname+'</td></tr></table>' \
+                     '<h2>DATA</h2>'+ \
+                     self.pandadf.to_html() + '</body></html>'
+            f = open(self.svname,'w')
+            f.write(svhtml)
+            f.close()
             self.collectbtn.close()
             del self.collectbtn
             #display(self.collecttxt)
             display(HTML(
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
-                svname + '</span>'))
+                self.svname + '</span>'))
             # Save the notebook with current widget states (plotly plots).
             jscode = 'Jupyter.actions.call(' \
                      '"widgets:save-with-widgets");'
@@ -636,11 +754,6 @@ def showDataTable():
     display(runsdrp)
     # will display selected run and delete menu upon selection.
 
-def update_columns(change):
-    global runsdrp
-    whichrun = runsdrp.value
-    return runs[whichrun].pandadf.columns
-
 def newCalculatedColumn():
     """
     Uses jupyter-pandas-GUI.new_pandas_column_GUI to provide a GUI expression
@@ -660,8 +773,9 @@ def newPlot():
     """
     df_info = []
     for i in range(len(runs)):
-        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
-                        str(runs[i].title)])
+        if isinstance(runs[i].pandadf,pd.DataFrame):
+            df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                            str(runs[i].title)])
     plot_pandas_GUI(df_info)
     pass
 
@@ -672,7 +786,8 @@ def newFit():
     """
     df_info = []
     for i in range(len(runs)):
-        df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
-                        str(runs[i].title)])
+        if isinstance(runs[i].pandadf,pd.DataFrame):
+            df_info.append([runs[i].pandadf, 'runs['+str(i)+'].pandadf',
+                            str(runs[i].title)])
     fit_pandas_GUI(df_info)
     pass
