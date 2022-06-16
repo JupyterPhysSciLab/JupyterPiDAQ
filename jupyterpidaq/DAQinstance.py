@@ -489,10 +489,18 @@ class DAQinstance():
             display(HTML(
                 '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
                 self.svname + '</span>'))
-            # Save the notebook with current widget states (plotly plots).
-            jscode = 'Jupyter.actions.call(' \
-                     '"widgets:save-with-widgets");'
-            display(JS(jscode))
+            JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
+            JPSLUtils.new_cell_immediately_below()
+            JPSLUtils.select_cell_immediately_below()
+            cmdstr = 'from jupyterpidaq.DAQinstance import * ' \
+                    '# Does nothing if already imported.\\n' \
+                    'displayRun(' + str(self.idno)+', \\"' \
+                    + self.svname + '\\") # display the data'
+            JPSLUtils.OTJS('alert(\"'+cmdstr+'\");')
+            JPSLUtils.insert_newline_at_end_of_current_cell(cmdstr)
+            JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
+            JPSLUtils.select_cell_immediately_below()
+            JPSLUtils.OTJS('Jupyter.notebook.get_selected_cell().execute()')
 
     def fillpandadf(self):
         datacolumns = []
@@ -710,6 +718,7 @@ def newRun(livefig):
     # finished with setup
 
 def doRun(whichrun):
+    display(HTML('<span id="LiveRun_'+str(whichrun.idno)+'"></span>'))
     display(HTML(whichrun.defaultparamtxt))
     if hasattr(whichrun, "collectbtn"):
         # only show if hasn't already collected data
@@ -719,20 +728,58 @@ def doRun(whichrun):
     JPSLUtils.select_containing_cell("RunSetUp")
     JPSLUtils.delete_selected_cell()
     pass
-        
-def update_runsdrp():
-    # get list of runs
-    runlst = [('Choose Run', -1)]
-    for i in range(len(runs)):
-        runlst.append((str(i + 1) + ': ' + runs[i].title,i))
-    # buid selection menu
-    global runsdrp
-    runsdrp = widgets.Dropdown(
-        options=runlst,
-        value=-1,
-        description='Select Run #:',
-        disabled=False,
-    )
+
+def displayRun(runidx,file):
+    """
+    Displays a run. It can fall back to loading from a file if the outputarea
+    is accidentally cleared.
+    :param runidx: index for the run in the runs array
+    :param file: name of the file the run is saved to
+    :return: A string warning if things are not initialized properly.
+    """
+    from IPython import get_ipython
+    from JPSLUtils import find_pandas_dataframe_names, find_figure_names
+    run_id_table = pd.read_html(file, attrs={'id': 'run_id'})[0]
+    run_title = run_id_table['Title'][0]
+    run_id = run_id_table['Id #'][0]
+    svname = pd.read_html(file, attrs={'id': 'file_info'})[0]['Saved as'][0]
+    global_dict = get_ipython().user_ns
+    runs = None
+    if 'runs' in global_dict and 'DAQinstance' in global_dict:
+        runs = global_dict['runs']
+    else:
+        return ('Initialization of JupyterPiDAQ required')
+    exists = None
+    if len(runs)>=runidx:
+        if isinstance(runs[runidx].livefig,go.FigureWidget) and runs[
+            runidx].run_id == run_id and runs[runidx].svname ==svname:
+            exists = True
+        else:
+            exists = False
+    if exists:
+        display(HTML(runs[runidx].defaultparamtxt))
+        display(HTML('<h3>Saved as: '+runs[runidx].svname)+'</h3>')
+        runs[runidx].livefig.show()
+        display(HTML(runs[runidx].defaultcollecttxt))
+        JPSLUtils.select_containing_cell("LiveRun_"+str(runidx))
+        JPSLUtils.delete_selected_cell()
+    else:
+        # Fall back on loading the data from the default save file.
+        # Note: the file must be available.
+        nrunfigs = 0
+        for k in find_figure_names():
+            if k.startswith('run_fig'):
+                nrunfigs+=1
+        runfigname = 'run_fig'+str(nrunfigs+1)
+        global_dict[runfigname] = go.FigureWidget()
+        fig = global_dict[runfigname]
+        runs.append(DAQinstance(run_id, fig, title=run_title))
+        idxnum = len(runs)-1
+        runs[idxnum]._load_from_html(file)
+        display(HTML(runs[idxnum].defaultparamtxt))
+        display(HTML('<h3>Saved as: ' + runs[idxnum].svname + '</h3>'))
+        runs[idxnum].livefig.show()
+        display(HTML(runs[idxnum].defaultcollecttxt))
     pass
 
 def showSelectedRunTable(change):
@@ -742,7 +789,6 @@ def showSelectedRunTable(change):
     tbldiv = '<div style="height:10em;">' + str(runs[whichrun].title)
     tbldiv += str(runs[whichrun].pandadf.to_html()) + '</div>'
     display(HTML(tbldiv))
-
 
 def showDataTable():
     """
