@@ -294,8 +294,8 @@ class DAQinstance():
         td = domel('td')
         td.setAttribute('colspan','7')
         td.appendInnerHTML('<sup style="color:blue;">a</sup>The ' \
-                            'standard deviation of the ' \
-                            'number immediately to the left based on the ' \
+                            'standard deviation of the number in the ' \
+                            'column immediately to the left based on the ' \
                             'variation in signal during the averaging time ' \
                             'for the data point.')
         tr.appendChild(td)
@@ -491,13 +491,11 @@ class DAQinstance():
                 self.svname + '</span>'))
             JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
             JPSLUtils.new_cell_immediately_below()
-            JPSLUtils.select_cell_immediately_below()
             cmdstr = 'from jupyterpidaq.DAQinstance import * ' \
                     '# Does nothing if already imported.\\n' \
                     'displayRun(' + str(self.idno)+', \\"' \
                     + self.svname + '\\") # display the data'
-            JPSLUtils.OTJS('alert(\"'+cmdstr+'\");')
-            JPSLUtils.insert_newline_at_end_of_current_cell(cmdstr)
+            JPSLUtils.insert_text_into_next_cell(cmdstr)
             JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
             JPSLUtils.select_cell_immediately_below()
             JPSLUtils.OTJS('Jupyter.notebook.get_selected_cell().execute()')
@@ -533,8 +531,8 @@ class DAQinstance():
                         i].units.value + ')')
                 titles.append(
                     self.traces[i].tracelbl.value + '_' + 'stdev')
-        # print(str(titles))
-        # print(str(datacolumns))
+        #print(str(titles))
+        #print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
 
     def updatingplot(self):
@@ -733,12 +731,13 @@ def displayRun(runidx,file):
     """
     Displays a run. It can fall back to loading from a file if the outputarea
     is accidentally cleared.
-    :param runidx: index for the run in the runs array
+    :param runidx: index+1 for the run in the runs array. Thus, the run id #.
     :param file: name of the file the run is saved to
     :return: A string warning if things are not initialized properly.
     """
     from IPython import get_ipython
     from JPSLUtils import find_pandas_dataframe_names, find_figure_names
+    idxnum = runidx - 1
     run_id_table = pd.read_html(file, attrs={'id': 'run_id'})[0]
     run_title = run_id_table['Title'][0]
     run_id = run_id_table['Id #'][0]
@@ -751,16 +750,16 @@ def displayRun(runidx,file):
         return ('Initialization of JupyterPiDAQ required')
     exists = None
     if len(runs)>=runidx:
-        if isinstance(runs[runidx].livefig,go.FigureWidget) and runs[
-            runidx].run_id == run_id and runs[runidx].svname ==svname:
+        if isinstance(runs[idxnum].livefig,go.FigureWidget) and runs[
+            idxnum].idno == run_id and runs[idxnum].svname ==svname:
             exists = True
         else:
             exists = False
     if exists:
-        display(HTML(runs[runidx].defaultparamtxt))
-        display(HTML('<h3>Saved as: '+runs[runidx].svname)+'</h3>')
-        runs[runidx].livefig.show()
-        display(HTML(runs[runidx].defaultcollecttxt))
+        display(HTML(runs[idxnum].defaultparamtxt))
+        display(HTML('<h3>Saved as: '+runs[idxnum].svname+'</h3>'))
+        runs[idxnum].livefig.show()
+        display(HTML(runs[idxnum].defaultcollecttxt))
         JPSLUtils.select_containing_cell("LiveRun_"+str(runidx))
         JPSLUtils.delete_selected_cell()
     else:
