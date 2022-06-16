@@ -109,7 +109,7 @@ tempscript = '<script type="text/javascript">'
 tempscript += tempJSfile.read() + '</script>'
 tempJSfile.close()
 display(HTML(tempscript))
-display(JS('createCmdMenu()'))
+JPSLUtils.OTJS('createCmdMenu()')
 
 print('Done with setup.')
 
@@ -767,6 +767,8 @@ def displayRun(runidx,file):
         display(HTML('<h3>Saved as: ' + runs[idxnum].svname + '</h3>'))
         runs[idxnum].livefig.show()
         display(HTML(runs[idxnum].defaultcollecttxt))
+    # protect the cell
+    JPSLUtils.OTJS('protect_selected_cells();')
     pass
 
 def update_runsdrp():

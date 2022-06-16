@@ -1,3 +1,4 @@
+// TODO: isolate under a name such as juputerPiDAQ.
 var insertruncount = 0
 var newrunstr = 'run_fig$ = go.FigureWidget() # Create figure to show data.\n'
 newrunstr += 'newRun(run_fig$) # Initiate run setup.'
@@ -83,6 +84,12 @@ function newFit(){
     var currentcell = Jupyter.notebook.get_selected_cell();
      currentcell.set_text('newFit()');
     currentcell.execute();
+}
+function protect_selected_cells(){
+    var celllist = Jupyter.notebook.get_selected_cells();
+    for (var i = 0;i<celllist.length;i++){
+        celllist[i].metadata.editable=false;
+        }
 }
 
 function createCmdMenu(){
