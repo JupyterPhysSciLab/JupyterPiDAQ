@@ -337,10 +337,8 @@ class DAQinstance():
         """
         import pandas as pd
         from JPSLUtils import find_pandas_dataframe_names
-        from IPython import get_ipython
         from AdvancedHTMLParser import AdvancedHTMLParser as parser
         from plotly import graph_objects as go
-        global_dict = get_ipython().user_ns # TODO, don't need?
         whichrun = pd.read_html(file, attrs={'id': 'run_id'})[0]
         run_title = whichrun['Title'][0]
         run_id = whichrun['Id #'][0]
@@ -364,13 +362,6 @@ class DAQinstance():
         errcols = list(map(int,run_param['err-colsa'][0].replace('[',
                                         '').replace(']', '').split(',')))
         htmldatafile = parser(file)
-        ### TODO: Following section not really needed
-        idnode = htmldatafile.getElementById('run_id').getChildren()[1]. \
-                                                    getChildren()[1]
-        idnodetxt = idnode.text
-        idnode.removeText(idnodetxt)
-        idnode.appendText(str(run_id))
-        ##### May need to fuss with run_id outside of this utility
         self.defaultparamtxt = htmldatafile.getElementsByClassName(
             'run_info')[0].asHTML()
         traceinfo = pd.read_html(file, attrs={'id': 'traceinfo'})[0]
@@ -416,8 +407,6 @@ class DAQinstance():
     def setupclick(self, btn):
         # Could just use the values in widgets, but this forces intentional
         # selection and locks them for the run.
-        # TODO delete cell with setup widgets, replace with a cell that
-        #  displays the setup parameters and the live collection.
         from copy import copy
         self.title = copy(self.runtitle.value)
         self.rate = copy(self.rateinp.value)
@@ -711,9 +700,8 @@ def newRun(livefig):
     """
     nrun = len(runs) + 1
     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
-    runs[nrun - 1].setup() # TODO: Run in a separate cell that deletes itself
-    # when
-    # finished with setup
+    runs[nrun - 1].setup()
+    pass
 
 def doRun(whichrun):
     display(HTML('<span id="LiveRun_'+str(whichrun.idno)+'"></span>'))
@@ -779,6 +767,21 @@ def displayRun(runidx,file):
         display(HTML('<h3>Saved as: ' + runs[idxnum].svname + '</h3>'))
         runs[idxnum].livefig.show()
         display(HTML(runs[idxnum].defaultcollecttxt))
+    pass
+
+def update_runsdrp():
+    # get list of runs
+    runlst = [('Choose Run', -1)]
+    for i in range(len(runs)):
+        runlst.append((str(i + 1) + ': ' + runs[i].title, i))
+    # buid selection menu
+    global runsdrp
+    runsdrp = widgets.Dropdown(
+        options=runlst,
+        value=-1,
+        description='Select Run #:',
+        disabled=False,
+    )
     pass
 
 def showSelectedRunTable(change):
