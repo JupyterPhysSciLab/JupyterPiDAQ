@@ -507,11 +507,14 @@ class DAQinstance():
             datacolumns.append(tempstdev[i])
         titles = []
         # Column labels.
+        chncnt = 0
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
+                chncnt += 1
                 if self.ignore_skew:
-                    if i == 0:
+                    if chncnt == 1:
                         titles.append(self.timelbl.value)
+                    pass
                 else:
                     titles.append(self.traces[
                                   i].tracelbl.value + '_' + self.timelbl.value)
@@ -520,8 +523,8 @@ class DAQinstance():
                         i].units.value + ')')
                 titles.append(
                     self.traces[i].tracelbl.value + '_' + 'stdev')
-        #print(str(titles))
-        #print(str(datacolumns))
+        print(str(titles))
+        print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
 
     def updatingplot(self):
