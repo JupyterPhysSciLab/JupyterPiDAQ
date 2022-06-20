@@ -35,7 +35,8 @@ setuptools.setup(
         'pandas>=1.4.2',
         'jupyter-pandas-GUI>=0.6.2.1',
         'JPSLMenus>=0.5.0',
-        'JPSLUtils>=0.5.9'
+        'JPSLUtils>=0.5.9',
+        'AdvanceHTMLParser>=9.0.1'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
