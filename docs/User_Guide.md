@@ -37,7 +37,7 @@ up, that lead to slightly different steps for starting the software:
    install for the current user (see the very end of the
    [Installation Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation)). 
    * In this case launch
-   Jupyter, in which ever directory you want to work, using the 
+   Jupyter, in whichever directory you want to work, using the 
    command: `jupyter notebook`.
    * Open a new notebook and choose the kernel 
    for `JupyterPiDAQ`. The kernel name will depend upon what was chosen 
@@ -107,8 +107,10 @@ what you wish to do (see below figure 2 for more details).
    a while to stop if the data collection has got ahead of the graphic 
    display of the data.
 9. Once collection is stopped you will see a plot or plots of the completed 
-   data collection and the name of the .csv file the raw data has been 
+   data collection and the name of the .html file the raw data has been 
    backed up to.
+10. Should you accidentally clear the output of the collection results cell,
+    rerunning it will regenerate the display.
 
 ### Displaying data
 

@@ -1,5 +1,5 @@
 # Change Log
-* 0.7.7rc
+* 0.7.7
   * Updated requirements for upstream security fixes.
   * Conversion to pandas dataframe now works when trace 0 is not collected.
   * DAQ menu no longer created in trusted notebooks if the data acquisition 

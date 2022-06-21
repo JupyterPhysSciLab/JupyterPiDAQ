@@ -1,8 +1,8 @@
-## Development Notes
+# Development Notes
 
-### [Code Repository (Github)](https://github.com/JupyterPhysSciLab/JupyterPiDAQ)
+## [Code Repository](https://github.com/JupyterPhysSciLab/JupyterPiDAQ)
 
-### Setting up Development Environment
+## Setting up Development Environment
 
 Basic requirements: Python 3.6+, associated
 pip and a Jupyter notebook.
@@ -51,7 +51,7 @@ install as a special kernel when you are the user.
     A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
 
-### Adding New Sensor Code
+## Adding New Sensor Code
 
 1. Copy an existing sensor class paste it into the end of
 sensors.py and rename it.
@@ -66,17 +66,28 @@ ADCsim_line.py and any board (e.g. DAQC2.py) with which the sensor
 can be used. *Do not guess if a sensor works with a particular
 board. Test it!*
 
-### Running Tests
+## Running Tests
 
 1. Install updated pytest in the virtual environment:
    ```
    pipenv shell
    pip install -U pytest
    ```
-1. Run tests ignoring the manual tests in the `dev_testing` directory:
+2. Run tests ignoring the manual tests in the `dev_testing` directory:
    `python -m pytest --ignore='dev_testing'`.
-   
-### Building PyPi package
+
+ ## Building Documentation
+
+1. Install or update pdoc into the virtual environment `pip install -U pdoc`.
+2. Make edits to the `.md` files within the docs folder that are to be 
+   included in the first page (see `__init__.py` of the jupyterpidaq package).
+3. At the root level run `pdoc 
+--logo https://jupyterphysscilab.github.io/JupyterPiDAQ/JupyterPiDAQ-logo.svg --logo-link 
+   https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
+   "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq` Unless you are on a 
+   Raspbery Pi this will throw an error about `import`. Just ignore.
+  
+## Building PyPi package
 
 1. Make sure to update the version number in setup.py first.
 1. Install updated  setuptools and twine in the virtual environment:
@@ -106,7 +117,7 @@ board. Test it!*
     1. After install test by running a jupyter notebook in the virtual 
        environment.
 
-### Releasing on PyPi
+## Releasing on PyPi
 
 Proceed only if testing of the build is successful.
 
@@ -116,15 +127,3 @@ Proceed only if testing of the build is successful.
 4. Make sure it works by installing it in a clean virtual environment. This
    is the same as on test.pypi.org except without `-i https://test.pypy...`. If
    it does not work, pull the release.
-
-### Building Documentation
-
-1. Install or update pdoc into the virtual environment `pip install -U pdoc`.
-2. Make edits to the `.md` files within the docs folder that are to be 
-   included in the first page (see `__init__.py` of the jupyterpidaq package).
-3. At the root level run `pdoc 
---logo https://jupyterphysscilab.github.io/JupyterPiDAQ/JupyterPiDAQ-logo.svg --logo-link 
-   https://jupyterphysscilab.github.io/JupyterPiDAQ/ --footer-text 
-   "JupyterPiDAQ vX.X.X" -html -o docs jupyterpidaq` Unless you are on a 
-   Raspbery Pi this will throw an error about `import`. Just ignore.
-
