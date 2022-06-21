@@ -1,15 +1,20 @@
-## Change Log
+# Change Log
 * 0.7.7rc
   * Updated requirements for upstream security fixes.
-  * Conversion to pandas dataframe now works if trace 0 is not collected.
+  * Conversion to pandas dataframe now works when trace 0 is not collected.
   * DAQ menu no longer created in trusted notebooks if the data acquisition 
     tools have not been initialized since the notebook was opened.
   * Reworked the data collection so that opening an old notebook without 
-    running anything, will not have any leftover inoperable or undefined 
+    running anything will not have any leftover inoperable or undefined 
     widgets.
   * Reordered the live trace display to match the order of the names at right.
   * Runs now saved to a human readable html file that includes the run 
     conditions.
+  * As long as this html file is in the same directory as the notebook, the 
+    run display can be recreated by running its cell after accidentally 
+    clearing the cell output.
+  * The cell displaying the results of a run is now protected against 
+    deletion and editing.
 * 0.7.6
   * Converted to fancy menus (could make hierarchical).
 * 0.7.5

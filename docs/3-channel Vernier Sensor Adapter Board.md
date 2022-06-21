@@ -1,13 +1,13 @@
-## Three Channel Adapter Board for Vernier Sensors
-### Board plans
+# Three Channel Adapter Board for Vernier Sensors
+## Board plans
 ![board plans](VernierAdapter.svg)
-### Etching the board
+## Etching the board
 Clean Cu cladding to be etched by wet sanding with 1500 grit or finer.
 Draw traces with a black sharpie  “industrial super permanent ink” version
 works best. Allow to dry completely (no odor). Can be speeded up using a heat
 gun.
 
-#### Etchant recipe:
+### Etchant recipe:
 3 M HCl
 
 CuCl<sub>2</sub> to make medium emerald green solution (can also be made by 

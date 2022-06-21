@@ -1,11 +1,11 @@
-## Installation
+# Installation
 
 Initial setup: [On Raspberry Pi](#raspberry-pi-initial-setup) | 
 [On non-Pi Systems](#non-pi-based-system-initial-setup)
 
 [Final Set up](#final-set-up)
 
-### Raspberry Pi Initial Setup
+## Raspberry Pi Initial Setup
 
 Unless you only want to run in Demo mode make sure you have one of the 
 compatible interface boards installed. The current options are:
@@ -21,7 +21,7 @@ also available from other vendors);
 OS specific: [Ubuntu on Pi](#*ubuntu-on-pi*) | 
 [Raspberrian on Pi](#*raspberrian-on-pi*)
 
-#### *Ubuntu on Pi*
+### *Ubuntu on Pi*
 
 By default in Ubuntu 20.04 for Pis the gpio and spi groups do not exist.
 The i2c group does (not always).
@@ -46,11 +46,11 @@ python3-pigpio python3-gpiozero python3-rpi.gpio`.
    install using `apt 
    install python3-pip`.
 
-#### *Raspberrian on Pi*
+### *Raspberrian on Pi*
 
 (TBD)
 
-### Non-Pi based System Initial Setup
+## Non-Pi based System Initial Setup
 
 Make sure that Python >=3.6 is installed: `python3 -v`. If not follow 
 instructions at [python.org](https://python.org). This software should run 
@@ -58,7 +58,7 @@ on any computer capable of supporting the necessary version of Python.
 Howevever, it will only run in demo mode if the computer does not support 
 one of the compatible A-to-D boards.
 
-#### *Generic Linux*
+### *Generic Linux*
 
 * If your system hardware 
 has GPIO pins and a GPIO interface board, you should try following the 
@@ -74,11 +74,11 @@ compilation errors when installing try getting the python header and
 development files for your platform. To get them on most *nix platforms use the
 command `$ sudo apt install python3-dev`.
 
-#### *MacOS*
+### *MacOS*
 
-#### *Windows (Please, no.....)*
+### *Windows (Please, no.....)*
 
-### Final Set Up
+## Final Set Up
 
 Make sure the user you will be running the software under is a member of the 
 groups `dialout`, `spi` and if it exists`i2c`. It is recommended that you 
