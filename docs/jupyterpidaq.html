@@ -41,6 +41,7 @@
     <li><a href="#setting-up-development-environment">Setting up Development Environment</a></li>
     <li><a href="#adding-new-sensor-code">Adding New Sensor Code</a></li>
     <li><a href="#running-tests">Running Tests</a></li>
+    <li><a href="#building-documentation">Building Documentation</a></li>
     <li><a href="#building-pypi-package">Building PyPi package</a></li>
     <li><a href="#releasing-on-pypi">Releasing on PyPi</a></li>
   </ul></li>
@@ -49,7 +50,6 @@
   <ul>
     <li><a href="#board-plans">Board plans</a></li>
     <li><a href="#etching-the-board">Etching the board</a></li>
-    <li><a href="#building-documentation">Building Documentation</a></li>
   </ul></li>
 </ul>
 
@@ -501,11 +501,14 @@ board. Test it!</em></li>
 pipenv shell
 pip install -U pytest
 </code></li>
-<li><p>Run tests ignoring the manual tests in the <code>dev_testing</code> directory:
-<code>python -m pytest --ignore='dev_testing'</code>.</p>
+<li>Run tests ignoring the manual tests in the <code>dev_testing</code> directory:
+<code>python -m pytest --ignore='dev_testing'</code>.</li>
+</ol>
 
-<h2 id="building-documentation">Building Documentation</h2></li>
-<li><p>Install or update pdoc into the virtual environment <code>pip install -U pdoc</code>.</p></li>
+<h2 id="building-documentation">Building Documentation</h2>
+
+<ol>
+<li>Install or update pdoc into the virtual environment <code>pip install -U pdoc</code>.</li>
 <li>Make edits to the <code>.md</code> files within the docs folder that are to be 
 included in the first page (see <code>__init__.py</code> of the jupyterpidaq package).</li>
 <li>At the root level run <code>pdoc 
