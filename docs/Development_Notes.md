@@ -76,7 +76,7 @@ board. Test it!*
 2. Run tests ignoring the manual tests in the `dev_testing` directory:
    `python -m pytest --ignore='dev_testing'`.
 
- ## Building Documentation
+## Building Documentation
 
 1. Install or update pdoc into the virtual environment `pip install -U pdoc`.
 2. Make edits to the `.md` files within the docs folder that are to be 
