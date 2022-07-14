@@ -1,4 +1,8 @@
 # Change Log
+* 0.7.8
+  * Updated text for insertion into cells to make better use of escaping 
+    updates in JPSLUtils >=0.7.0.
+  * Removed some unnecessary print statements.
 * 0.7.7
   * Updated requirements for upstream security fixes.
   * Conversion to pandas dataframe now works when trace 0 is not collected.

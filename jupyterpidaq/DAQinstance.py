@@ -481,9 +481,9 @@ class DAQinstance():
             JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
             JPSLUtils.new_cell_immediately_below()
             cmdstr = 'from jupyterpidaq.DAQinstance import * ' \
-                    '# Does nothing if already imported.\\n' \
-                    'displayRun(' + str(self.idno)+', \\"' \
-                    + self.svname + '\\") # display the data'
+                    '# Does nothing if already imported.\n' \
+                    'displayRun(' + str(self.idno)+', \"' \
+                    + self.svname + '\") # display the data'
             JPSLUtils.insert_text_into_next_cell(cmdstr)
             JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
             JPSLUtils.select_cell_immediately_below()
@@ -523,8 +523,8 @@ class DAQinstance():
                         i].units.value + ')')
                 titles.append(
                     self.traces[i].tracelbl.value + '_' + 'stdev')
-        print(str(titles))
-        print(str(datacolumns))
+        #print(str(titles))
+        #print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
 
     def updatingplot(self):
