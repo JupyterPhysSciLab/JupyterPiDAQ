@@ -59,11 +59,12 @@
                 <li><a href="jupyterpidaq/Boards.html">Boards</a></li>
                 <li><a href="jupyterpidaq/ChannelSettings.html">ChannelSettings</a></li>
                 <li><a href="jupyterpidaq/DAQProc.html">DAQProc</a></li>
+                <li><a href="jupyterpidaq/DAQinstance.html">DAQinstance</a></li>
                 <li><a href="jupyterpidaq/Sensors.html">Sensors</a></li>
         </ul>
 
 
-            <footer>JupyterPiDAQ v0.7.7</footer>
+            <footer>JupyterPiDAQ v0.7.8</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -145,7 +146,7 @@ This assumes you set up <code>pipenv</code> as described in the
 <h3 id="initialize-the-data-acquisition-tools">Initialize the Data Acquisition Tools</h3>
 
 <p>Initialize the data acquisition tools by putting the statement <code>from 
-jupyterpidaq.DAQinstance import *</code> into the first cell and clicking on the 
+<a href="jupyterpidaq/DAQinstance.html">jupyterpidaq.DAQinstance</a> import *</code> into the first cell and clicking on the 
 'Run' button. The package loads supporting packages (numpy, pandas, plotly,
 etc...) and searches for compatible hardware. On a Raspberry Pi this takes a
 number of seconds. If no compatible A-to-D boards are found, demo mode is used.
@@ -392,7 +393,7 @@ this by starting jupyter <code>$ jupyter notebook</code>. Jupyter should launch 
 <ol>
 <li>Open a new notebook using the default (Python 3) kernel.</li>
 <li>In the first cell import all from DAQinstance.py: 
-<code>from jupyterpidaq.DAQinstance import *</code>.
+<code>from <a href="jupyterpidaq/DAQinstance.html">jupyterpidaq.DAQinstance</a> import *</code>.
 When run this cell should load the DAQmenu at the end of the Jupyter
 notebook menu/icon bar. If you do not have an appropriate A-to-D
 board installed you will get a message and the software
@@ -454,7 +455,7 @@ your browser.
 <ol>
 <li>Open a new notebook using the default (Python 3) kernel.</li>
 <li>In the first cell import all from DAQinstance.py: 
-<code>from jupyterpidaq.DAQinstance import *</code>.
+<code>from <a href="jupyterpidaq/DAQinstance.html">jupyterpidaq.DAQinstance</a> import *</code>.
 When run this cell should load the DAQmenu at the end of the
 Jupyter notebook menu/icon bar. If you do not have an appropriate A-to-D
 board installed you will get a message and the software
@@ -568,6 +569,12 @@ it does not work, pull the release.</li>
 <h1 id="change-log">Change Log</h1>
 
 <ul>
+<li>0.7.8
+<ul>
+<li>Updated text for insertion into cells to make better use of escaping 
+updates in JPSLUtils &gt;=0.7.0.</li>
+<li>Removed some unnecessary print statements.</li>
+</ul></li>
 <li>0.7.7
 <ul>
 <li>Updated requirements for upstream security fixes.</li>
