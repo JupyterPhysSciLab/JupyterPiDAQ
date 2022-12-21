@@ -80,9 +80,10 @@ command `$ sudo apt install python3-dev`.
 
 ## Final Set Up
 
-Make sure the user you will be running the software under is a member of the 
-groups `dialout`, `spi` and if it exists`i2c`. It is recommended that you 
-install JupyterPiDAQ in its own 
+* If on Raspberry Pi type system, make sure the user you will be running the 
+  software under is a member of the  groups `dialout`, `spi` and if it 
+  exists`i2c`. 
+* It is recommended that you install JupyterPiDAQ in its own 
 [virtual environment](https://docs.python.org/3/tutorial/venv.html?highlight=virtual%20environments).
 The instructions below do just that using the original author's favorite 
 virtual environment tool [pipenv](https://pipenv.pypa.io/en/latest/).
