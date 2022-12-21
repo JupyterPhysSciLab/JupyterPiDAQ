@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 12.0.2"/>
+    <meta name="generator" content="pdoc 12.3.0"/>
     <title>jupyterpidaq API documentation</title>
 
     <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
@@ -63,6 +63,10 @@
                 <li><a href="jupyterpidaq/Sensors.html">Sensors</a></li>
         </ul>
 
+        <h2>API Documentation</h2>
+            <ul class="memberlist">
+    </ul>
+
 
             <footer>JupyterPiDAQ v0.7.8</footer>
 
@@ -95,10 +99,7 @@ interface boards on a Raspberry Pi:</p>
 also available from other vendors);</li>
 <li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>. </li>
 <li>A demo mode will run on any computer with a Jupyter notebook install and
-Python 3.6+. You can try the demo mode without installing on your own 
-computer by launching an instance on the MyBinder servers:
-<a href="https://mybinder.org/v2/gh/JupyterPhysSciLab/JupyterPiDAQ.git/HEAD?urlpath=/tree/usage_examples/"><img src="https://mybinder.org/badge_logo.svg" alt="Binder" /></a>.
-Example notebooks can be found in the "usage_examples" folder.</li>
+Python 3.6+. Example notebooks can be found in the "usage_examples" folder.</li>
 </ul>
 
 <h2 id="usage">Usage</h2>
@@ -291,8 +292,8 @@ also available from other vendors);</li>
 <li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>.</li>
 <li>If you wish to use different interfaces  see the <a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#development-notes">Development
 Notes</a>
-and the <code>Boards</code> subpackage of <code><a href="">jupyterpidaq</a></code> for examples and 
-information on how to define the code interface for a board.</li>
+ and the <code>Boards</code> subpackage of <code><a href="">jupyterpidaq</a></code> for examples and 
+ information on how to define the code interface for a board.</li>
 </ul>
 
 <p>OS specific: <a href="#*ubuntu-on-pi*">Ubuntu on Pi</a> | 
@@ -307,11 +308,11 @@ The i2c group does (not always).</p>
 <li>Make sure that the following packages are installed <code>rpi.gpio-common 
 python3-pigpio python3-gpiozero python3-rpi.gpio</code>.</li>
 <li>You can avoid having to create a gpio group, by assigning users who need
-gpio access to the dialout group. Check that /dev/gpiomem is part of that 
+ gpio access to the dialout group. Check that /dev/gpiomem is part of that 
 group and that the dialout group has rw access. If not you will need to set
-it.</li>
+ it.</li>
 <li>Users also need to be members of the i2c group. If it does not exist create 
-it and then make that the group for /dev/i2c-1 with group rw permissions. 
+ it and then make that the group for /dev/i2c-1 with group rw permissions. 
 THIS MAY NOT BE NECESSARY. </li>
 <li>The spi group needs to be created (addgroup?).</li>
 <li>Additionally the spi group needs to be given rw access to the spi devices
@@ -361,12 +362,15 @@ command <code>$ sudo apt install python3-dev</code>.</p>
 
 <h2 id="final-set-up">Final Set Up</h2>
 
-<p>Make sure the user you will be running the software under is a member of the 
-groups <code>dialout</code>, <code>spi</code> and if it exists<code>i2c</code>. It is recommended that you 
-install JupyterPiDAQ in its own 
+<ul>
+<li>If on Raspberry Pi type system, make sure the user you will be running the 
+software under is a member of the  groups <code>dialout</code>, <code>spi</code> and if it 
+exists<code>i2c</code>. </li>
+<li>It is recommended that you install JupyterPiDAQ in its own 
 <a href="https://docs.python.org/3/tutorial/venv.html?highlight=virtual%20environments">virtual environment</a>.
 The instructions below do just that using the original author's favorite 
-virtual environment tool <a href="https://pipenv.pypa.io/en/latest/">pipenv</a>.</p>
+virtual environment tool <a href="https://pipenv.pypa.io/en/latest/">pipenv</a>.</li>
+</ul>
 
 <p>Log into your chosen user account:</p>
 
@@ -384,22 +388,22 @@ into (example: <code>$ mkdir JupyterPiDAQ</code>).</li>
 the environment you can issue the <code>$ exit</code> command on the command line.</li>
 <li>While still in the shell install the latest JupyterPiDAQ and all its
 requirements
-<code>$ pip install -U JupyterPiDAQ</code>. This can take a long time, especially on a
-Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
-without at least 1 GB of swap. See: <a href="a href=&quot;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&quot;&gt;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&lt;/a">Build Jupyter on a Pi</a>
-for a discussion of adding swap space on a Pi.</li>
+  <code>$ pip install -U JupyterPiDAQ</code>. This can take a long time, especially on a
+  Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
+  without at least 1 GB of swap. See: <a href="a href=&quot;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&quot;&gt;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&lt;/a">Build Jupyter on a Pi</a>
+  for a discussion of adding swap space on a Pi.</li>
 <li>Still within the environment shell test
 this by starting jupyter <code>$ jupyter notebook</code>. Jupyter should launch in your browser.
 <ol>
 <li>Open a new notebook using the default (Python 3) kernel.</li>
 <li>In the first cell import all from DAQinstance.py: 
 <code>from <a href="jupyterpidaq/DAQinstance.html">jupyterpidaq.DAQinstance</a> import *</code>.
-When run this cell should load the DAQmenu at the end of the Jupyter
-notebook menu/icon bar. If you do not have an appropriate A-to-D
-board installed you will get a message and the software
-will default to demo mode, substituting a random number
-generator for the A-to-D. Because of the demo mode it is
-possible to run this on any computer, not just a Pi.</li>
+ When run this cell should load the DAQmenu at the end of the Jupyter
+ notebook menu/icon bar. If you do not have an appropriate A-to-D
+ board installed you will get a message and the software
+ will default to demo mode, substituting a random number
+ generator for the A-to-D. Because of the demo mode it is
+ possible to run this on any computer, not just a Pi.</li>
 </ol></li>
 <li>If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
@@ -498,10 +502,9 @@ board. Test it!</em></li>
 
 <ol>
 <li>Install updated pytest in the virtual environment:
-<code>
-pipenv shell
+<pre><code>pipenv shell
 pip install -U pytest
-</code></li>
+</code></pre></li>
 <li>Run tests ignoring the manual tests in the <code>dev_testing</code> directory:
 <code>python -m pytest --ignore='dev_testing'</code>.</li>
 </ol>
@@ -524,25 +527,23 @@ Raspbery Pi this will throw an error about <code>import</code>. Just ignore.</li
 <ol>
 <li>Make sure to update the version number in setup.py first.</li>
 <li>Install updated  setuptools and twine in the virtual environment:
-<code>
-pipenv shell
+<pre><code>pipenv shell
 pip install -U setuptools wheel twine
-</code></li>
+</code></pre></li>
 <li>Build the distribution <code>python -m setup sdist bdist_wheel</code>.</li>
 <li>Test it on <code>test.pypi.org</code>.
 <ol>
 <li>Upload it (you will need an account on test.pypi.org):
 <code>python -m twine upload --repository testpypi dist/*</code>.</li>
 <li>Create a new virtual environment and test install into it:
-<code>
-exit # to get out of the current environment
+ <pre><code>exit # to get out of the current environment
 cd &lt;somewhere&gt;
 mkdir &lt;new virtual environment&gt;
 cd &lt;new directory&gt;
 pipenv shell #creates the new environment and enters it.
 pip install -i https://test.pypi.org/..... # copy actual link from the
                                            # repository on test.pypi.
-</code>
+</code></pre>
 There are often install issues because sometimes only older versions of
 some of the required packages are available on test.pypi.org. If this
 is the only problem change the version to end in <code>rc0</code> for release
@@ -666,9 +667,9 @@ complete
 removal in 3 – 5 min (longer gives poorly defined edges).</p>
 </div>
 
-                        <input id="jupyterpidaq-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                        <input id="mod-jupyterpidaq-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
-                        <label class="view-source-button" for="jupyterpidaq-view-source"><span>View Source</span></label>
+                        <label class="view-source-button" for="mod-jupyterpidaq-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a><span class="sd">.. include:: ../docs/User_Guide.md</span>
@@ -783,9 +784,13 @@ removal in 3 – 5 min (longer gives poorly defined edges).</p>
                 }
 
                 let heading;
-                switch (result.doc.type) {
+                switch (result.doc.kind) {
                     case "function":
-                        heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span><span class="signature">${doc.signature}:</span>`;
+                        if (doc.fullname.endsWith(".__init__")) {
+                            heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
+                        } else {
+                            heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span>${doc.signature}`;
+                        }
                         break;
                     case "class":
                         heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
@@ -806,7 +811,7 @@ removal in 3 – 5 min (longer gives poorly defined edges).</p>
                 }
                 html += `
                         <section class="search-result">
-                        <a href="${url}" class="attr ${doc.type}">${heading}</a>
+                        <a href="${url}" class="attr ${doc.kind}">${heading}</a>
                         <div class="docstring">${doc.doc}</div>
                         </section>
                     `;
