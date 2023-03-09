@@ -9,7 +9,7 @@ import logging
 
 try:
     from piplates import DAQC2plate
-except RuntimeError as e:
+except Exception as e:
     print("DAQC2plate: "+str(e))
     DAQC2plate = None
 

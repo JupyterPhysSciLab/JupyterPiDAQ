@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 12.3.0"/>
+    <meta name="generator" content="pdoc 13.0.0"/>
     <title>jupyterpidaq.Sensors.sensors API documentation</title>
 
     <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
     <style>/*! syntax-highlighting.css */pre{line-height:125%;}span.linenos{color:inherit; background-color:transparent; padding-left:5px; padding-right:20px;}.pdoc-code .hll{background-color:#ffffcc}.pdoc-code{background:#f8f8f8;}.pdoc-code .c{color:#3D7B7B; font-style:italic}.pdoc-code .err{border:1px solid #FF0000}.pdoc-code .k{color:#008000; font-weight:bold}.pdoc-code .o{color:#666666}.pdoc-code .ch{color:#3D7B7B; font-style:italic}.pdoc-code .cm{color:#3D7B7B; font-style:italic}.pdoc-code .cp{color:#9C6500}.pdoc-code .cpf{color:#3D7B7B; font-style:italic}.pdoc-code .c1{color:#3D7B7B; font-style:italic}.pdoc-code .cs{color:#3D7B7B; font-style:italic}.pdoc-code .gd{color:#A00000}.pdoc-code .ge{font-style:italic}.pdoc-code .gr{color:#E40000}.pdoc-code .gh{color:#000080; font-weight:bold}.pdoc-code .gi{color:#008400}.pdoc-code .go{color:#717171}.pdoc-code .gp{color:#000080; font-weight:bold}.pdoc-code .gs{font-weight:bold}.pdoc-code .gu{color:#800080; font-weight:bold}.pdoc-code .gt{color:#0044DD}.pdoc-code .kc{color:#008000; font-weight:bold}.pdoc-code .kd{color:#008000; font-weight:bold}.pdoc-code .kn{color:#008000; font-weight:bold}.pdoc-code .kp{color:#008000}.pdoc-code .kr{color:#008000; font-weight:bold}.pdoc-code .kt{color:#B00040}.pdoc-code .m{color:#666666}.pdoc-code .s{color:#BA2121}.pdoc-code .na{color:#687822}.pdoc-code .nb{color:#008000}.pdoc-code .nc{color:#0000FF; font-weight:bold}.pdoc-code .no{color:#880000}.pdoc-code .nd{color:#AA22FF}.pdoc-code .ni{color:#717171; font-weight:bold}.pdoc-code .ne{color:#CB3F38; font-weight:bold}.pdoc-code .nf{color:#0000FF}.pdoc-code .nl{color:#767600}.pdoc-code .nn{color:#0000FF; font-weight:bold}.pdoc-code .nt{color:#008000; font-weight:bold}.pdoc-code .nv{color:#19177C}.pdoc-code .ow{color:#AA22FF; font-weight:bold}.pdoc-code .w{color:#bbbbbb}.pdoc-code .mb{color:#666666}.pdoc-code .mf{color:#666666}.pdoc-code .mh{color:#666666}.pdoc-code .mi{color:#666666}.pdoc-code .mo{color:#666666}.pdoc-code .sa{color:#BA2121}.pdoc-code .sb{color:#BA2121}.pdoc-code .sc{color:#BA2121}.pdoc-code .dl{color:#BA2121}.pdoc-code .sd{color:#BA2121; font-style:italic}.pdoc-code .s2{color:#BA2121}.pdoc-code .se{color:#AA5D1F; font-weight:bold}.pdoc-code .sh{color:#BA2121}.pdoc-code .si{color:#A45A77; font-weight:bold}.pdoc-code .sx{color:#008000}.pdoc-code .sr{color:#A45A77}.pdoc-code .s1{color:#BA2121}.pdoc-code .ss{color:#19177C}.pdoc-code .bp{color:#008000}.pdoc-code .fm{color:#0000FF}.pdoc-code .vc{color:#19177C}.pdoc-code .vg{color:#19177C}.pdoc-code .vi{color:#19177C}.pdoc-code .vm{color:#19177C}.pdoc-code .il{color:#666666}</style>
     <style>/*! theme.css */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f8f8f8;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}</style>
-    <style>/*! layout.css */html, body{width:100%;height:100%;}html, main{scroll-behavior:smooth;}body{background-color:var(--pdoc-background);}@media (max-width:769px){#navtoggle{cursor:pointer;position:absolute;width:50px;height:40px;top:1rem;right:1rem;border-color:var(--text);color:var(--text);display:flex;opacity:0.8;}#navtoggle:hover{opacity:1;}#togglestate + div{display:none;}#togglestate:checked + div{display:inherit;}main, header{padding:2rem 3vw;}header + main{margin-top:-3rem;}.git-button{display:none !important;}nav input[type="search"]{max-width:77%;}nav input[type="search"]:first-child{margin-top:-6px;}nav input[type="search"]:valid ~ *{display:none !important;}}@media (min-width:770px){:root{--sidebar-width:clamp(12.5rem, 28vw, 22rem);}nav{position:fixed;overflow:auto;height:100vh;width:var(--sidebar-width);}main, header{padding:3rem 2rem 3rem calc(var(--sidebar-width) + 3rem);width:calc(54rem + var(--sidebar-width));max-width:100%;}header + main{margin-top:-4rem;}#navtoggle{display:none;}}#togglestate{position:absolute;height:0;opacity:0;}nav.pdoc{--pad:clamp(0.5rem, 2vw, 1.75rem);--indent:1.5rem;background-color:var(--accent);border-right:1px solid var(--accent2);box-shadow:0 0 20px rgba(50, 50, 50, .2) inset;padding:0 0 0 var(--pad);overflow-wrap:anywhere;scrollbar-width:thin; scrollbar-color:var(--accent2) transparent }nav.pdoc::-webkit-scrollbar{width:.4rem; }nav.pdoc::-webkit-scrollbar-thumb{background-color:var(--accent2); }nav.pdoc > div{padding:var(--pad) 0;}nav.pdoc .module-list-button{display:inline-flex;align-items:center;color:var(--text);border-color:var(--muted);margin-bottom:1rem;}nav.pdoc .module-list-button:hover{border-color:var(--text);}nav.pdoc input[type=search]{display:block;outline-offset:0;width:calc(100% - var(--pad));}nav.pdoc .logo{max-width:calc(100% - var(--pad));max-height:35vh;display:block;margin:0 auto 1rem;transform:translate(calc(-.5 * var(--pad)), 0);}nav.pdoc ul{list-style:none;padding-left:0;}nav.pdoc > div > ul{margin-left:calc(0px - var(--pad));}nav.pdoc li a{padding:.2rem 0 .2rem calc(var(--pad) + var(--indent));}nav.pdoc > div > ul > li > a{padding-left:var(--pad);}nav.pdoc li{transition:all 100ms;}nav.pdoc li:hover{background-color:var(--nav-hover);}nav.pdoc a, nav.pdoc a:hover{color:var(--text);}nav.pdoc a{display:block;}nav.pdoc > h2:first-of-type{margin-top:1.5rem;}nav.pdoc .class:before{content:"class ";color:var(--muted);}nav.pdoc .function:after{content:"()";color:var(--muted);}nav.pdoc footer:before{content:"";display:block;width:calc(100% - var(--pad));border-top:solid var(--accent2) 1px;margin-top:1.5rem;padding-top:.5rem;}nav.pdoc footer{font-size:small;}</style>
-    <style>/*! content.css */.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .pdoc-alert{padding:1rem 1rem 1rem calc(1.5rem + 24px);border:1px solid transparent;border-radius:.25rem;background-repeat:no-repeat;background-position:1rem center;margin-bottom:1rem;}.pdoc .pdoc-alert > *:last-child{margin-bottom:0;}.pdoc .pdoc-alert-note {color:#084298;background-color:#cfe2ff;border-color:#b6d4fe;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23084298%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2016A8%208%200%201%200%208%200a8%208%200%200%200%200%2016zm.93-9.412-1%204.705c-.07.34.029.533.304.533.194%200%20.487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703%200-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381%202.29-.287zM8%205.5a1%201%200%201%201%200-2%201%201%200%200%201%200%202z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-warning{color:#664d03;background-color:#fff3cd;border-color:#ffecb5;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23664d03%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.982%201.566a1.13%201.13%200%200%200-1.96%200L.165%2013.233c-.457.778.091%201.767.98%201.767h13.713c.889%200%201.438-.99.98-1.767L8.982%201.566zM8%205c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%205.995A.905.905%200%200%201%208%205zm.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-danger{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.52.359A.5.5%200%200%201%206%200h4a.5.5%200%200%201%20.474.658L8.694%206H12.5a.5.5%200%200%201%20.395.807l-7%209a.5.5%200%200%201-.873-.454L6.823%209.5H3.5a.5.5%200%200%201-.48-.641l2.5-8.5z%22/%3E%3C/svg%3E");}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc > section:not(.module-info) h1{font-size:1.5rem;font-weight:500;}.pdoc > section:not(.module-info) h2{font-size:1.4rem;font-weight:500;}.pdoc > section:not(.module-info) h3{font-size:1.3rem;font-weight:500;}.pdoc > section:not(.module-info) h4{font-size:1.2rem;}.pdoc > section:not(.module-info) h5{font-size:1.1rem;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-top:0;margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;background-color:var(--code);}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc > section:not(.module-info){margin-bottom:1.5rem;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.view-source-toggle-state,.view-source-toggle-state ~ .pdoc-code{display:none;}.view-source-toggle-state:checked ~ .pdoc-code{display:block;}.view-source-button{display:inline-block;float:right;font-size:.75rem;line-height:1.5rem;color:var(--muted);padding:0 .4rem 0 1.3rem;cursor:pointer;text-indent:-2px;}.view-source-button > span{visibility:hidden;}.module-info .view-source-button{float:none;display:flex;justify-content:flex-end;margin:-1.2rem .4rem -.2rem 0;}.view-source-button::before{position:absolute;content:"View Source";display:list-item;list-style-type:disclosure-closed;}.view-source-toggle-state:checked ~ .attr .view-source-button::before,.view-source-toggle-state:checked ~ .view-source-button::before{list-style-type:disclosure-open;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc section:not(.module-info) .docstring{margin-left:clamp(0rem, 5vw - 2rem, 1rem);}.pdoc .docstring .pdoc-code{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target,.pdoc .pdoc-code > pre > span:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc .pdoc-code > pre > span:target{display:block;}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc *{scroll-margin:2rem;}.pdoc .pdoc-code .linenos{user-select:none;}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc section, .pdoc .classattr{position:relative;}.pdoc .headerlink{--width:clamp(1rem, 3vw, 2rem);position:absolute;top:0;left:calc(0rem - var(--width));transition:all 100ms ease-in-out;opacity:0;}.pdoc .headerlink::before{content:"#";display:block;text-align:center;width:var(--width);height:2.3rem;line-height:2.3rem;font-size:1.5rem;}.pdoc .attr:hover ~ .headerlink,.pdoc *:target > .headerlink,.pdoc .headerlink:hover{opacity:1;}.pdoc .attr{display:block;margin:.5rem 0 .5rem;padding:.4rem .4rem .4rem 1rem;background-color:var(--accent);overflow-x:auto;}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{background-color:transparent;}.pdoc .param, .pdoc .return-annotation{white-space:pre;}.pdoc .signature.multiline .param{display:block;}.pdoc .signature.condensed .param{display:inline-block;}.pdoc .annotation{color:var(--annotation);}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
+    <style>/*! layout.css */html, body{width:100%;height:100%;}html, main{scroll-behavior:smooth;}body{background-color:var(--pdoc-background);}@media (max-width:769px){#navtoggle{cursor:pointer;position:absolute;width:50px;height:40px;top:1rem;right:1rem;border-color:var(--text);color:var(--text);display:flex;opacity:0.8;z-index:999;}#navtoggle:hover{opacity:1;}#togglestate + div{display:none;}#togglestate:checked + div{display:inherit;}main, header{padding:2rem 3vw;}header + main{margin-top:-3rem;}.git-button{display:none !important;}nav input[type="search"]{max-width:77%;}nav input[type="search"]:first-child{margin-top:-6px;}nav input[type="search"]:valid ~ *{display:none !important;}}@media (min-width:770px){:root{--sidebar-width:clamp(12.5rem, 28vw, 22rem);}nav{position:fixed;overflow:auto;height:100vh;width:var(--sidebar-width);}main, header{padding:3rem 2rem 3rem calc(var(--sidebar-width) + 3rem);width:calc(54rem + var(--sidebar-width));max-width:100%;}header + main{margin-top:-4rem;}#navtoggle{display:none;}}#togglestate{position:absolute;height:0;opacity:0;}nav.pdoc{--pad:clamp(0.5rem, 2vw, 1.75rem);--indent:1.5rem;background-color:var(--accent);border-right:1px solid var(--accent2);box-shadow:0 0 20px rgba(50, 50, 50, .2) inset;padding:0 0 0 var(--pad);overflow-wrap:anywhere;scrollbar-width:thin; scrollbar-color:var(--accent2) transparent }nav.pdoc::-webkit-scrollbar{width:.4rem; }nav.pdoc::-webkit-scrollbar-thumb{background-color:var(--accent2); }nav.pdoc > div{padding:var(--pad) 0;}nav.pdoc .module-list-button{display:inline-flex;align-items:center;color:var(--text);border-color:var(--muted);margin-bottom:1rem;}nav.pdoc .module-list-button:hover{border-color:var(--text);}nav.pdoc input[type=search]{display:block;outline-offset:0;width:calc(100% - var(--pad));}nav.pdoc .logo{max-width:calc(100% - var(--pad));max-height:35vh;display:block;margin:0 auto 1rem;transform:translate(calc(-.5 * var(--pad)), 0);}nav.pdoc ul{list-style:none;padding-left:0;}nav.pdoc > div > ul{margin-left:calc(0px - var(--pad));}nav.pdoc li a{padding:.2rem 0 .2rem calc(var(--pad) + var(--indent));}nav.pdoc > div > ul > li > a{padding-left:var(--pad);}nav.pdoc li{transition:all 100ms;}nav.pdoc li:hover{background-color:var(--nav-hover);}nav.pdoc a, nav.pdoc a:hover{color:var(--text);}nav.pdoc a{display:block;}nav.pdoc > h2:first-of-type{margin-top:1.5rem;}nav.pdoc .class:before{content:"class ";color:var(--muted);}nav.pdoc .function:after{content:"()";color:var(--muted);}nav.pdoc footer:before{content:"";display:block;width:calc(100% - var(--pad));border-top:solid var(--accent2) 1px;margin-top:1.5rem;padding-top:.5rem;}nav.pdoc footer{font-size:small;}</style>
+    <style>/*! content.css */.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{cursor:pointer;display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .pdoc-alert{padding:1rem 1rem 1rem calc(1.5rem + 24px);border:1px solid transparent;border-radius:.25rem;background-repeat:no-repeat;background-position:1rem center;margin-bottom:1rem;}.pdoc .pdoc-alert > *:last-child{margin-bottom:0;}.pdoc .pdoc-alert-note {color:#084298;background-color:#cfe2ff;border-color:#b6d4fe;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23084298%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2016A8%208%200%201%200%208%200a8%208%200%200%200%200%2016zm.93-9.412-1%204.705c-.07.34.029.533.304.533.194%200%20.487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703%200-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381%202.29-.287zM8%205.5a1%201%200%201%201%200-2%201%201%200%200%201%200%202z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-warning{color:#664d03;background-color:#fff3cd;border-color:#ffecb5;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23664d03%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.982%201.566a1.13%201.13%200%200%200-1.96%200L.165%2013.233c-.457.778.091%201.767.98%201.767h13.713c.889%200%201.438-.99.98-1.767L8.982%201.566zM8%205c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%205.995A.905.905%200%200%201%208%205zm.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2z%22/%3E%3C/svg%3E");}.pdoc .pdoc-alert-danger{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.52.359A.5.5%200%200%201%206%200h4a.5.5%200%200%201%20.474.658L8.694%206H12.5a.5.5%200%200%201%20.395.807l-7%209a.5.5%200%200%201-.873-.454L6.823%209.5H3.5a.5.5%200%200%201-.48-.641l2.5-8.5z%22/%3E%3C/svg%3E");}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc > section:not(.module-info) h1{font-size:1.5rem;font-weight:500;}.pdoc > section:not(.module-info) h2{font-size:1.4rem;font-weight:500;}.pdoc > section:not(.module-info) h3{font-size:1.3rem;font-weight:500;}.pdoc > section:not(.module-info) h4{font-size:1.2rem;}.pdoc > section:not(.module-info) h5{font-size:1.1rem;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-top:0;margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;background-color:var(--code);}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--code);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc > section:not(.module-info){margin-bottom:1.5rem;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.view-source-toggle-state,.view-source-toggle-state ~ .pdoc-code{display:none;}.view-source-toggle-state:checked ~ .pdoc-code{display:block;}.view-source-button{display:inline-block;float:right;font-size:.75rem;line-height:1.5rem;color:var(--muted);padding:0 .4rem 0 1.3rem;cursor:pointer;text-indent:-2px;}.view-source-button > span{visibility:hidden;}.module-info .view-source-button{float:none;display:flex;justify-content:flex-end;margin:-1.2rem .4rem -.2rem 0;}.view-source-button::before{position:absolute;content:"View Source";display:list-item;list-style-type:disclosure-closed;}.view-source-toggle-state:checked ~ .attr .view-source-button::before,.view-source-toggle-state:checked ~ .view-source-button::before{list-style-type:disclosure-open;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc section:not(.module-info) .docstring{margin-left:clamp(0rem, 5vw - 2rem, 1rem);}.pdoc .docstring .pdoc-code{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target,.pdoc .pdoc-code > pre > span:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc .pdoc-code > pre > span:target{display:block;}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc *{scroll-margin:2rem;}.pdoc .pdoc-code .linenos{user-select:none;}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc section, .pdoc .classattr{position:relative;}.pdoc .headerlink{--width:clamp(1rem, 3vw, 2rem);position:absolute;top:0;left:calc(0rem - var(--width));transition:all 100ms ease-in-out;opacity:0;}.pdoc .headerlink::before{content:"#";display:block;text-align:center;width:var(--width);height:2.3rem;line-height:2.3rem;font-size:1.5rem;}.pdoc .attr:hover ~ .headerlink,.pdoc *:target > .headerlink,.pdoc .headerlink:hover{opacity:1;}.pdoc .attr{display:block;margin:.5rem 0 .5rem;padding:.4rem .4rem .4rem 1rem;background-color:var(--accent);overflow-x:auto;}.pdoc .classattr{margin-left:2rem;}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{background-color:transparent;}.pdoc .param, .pdoc .return-annotation{white-space:pre;}.pdoc .signature.multiline .param{display:block;}.pdoc .signature.condensed .param{display:inline-block;}.pdoc .annotation{color:var(--annotation);}.pdoc .view-value-toggle-state,.pdoc .view-value-toggle-state ~ .default_value{display:none;}.pdoc .view-value-toggle-state:checked ~ .default_value{display:inherit;}.pdoc .view-value-button{font-size:.5rem;vertical-align:middle;border-style:dashed;margin-top:-0.1rem;}.pdoc .view-value-button:hover{background:white;}.pdoc .view-value-button::before{content:"show";text-align:center;width:2.2em;display:inline-block;}.pdoc .view-value-toggle-state:checked ~ .view-value-button::before{content:"hide";}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:35px;vertical-align:middle;width:70px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
     <style>/*! custom.css */</style></head>
 <body>
     <nav class="pdoc">
@@ -181,7 +181,7 @@
     </ul>
 
 
-            <footer>JupyterPiDAQ v0.7.8</footer>
+            <footer>JupyterPiDAQ v0.7.9</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -221,7 +221,7 @@
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="c1"># Unit conversions</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="k">def</span> <span class="nf">_KtoC</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    :param K: temperature in K</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">    :return: temperature in C</span>
@@ -230,7 +230,7 @@
 </span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>
 </span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="k">def</span> <span class="nf">_CtoF</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
 </span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="sd">    :param C: temperature in C</span>
 </span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="sd">    :return: temperature in F</span>
@@ -239,7 +239,7 @@
 </span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>
 </span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="k">def</span> <span class="nf">_ntc_therm_RtoK</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="sd">    Converts resistance of a negative temperature coefficient thermistor to</span>
 </span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="sd">    temperature in Kelvin using the</span>
 </span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="sd">    Steinhart Hart model.</span>
@@ -265,7 +265,7 @@
 </span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a><span class="c1"># Round values to reflect uncertainty/standard deviation</span>
 </span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
 </span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a><span class="k">def</span> <span class="nf">to_reasonable_significant_figures</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">uncertainty</span><span class="p">):</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a><span class="sd">    This function will return value rounded to a reasonable number of</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="sd">    significant figures based on the uncertainty. If you are doing this</span>
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="sd">    based on the standard return from the raw voltage or the sensor</span>
@@ -292,7 +292,7 @@
 </span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
 </span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="k">def</span> <span class="nf">to_reasonable_significant_figures_fast</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">):</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">    This function will return values rounded to a reasonable number of</span>
 </span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">    significant figures based on the avg_std. This function requires fewer</span>
 </span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">    compares so is a little more efficient than calling</span>
@@ -322,7 +322,7 @@
 </span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="c1"># TODO: Should be added to when each new sensor class is added.</span>
 </span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>
 </span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="k">def</span> <span class="nf">listSensors</span><span class="p">():</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">    Provides a list of the sensor classes provided by this file. The list must</span>
 </span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="sd">    be manually updated with each new class.</span>
 </span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">    :return: list of classnames</span>
@@ -346,7 +346,7 @@
 </span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="c1">###</span>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>
 </span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="k">class</span> <span class="nc">RawAtoD</span><span class="p">:</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">    This is the base sensor class which all sensors should extend. See how to</span>
 </span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">    do this properly using one of the examples below.</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="sd">    This class contains definitions for the raw AtoD return in volts. The</span>
@@ -356,7 +356,7 @@
 </span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>
 </span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vdd</span><span class="p">):</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a><span class="sd">        This init should be called first in the init section of any class</span>
 </span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a><span class="sd">        extending this class (e.g. `super().__init__(Vdd)`). Then set</span>
 </span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a><span class="sd">        `self.name` and `self.vendor` to the proper values. Append units</span>
@@ -374,21 +374,21 @@
 </span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>        <span class="k">pass</span>
 </span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>
 </span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>    <span class="k">def</span> <span class="nf">getname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a><span class="sd">        Provides a string name for the sensor</span>
 </span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="sd">        :return: string containing the sensor name</span>
 </span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 </span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>
 </span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="k">def</span> <span class="nf">getvendor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a><span class="sd">        Provides a string name for the sensor vendor/manufacturer</span>
 </span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a><span class="sd">        :return: string containing the vendor/manufacturer name</span>
 </span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span>
 </span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>
 </span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>    <span class="k">def</span> <span class="nf">getunits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a><span class="sd">        Provides the string names for the available units for this sensor.</span>
 </span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a><span class="sd">        These string names are also the functions within this class that</span>
 </span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a><span class="sd">        return the measurement in those units.</span>
@@ -397,7 +397,7 @@
 </span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
 </span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>
 </span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>    <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="sd">        It is not really necessary to call this function because it just</span>
 </span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a><span class="sd">        returns the same values that are passed to it.</span>
 </span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a><span class="sd">        It is provided for consistency with the way sensors units are defined.</span>
@@ -410,7 +410,7 @@
 </span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>        <span class="k">return</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span>
 </span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>
 </span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a>    <span class="k">def</span> <span class="nf">mV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a><span class="sd">        Convert the raw AtoD voltage to mV.</span>
 </span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a><span class="sd">        :param v_avg: v_avg: average voltage from A-to-D</span>
 </span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a><span class="sd">        :param v_std: standard deviation of the A-to-D measurements</span>
@@ -422,7 +422,7 @@
 </span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a>
 </span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>
 </span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a><span class="k">class</span> <span class="nc">BuiltInThermistor</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a><span class="sd">    This class contains the definitions for builtin thermistor.</span>
 </span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a>
@@ -442,7 +442,7 @@
 </span><span id="L-240"><a href="#L-240"><span class="linenos">240</span></a>    <span class="c1">###</span>
 </span><span id="L-241"><a href="#L-241"><span class="linenos">241</span></a>
 </span><span id="L-242"><a href="#L-242"><span class="linenos">242</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-244"><a href="#L-244"><span class="linenos">244</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="L-245"><a href="#L-245"><span class="linenos">245</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="L-246"><a href="#L-246"><span class="linenos">246</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -480,7 +480,7 @@
 </span><span id="L-278"><a href="#L-278"><span class="linenos">278</span></a>        <span class="k">return</span> <span class="n">K_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="L-279"><a href="#L-279"><span class="linenos">279</span></a>
 </span><span id="L-280"><a href="#L-280"><span class="linenos">280</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-281"><a href="#L-281"><span class="linenos">281</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-281"><a href="#L-281"><span class="linenos">281</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-282"><a href="#L-282"><span class="linenos">282</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="L-283"><a href="#L-283"><span class="linenos">283</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="L-284"><a href="#L-284"><span class="linenos">284</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -499,7 +499,7 @@
 </span><span id="L-297"><a href="#L-297"><span class="linenos">297</span></a>        <span class="k">return</span> <span class="n">C_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="L-298"><a href="#L-298"><span class="linenos">298</span></a>
 </span><span id="L-299"><a href="#L-299"><span class="linenos">299</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-300"><a href="#L-300"><span class="linenos">300</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-300"><a href="#L-300"><span class="linenos">300</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-301"><a href="#L-301"><span class="linenos">301</span></a><span class="sd">        The returned values are in deg F. It is assumed that the distribution</span>
 </span><span id="L-302"><a href="#L-302"><span class="linenos">302</span></a><span class="sd">        is symmetric guassian even in deg F. This may not be true, but still</span>
 </span><span id="L-303"><a href="#L-303"><span class="linenos">303</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -520,7 +520,7 @@
 </span><span id="L-318"><a href="#L-318"><span class="linenos">318</span></a>        <span class="k">return</span> <span class="n">F_avg</span><span class="p">,</span> <span class="n">F_std</span><span class="p">,</span> <span class="n">F_avg_std</span>
 </span><span id="L-319"><a href="#L-319"><span class="linenos">319</span></a>
 </span><span id="L-320"><a href="#L-320"><span class="linenos">320</span></a>    <span class="k">def</span> <span class="nf">_VtoK</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volts</span><span class="p">):</span>
-</span><span id="L-321"><a href="#L-321"><span class="linenos">321</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-321"><a href="#L-321"><span class="linenos">321</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-322"><a href="#L-322"><span class="linenos">322</span></a><span class="sd">        :param volts: voltage measurement</span>
 </span><span id="L-323"><a href="#L-323"><span class="linenos">323</span></a><span class="sd">        :return: temperature in K.</span>
 </span><span id="L-324"><a href="#L-324"><span class="linenos">324</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -541,7 +541,7 @@
 </span><span id="L-339"><a href="#L-339"><span class="linenos">339</span></a>
 </span><span id="L-340"><a href="#L-340"><span class="linenos">340</span></a>
 </span><span id="L-341"><a href="#L-341"><span class="linenos">341</span></a><span class="k">class</span> <span class="nc">VernierSSTemp</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-342"><a href="#L-342"><span class="linenos">342</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-342"><a href="#L-342"><span class="linenos">342</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-343"><a href="#L-343"><span class="linenos">343</span></a><span class="sd">    This class contains the definitions for Vernier Stainless Steel Temperature</span>
 </span><span id="L-344"><a href="#L-344"><span class="linenos">344</span></a><span class="sd">    Probe. A 20K thermistor.</span>
 </span><span id="L-345"><a href="#L-345"><span class="linenos">345</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -560,7 +560,7 @@
 </span><span id="L-358"><a href="#L-358"><span class="linenos">358</span></a>    <span class="c1">###</span>
 </span><span id="L-359"><a href="#L-359"><span class="linenos">359</span></a>
 </span><span id="L-360"><a href="#L-360"><span class="linenos">360</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-361"><a href="#L-361"><span class="linenos">361</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-361"><a href="#L-361"><span class="linenos">361</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-362"><a href="#L-362"><span class="linenos">362</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="L-363"><a href="#L-363"><span class="linenos">363</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="L-364"><a href="#L-364"><span class="linenos">364</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -602,7 +602,7 @@
 </span><span id="L-400"><a href="#L-400"><span class="linenos">400</span></a>        <span class="k">return</span> <span class="n">K_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="L-401"><a href="#L-401"><span class="linenos">401</span></a>
 </span><span id="L-402"><a href="#L-402"><span class="linenos">402</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-403"><a href="#L-403"><span class="linenos">403</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-403"><a href="#L-403"><span class="linenos">403</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-404"><a href="#L-404"><span class="linenos">404</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="L-405"><a href="#L-405"><span class="linenos">405</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="L-406"><a href="#L-406"><span class="linenos">406</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -622,7 +622,7 @@
 </span><span id="L-420"><a href="#L-420"><span class="linenos">420</span></a>        <span class="k">return</span> <span class="n">C_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="L-421"><a href="#L-421"><span class="linenos">421</span></a>
 </span><span id="L-422"><a href="#L-422"><span class="linenos">422</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-423"><a href="#L-423"><span class="linenos">423</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-423"><a href="#L-423"><span class="linenos">423</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-424"><a href="#L-424"><span class="linenos">424</span></a><span class="sd">        The returned values are in deg F. It is assumed that the</span>
 </span><span id="L-425"><a href="#L-425"><span class="linenos">425</span></a><span class="sd">        distribution is symmetric guassian even in deg F. This may not be</span>
 </span><span id="L-426"><a href="#L-426"><span class="linenos">426</span></a><span class="sd">        true, but still gives a reasonable estimate of the standard</span>
@@ -647,7 +647,7 @@
 </span><span id="L-445"><a href="#L-445"><span class="linenos">445</span></a>        <span class="k">return</span> <span class="n">F_avg</span><span class="p">,</span> <span class="n">F_std</span><span class="p">,</span> <span class="n">F_avg_std</span>
 </span><span id="L-446"><a href="#L-446"><span class="linenos">446</span></a>
 </span><span id="L-447"><a href="#L-447"><span class="linenos">447</span></a>    <span class="k">def</span> <span class="nf">_VtoK</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volts</span><span class="p">):</span>
-</span><span id="L-448"><a href="#L-448"><span class="linenos">448</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-448"><a href="#L-448"><span class="linenos">448</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-449"><a href="#L-449"><span class="linenos">449</span></a><span class="sd">        :param volts: voltage measurement</span>
 </span><span id="L-450"><a href="#L-450"><span class="linenos">450</span></a><span class="sd">        :return: temperature in K.</span>
 </span><span id="L-451"><a href="#L-451"><span class="linenos">451</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -671,7 +671,7 @@
 </span><span id="L-469"><a href="#L-469"><span class="linenos">469</span></a>
 </span><span id="L-470"><a href="#L-470"><span class="linenos">470</span></a>
 </span><span id="L-471"><a href="#L-471"><span class="linenos">471</span></a><span class="k">class</span> <span class="nc">VernierGasP</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-472"><a href="#L-472"><span class="linenos">472</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-472"><a href="#L-472"><span class="linenos">472</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-473"><a href="#L-473"><span class="linenos">473</span></a><span class="sd">    This class contains the definitions for Vernier absolute gas pressure</span>
 </span><span id="L-474"><a href="#L-474"><span class="linenos">474</span></a><span class="sd">    sensor, GPS-BTA (post 2011 manufacture).</span>
 </span><span id="L-475"><a href="#L-475"><span class="linenos">475</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -690,7 +690,7 @@
 </span><span id="L-488"><a href="#L-488"><span class="linenos">488</span></a>    <span class="c1">###</span>
 </span><span id="L-489"><a href="#L-489"><span class="linenos">489</span></a>
 </span><span id="L-490"><a href="#L-490"><span class="linenos">490</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-491"><a href="#L-491"><span class="linenos">491</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-491"><a href="#L-491"><span class="linenos">491</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-492"><a href="#L-492"><span class="linenos">492</span></a>
 </span><span id="L-493"><a href="#L-493"><span class="linenos">493</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-494"><a href="#L-494"><span class="linenos">494</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -707,7 +707,7 @@
 </span><span id="L-505"><a href="#L-505"><span class="linenos">505</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-506"><a href="#L-506"><span class="linenos">506</span></a>
 </span><span id="L-507"><a href="#L-507"><span class="linenos">507</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-508"><a href="#L-508"><span class="linenos">508</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-508"><a href="#L-508"><span class="linenos">508</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-509"><a href="#L-509"><span class="linenos">509</span></a>
 </span><span id="L-510"><a href="#L-510"><span class="linenos">510</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-511"><a href="#L-511"><span class="linenos">511</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -724,7 +724,7 @@
 </span><span id="L-522"><a href="#L-522"><span class="linenos">522</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-523"><a href="#L-523"><span class="linenos">523</span></a>
 </span><span id="L-524"><a href="#L-524"><span class="linenos">524</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-525"><a href="#L-525"><span class="linenos">525</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-525"><a href="#L-525"><span class="linenos">525</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-526"><a href="#L-526"><span class="linenos">526</span></a>
 </span><span id="L-527"><a href="#L-527"><span class="linenos">527</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-528"><a href="#L-528"><span class="linenos">528</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -741,7 +741,7 @@
 </span><span id="L-539"><a href="#L-539"><span class="linenos">539</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-540"><a href="#L-540"><span class="linenos">540</span></a>
 </span><span id="L-541"><a href="#L-541"><span class="linenos">541</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-542"><a href="#L-542"><span class="linenos">542</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-542"><a href="#L-542"><span class="linenos">542</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-543"><a href="#L-543"><span class="linenos">543</span></a>
 </span><span id="L-544"><a href="#L-544"><span class="linenos">544</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-545"><a href="#L-545"><span class="linenos">545</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -759,7 +759,7 @@
 </span><span id="L-557"><a href="#L-557"><span class="linenos">557</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-558"><a href="#L-558"><span class="linenos">558</span></a>
 </span><span id="L-559"><a href="#L-559"><span class="linenos">559</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-560"><a href="#L-560"><span class="linenos">560</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-560"><a href="#L-560"><span class="linenos">560</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-561"><a href="#L-561"><span class="linenos">561</span></a>
 </span><span id="L-562"><a href="#L-562"><span class="linenos">562</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-563"><a href="#L-563"><span class="linenos">563</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -773,7 +773,7 @@
 </span><span id="L-571"><a href="#L-571"><span class="linenos">571</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Torr</span><span class="p">(</span><span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">)</span>
 </span><span id="L-572"><a href="#L-572"><span class="linenos">572</span></a>
 </span><span id="L-573"><a href="#L-573"><span class="linenos">573</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-574"><a href="#L-574"><span class="linenos">574</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-574"><a href="#L-574"><span class="linenos">574</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-575"><a href="#L-575"><span class="linenos">575</span></a>
 </span><span id="L-576"><a href="#L-576"><span class="linenos">576</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-577"><a href="#L-577"><span class="linenos">577</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -791,7 +791,7 @@
 </span><span id="L-589"><a href="#L-589"><span class="linenos">589</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-590"><a href="#L-590"><span class="linenos">590</span></a>
 </span><span id="L-591"><a href="#L-591"><span class="linenos">591</span></a><span class="k">class</span> <span class="nc">VernierGasP_OLD</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-592"><a href="#L-592"><span class="linenos">592</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-592"><a href="#L-592"><span class="linenos">592</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-593"><a href="#L-593"><span class="linenos">593</span></a><span class="sd">    This class contains the definitions for Vernier absolute gas pressure</span>
 </span><span id="L-594"><a href="#L-594"><span class="linenos">594</span></a><span class="sd">    sensor, GPS-BTA (pre 2011 manufacture. Label does not depict a caliper</span>
 </span><span id="L-595"><a href="#L-595"><span class="linenos">595</span></a><span class="sd">    with the registered trademark symbol).</span>
@@ -811,7 +811,7 @@
 </span><span id="L-609"><a href="#L-609"><span class="linenos">609</span></a>    <span class="c1">###</span>
 </span><span id="L-610"><a href="#L-610"><span class="linenos">610</span></a>
 </span><span id="L-611"><a href="#L-611"><span class="linenos">611</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-612"><a href="#L-612"><span class="linenos">612</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-612"><a href="#L-612"><span class="linenos">612</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-613"><a href="#L-613"><span class="linenos">613</span></a>
 </span><span id="L-614"><a href="#L-614"><span class="linenos">614</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-615"><a href="#L-615"><span class="linenos">615</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -828,7 +828,7 @@
 </span><span id="L-626"><a href="#L-626"><span class="linenos">626</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-627"><a href="#L-627"><span class="linenos">627</span></a>
 </span><span id="L-628"><a href="#L-628"><span class="linenos">628</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-629"><a href="#L-629"><span class="linenos">629</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-629"><a href="#L-629"><span class="linenos">629</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-630"><a href="#L-630"><span class="linenos">630</span></a>
 </span><span id="L-631"><a href="#L-631"><span class="linenos">631</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-632"><a href="#L-632"><span class="linenos">632</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -845,7 +845,7 @@
 </span><span id="L-643"><a href="#L-643"><span class="linenos">643</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-644"><a href="#L-644"><span class="linenos">644</span></a>
 </span><span id="L-645"><a href="#L-645"><span class="linenos">645</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-646"><a href="#L-646"><span class="linenos">646</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-646"><a href="#L-646"><span class="linenos">646</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-647"><a href="#L-647"><span class="linenos">647</span></a>
 </span><span id="L-648"><a href="#L-648"><span class="linenos">648</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-649"><a href="#L-649"><span class="linenos">649</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -862,7 +862,7 @@
 </span><span id="L-660"><a href="#L-660"><span class="linenos">660</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-661"><a href="#L-661"><span class="linenos">661</span></a>
 </span><span id="L-662"><a href="#L-662"><span class="linenos">662</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-663"><a href="#L-663"><span class="linenos">663</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-663"><a href="#L-663"><span class="linenos">663</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-664"><a href="#L-664"><span class="linenos">664</span></a>
 </span><span id="L-665"><a href="#L-665"><span class="linenos">665</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-666"><a href="#L-666"><span class="linenos">666</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -880,7 +880,7 @@
 </span><span id="L-678"><a href="#L-678"><span class="linenos">678</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-679"><a href="#L-679"><span class="linenos">679</span></a>
 </span><span id="L-680"><a href="#L-680"><span class="linenos">680</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-681"><a href="#L-681"><span class="linenos">681</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-681"><a href="#L-681"><span class="linenos">681</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-682"><a href="#L-682"><span class="linenos">682</span></a>
 </span><span id="L-683"><a href="#L-683"><span class="linenos">683</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-684"><a href="#L-684"><span class="linenos">684</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -894,7 +894,7 @@
 </span><span id="L-692"><a href="#L-692"><span class="linenos">692</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Torr</span><span class="p">(</span><span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">)</span>
 </span><span id="L-693"><a href="#L-693"><span class="linenos">693</span></a>
 </span><span id="L-694"><a href="#L-694"><span class="linenos">694</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-695"><a href="#L-695"><span class="linenos">695</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-695"><a href="#L-695"><span class="linenos">695</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-696"><a href="#L-696"><span class="linenos">696</span></a>
 </span><span id="L-697"><a href="#L-697"><span class="linenos">697</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-698"><a href="#L-698"><span class="linenos">698</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -912,7 +912,7 @@
 </span><span id="L-710"><a href="#L-710"><span class="linenos">710</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="L-711"><a href="#L-711"><span class="linenos">711</span></a>
 </span><span id="L-712"><a href="#L-712"><span class="linenos">712</span></a><span class="k">class</span> <span class="nc">VernierpH</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-713"><a href="#L-713"><span class="linenos">713</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-713"><a href="#L-713"><span class="linenos">713</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-714"><a href="#L-714"><span class="linenos">714</span></a><span class="sd">    This class contains the definitions for Vernier standard pH</span>
 </span><span id="L-715"><a href="#L-715"><span class="linenos">715</span></a><span class="sd">    sensor, PH-BTA.</span>
 </span><span id="L-716"><a href="#L-716"><span class="linenos">716</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -931,7 +931,7 @@
 </span><span id="L-729"><a href="#L-729"><span class="linenos">729</span></a>    <span class="c1">###</span>
 </span><span id="L-730"><a href="#L-730"><span class="linenos">730</span></a>
 </span><span id="L-731"><a href="#L-731"><span class="linenos">731</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-732"><a href="#L-732"><span class="linenos">732</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-732"><a href="#L-732"><span class="linenos">732</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-733"><a href="#L-733"><span class="linenos">733</span></a>
 </span><span id="L-734"><a href="#L-734"><span class="linenos">734</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-735"><a href="#L-735"><span class="linenos">735</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -948,7 +948,7 @@
 </span><span id="L-746"><a href="#L-746"><span class="linenos">746</span></a>        <span class="k">return</span> <span class="n">pH_avg</span><span class="p">,</span> <span class="n">pH_std</span><span class="p">,</span> <span class="n">pH_avg_std</span>
 </span><span id="L-747"><a href="#L-747"><span class="linenos">747</span></a>
 </span><span id="L-748"><a href="#L-748"><span class="linenos">748</span></a><span class="k">class</span> <span class="nc">VernierFlatpH</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="L-749"><a href="#L-749"><span class="linenos">749</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-749"><a href="#L-749"><span class="linenos">749</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-750"><a href="#L-750"><span class="linenos">750</span></a><span class="sd">    This class contains the definitions for Vernier flat tris-compatible pH</span>
 </span><span id="L-751"><a href="#L-751"><span class="linenos">751</span></a><span class="sd">    sensor, FPH-BTA.</span>
 </span><span id="L-752"><a href="#L-752"><span class="linenos">752</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -967,7 +967,7 @@
 </span><span id="L-765"><a href="#L-765"><span class="linenos">765</span></a>    <span class="c1">###</span>
 </span><span id="L-766"><a href="#L-766"><span class="linenos">766</span></a>
 </span><span id="L-767"><a href="#L-767"><span class="linenos">767</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="L-768"><a href="#L-768"><span class="linenos">768</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-768"><a href="#L-768"><span class="linenos">768</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-769"><a href="#L-769"><span class="linenos">769</span></a>
 </span><span id="L-770"><a href="#L-770"><span class="linenos">770</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="L-771"><a href="#L-771"><span class="linenos">771</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -998,7 +998,7 @@
     </div>
     <a class="headerlink" href="#to_reasonable_significant_figures"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="to_reasonable_significant_figures-66"><a href="#to_reasonable_significant_figures-66"><span class="linenos">66</span></a><span class="k">def</span> <span class="nf">to_reasonable_significant_figures</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">uncertainty</span><span class="p">):</span>
-</span><span id="to_reasonable_significant_figures-67"><a href="#to_reasonable_significant_figures-67"><span class="linenos">67</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="to_reasonable_significant_figures-67"><a href="#to_reasonable_significant_figures-67"><span class="linenos">67</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="to_reasonable_significant_figures-68"><a href="#to_reasonable_significant_figures-68"><span class="linenos">68</span></a><span class="sd">    This function will return value rounded to a reasonable number of</span>
 </span><span id="to_reasonable_significant_figures-69"><a href="#to_reasonable_significant_figures-69"><span class="linenos">69</span></a><span class="sd">    significant figures based on the uncertainty. If you are doing this</span>
 </span><span id="to_reasonable_significant_figures-70"><a href="#to_reasonable_significant_figures-70"><span class="linenos">70</span></a><span class="sd">    based on the standard return from the raw voltage or the sensor</span>
@@ -1059,7 +1059,7 @@ computations.</p>
     </div>
     <a class="headerlink" href="#to_reasonable_significant_figures_fast"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="to_reasonable_significant_figures_fast-93"><a href="#to_reasonable_significant_figures_fast-93"><span class="linenos"> 93</span></a><span class="k">def</span> <span class="nf">to_reasonable_significant_figures_fast</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">):</span>
-</span><span id="to_reasonable_significant_figures_fast-94"><a href="#to_reasonable_significant_figures_fast-94"><span class="linenos"> 94</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="to_reasonable_significant_figures_fast-94"><a href="#to_reasonable_significant_figures_fast-94"><span class="linenos"> 94</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="to_reasonable_significant_figures_fast-95"><a href="#to_reasonable_significant_figures_fast-95"><span class="linenos"> 95</span></a><span class="sd">    This function will return values rounded to a reasonable number of</span>
 </span><span id="to_reasonable_significant_figures_fast-96"><a href="#to_reasonable_significant_figures_fast-96"><span class="linenos"> 96</span></a><span class="sd">    significant figures based on the avg_std. This function requires fewer</span>
 </span><span id="to_reasonable_significant_figures_fast-97"><a href="#to_reasonable_significant_figures_fast-97"><span class="linenos"> 97</span></a><span class="sd">    compares so is a little more efficient than calling</span>
@@ -1118,7 +1118,7 @@ avg_std separately.</p>
     </div>
     <a class="headerlink" href="#listSensors"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="listSensors-123"><a href="#listSensors-123"><span class="linenos">123</span></a><span class="k">def</span> <span class="nf">listSensors</span><span class="p">():</span>
-</span><span id="listSensors-124"><a href="#listSensors-124"><span class="linenos">124</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="listSensors-124"><a href="#listSensors-124"><span class="linenos">124</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="listSensors-125"><a href="#listSensors-125"><span class="linenos">125</span></a><span class="sd">    Provides a list of the sensor classes provided by this file. The list must</span>
 </span><span id="listSensors-126"><a href="#listSensors-126"><span class="linenos">126</span></a><span class="sd">    be manually updated with each new class.</span>
 </span><span id="listSensors-127"><a href="#listSensors-127"><span class="linenos">127</span></a><span class="sd">    :return: list of classnames</span>
@@ -1160,7 +1160,7 @@ be manually updated with each new class.</p>
     </div>
     <a class="headerlink" href="#RawAtoD"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD-147"><a href="#RawAtoD-147"><span class="linenos">147</span></a><span class="k">class</span> <span class="nc">RawAtoD</span><span class="p">:</span>
-</span><span id="RawAtoD-148"><a href="#RawAtoD-148"><span class="linenos">148</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-148"><a href="#RawAtoD-148"><span class="linenos">148</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-149"><a href="#RawAtoD-149"><span class="linenos">149</span></a><span class="sd">    This is the base sensor class which all sensors should extend. See how to</span>
 </span><span id="RawAtoD-150"><a href="#RawAtoD-150"><span class="linenos">150</span></a><span class="sd">    do this properly using one of the examples below.</span>
 </span><span id="RawAtoD-151"><a href="#RawAtoD-151"><span class="linenos">151</span></a><span class="sd">    This class contains definitions for the raw AtoD return in volts. The</span>
@@ -1170,7 +1170,7 @@ be manually updated with each new class.</p>
 </span><span id="RawAtoD-155"><a href="#RawAtoD-155"><span class="linenos">155</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="RawAtoD-156"><a href="#RawAtoD-156"><span class="linenos">156</span></a>
 </span><span id="RawAtoD-157"><a href="#RawAtoD-157"><span class="linenos">157</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vdd</span><span class="p">):</span>
-</span><span id="RawAtoD-158"><a href="#RawAtoD-158"><span class="linenos">158</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-158"><a href="#RawAtoD-158"><span class="linenos">158</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-159"><a href="#RawAtoD-159"><span class="linenos">159</span></a><span class="sd">        This init should be called first in the init section of any class</span>
 </span><span id="RawAtoD-160"><a href="#RawAtoD-160"><span class="linenos">160</span></a><span class="sd">        extending this class (e.g. `super().__init__(Vdd)`). Then set</span>
 </span><span id="RawAtoD-161"><a href="#RawAtoD-161"><span class="linenos">161</span></a><span class="sd">        `self.name` and `self.vendor` to the proper values. Append units</span>
@@ -1188,21 +1188,21 @@ be manually updated with each new class.</p>
 </span><span id="RawAtoD-173"><a href="#RawAtoD-173"><span class="linenos">173</span></a>        <span class="k">pass</span>
 </span><span id="RawAtoD-174"><a href="#RawAtoD-174"><span class="linenos">174</span></a>
 </span><span id="RawAtoD-175"><a href="#RawAtoD-175"><span class="linenos">175</span></a>    <span class="k">def</span> <span class="nf">getname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD-176"><a href="#RawAtoD-176"><span class="linenos">176</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-176"><a href="#RawAtoD-176"><span class="linenos">176</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-177"><a href="#RawAtoD-177"><span class="linenos">177</span></a><span class="sd">        Provides a string name for the sensor</span>
 </span><span id="RawAtoD-178"><a href="#RawAtoD-178"><span class="linenos">178</span></a><span class="sd">        :return: string containing the sensor name</span>
 </span><span id="RawAtoD-179"><a href="#RawAtoD-179"><span class="linenos">179</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="RawAtoD-180"><a href="#RawAtoD-180"><span class="linenos">180</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 </span><span id="RawAtoD-181"><a href="#RawAtoD-181"><span class="linenos">181</span></a>
 </span><span id="RawAtoD-182"><a href="#RawAtoD-182"><span class="linenos">182</span></a>    <span class="k">def</span> <span class="nf">getvendor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD-183"><a href="#RawAtoD-183"><span class="linenos">183</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-183"><a href="#RawAtoD-183"><span class="linenos">183</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-184"><a href="#RawAtoD-184"><span class="linenos">184</span></a><span class="sd">        Provides a string name for the sensor vendor/manufacturer</span>
 </span><span id="RawAtoD-185"><a href="#RawAtoD-185"><span class="linenos">185</span></a><span class="sd">        :return: string containing the vendor/manufacturer name</span>
 </span><span id="RawAtoD-186"><a href="#RawAtoD-186"><span class="linenos">186</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="RawAtoD-187"><a href="#RawAtoD-187"><span class="linenos">187</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span>
 </span><span id="RawAtoD-188"><a href="#RawAtoD-188"><span class="linenos">188</span></a>
 </span><span id="RawAtoD-189"><a href="#RawAtoD-189"><span class="linenos">189</span></a>    <span class="k">def</span> <span class="nf">getunits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD-190"><a href="#RawAtoD-190"><span class="linenos">190</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-190"><a href="#RawAtoD-190"><span class="linenos">190</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-191"><a href="#RawAtoD-191"><span class="linenos">191</span></a><span class="sd">        Provides the string names for the available units for this sensor.</span>
 </span><span id="RawAtoD-192"><a href="#RawAtoD-192"><span class="linenos">192</span></a><span class="sd">        These string names are also the functions within this class that</span>
 </span><span id="RawAtoD-193"><a href="#RawAtoD-193"><span class="linenos">193</span></a><span class="sd">        return the measurement in those units.</span>
@@ -1211,7 +1211,7 @@ be manually updated with each new class.</p>
 </span><span id="RawAtoD-196"><a href="#RawAtoD-196"><span class="linenos">196</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span>
 </span><span id="RawAtoD-197"><a href="#RawAtoD-197"><span class="linenos">197</span></a>
 </span><span id="RawAtoD-198"><a href="#RawAtoD-198"><span class="linenos">198</span></a>    <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="RawAtoD-199"><a href="#RawAtoD-199"><span class="linenos">199</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-199"><a href="#RawAtoD-199"><span class="linenos">199</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-200"><a href="#RawAtoD-200"><span class="linenos">200</span></a><span class="sd">        It is not really necessary to call this function because it just</span>
 </span><span id="RawAtoD-201"><a href="#RawAtoD-201"><span class="linenos">201</span></a><span class="sd">        returns the same values that are passed to it.</span>
 </span><span id="RawAtoD-202"><a href="#RawAtoD-202"><span class="linenos">202</span></a><span class="sd">        It is provided for consistency with the way sensors units are defined.</span>
@@ -1224,7 +1224,7 @@ be manually updated with each new class.</p>
 </span><span id="RawAtoD-209"><a href="#RawAtoD-209"><span class="linenos">209</span></a>        <span class="k">return</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span>
 </span><span id="RawAtoD-210"><a href="#RawAtoD-210"><span class="linenos">210</span></a>
 </span><span id="RawAtoD-211"><a href="#RawAtoD-211"><span class="linenos">211</span></a>    <span class="k">def</span> <span class="nf">mV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="RawAtoD-212"><a href="#RawAtoD-212"><span class="linenos">212</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD-212"><a href="#RawAtoD-212"><span class="linenos">212</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD-213"><a href="#RawAtoD-213"><span class="linenos">213</span></a><span class="sd">        Convert the raw AtoD voltage to mV.</span>
 </span><span id="RawAtoD-214"><a href="#RawAtoD-214"><span class="linenos">214</span></a><span class="sd">        :param v_avg: v_avg: average voltage from A-to-D</span>
 </span><span id="RawAtoD-215"><a href="#RawAtoD-215"><span class="linenos">215</span></a><span class="sd">        :param v_std: standard deviation of the A-to-D measurements</span>
@@ -1256,7 +1256,7 @@ setting.</p>
     </div>
     <a class="headerlink" href="#RawAtoD.__init__"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.__init__-157"><a href="#RawAtoD.__init__-157"><span class="linenos">157</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vdd</span><span class="p">):</span>
-</span><span id="RawAtoD.__init__-158"><a href="#RawAtoD.__init__-158"><span class="linenos">158</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.__init__-158"><a href="#RawAtoD.__init__-158"><span class="linenos">158</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.__init__-159"><a href="#RawAtoD.__init__-159"><span class="linenos">159</span></a><span class="sd">        This init should be called first in the init section of any class</span>
 </span><span id="RawAtoD.__init__-160"><a href="#RawAtoD.__init__-160"><span class="linenos">160</span></a><span class="sd">        extending this class (e.g. `super().__init__(Vdd)`). Then set</span>
 </span><span id="RawAtoD.__init__-161"><a href="#RawAtoD.__init__-161"><span class="linenos">161</span></a><span class="sd">        `self.name` and `self.vendor` to the proper values. Append units</span>
@@ -1304,7 +1304,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#RawAtoD.getname"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.getname-175"><a href="#RawAtoD.getname-175"><span class="linenos">175</span></a>    <span class="k">def</span> <span class="nf">getname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD.getname-176"><a href="#RawAtoD.getname-176"><span class="linenos">176</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.getname-176"><a href="#RawAtoD.getname-176"><span class="linenos">176</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.getname-177"><a href="#RawAtoD.getname-177"><span class="linenos">177</span></a><span class="sd">        Provides a string name for the sensor</span>
 </span><span id="RawAtoD.getname-178"><a href="#RawAtoD.getname-178"><span class="linenos">178</span></a><span class="sd">        :return: string containing the sensor name</span>
 </span><span id="RawAtoD.getname-179"><a href="#RawAtoD.getname-179"><span class="linenos">179</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -1335,7 +1335,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#RawAtoD.getvendor"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.getvendor-182"><a href="#RawAtoD.getvendor-182"><span class="linenos">182</span></a>    <span class="k">def</span> <span class="nf">getvendor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD.getvendor-183"><a href="#RawAtoD.getvendor-183"><span class="linenos">183</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.getvendor-183"><a href="#RawAtoD.getvendor-183"><span class="linenos">183</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.getvendor-184"><a href="#RawAtoD.getvendor-184"><span class="linenos">184</span></a><span class="sd">        Provides a string name for the sensor vendor/manufacturer</span>
 </span><span id="RawAtoD.getvendor-185"><a href="#RawAtoD.getvendor-185"><span class="linenos">185</span></a><span class="sd">        :return: string containing the vendor/manufacturer name</span>
 </span><span id="RawAtoD.getvendor-186"><a href="#RawAtoD.getvendor-186"><span class="linenos">186</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -1366,7 +1366,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#RawAtoD.getunits"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.getunits-189"><a href="#RawAtoD.getunits-189"><span class="linenos">189</span></a>    <span class="k">def</span> <span class="nf">getunits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="RawAtoD.getunits-190"><a href="#RawAtoD.getunits-190"><span class="linenos">190</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.getunits-190"><a href="#RawAtoD.getunits-190"><span class="linenos">190</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.getunits-191"><a href="#RawAtoD.getunits-191"><span class="linenos">191</span></a><span class="sd">        Provides the string names for the available units for this sensor.</span>
 </span><span id="RawAtoD.getunits-192"><a href="#RawAtoD.getunits-192"><span class="linenos">192</span></a><span class="sd">        These string names are also the functions within this class that</span>
 </span><span id="RawAtoD.getunits-193"><a href="#RawAtoD.getunits-193"><span class="linenos">193</span></a><span class="sd">        return the measurement in those units.</span>
@@ -1401,7 +1401,7 @@ return the measurement in those units.</p>
     </div>
     <a class="headerlink" href="#RawAtoD.V"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.V-198"><a href="#RawAtoD.V-198"><span class="linenos">198</span></a>    <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="RawAtoD.V-199"><a href="#RawAtoD.V-199"><span class="linenos">199</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.V-199"><a href="#RawAtoD.V-199"><span class="linenos">199</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.V-200"><a href="#RawAtoD.V-200"><span class="linenos">200</span></a><span class="sd">        It is not really necessary to call this function because it just</span>
 </span><span id="RawAtoD.V-201"><a href="#RawAtoD.V-201"><span class="linenos">201</span></a><span class="sd">        returns the same values that are passed to it.</span>
 </span><span id="RawAtoD.V-202"><a href="#RawAtoD.V-202"><span class="linenos">202</span></a><span class="sd">        It is provided for consistency with the way sensors units are defined.</span>
@@ -1449,7 +1449,7 @@ It is provided for consistency with the way sensors units are defined.</p>
     </div>
     <a class="headerlink" href="#RawAtoD.mV"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RawAtoD.mV-211"><a href="#RawAtoD.mV-211"><span class="linenos">211</span></a>    <span class="k">def</span> <span class="nf">mV</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="RawAtoD.mV-212"><a href="#RawAtoD.mV-212"><span class="linenos">212</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="RawAtoD.mV-212"><a href="#RawAtoD.mV-212"><span class="linenos">212</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="RawAtoD.mV-213"><a href="#RawAtoD.mV-213"><span class="linenos">213</span></a><span class="sd">        Convert the raw AtoD voltage to mV.</span>
 </span><span id="RawAtoD.mV-214"><a href="#RawAtoD.mV-214"><span class="linenos">214</span></a><span class="sd">        :param v_avg: v_avg: average voltage from A-to-D</span>
 </span><span id="RawAtoD.mV-215"><a href="#RawAtoD.mV-215"><span class="linenos">215</span></a><span class="sd">        :param v_std: standard deviation of the A-to-D measurements</span>
@@ -1494,7 +1494,7 @@ It is provided for consistency with the way sensors units are defined.</p>
     </div>
     <a class="headerlink" href="#BuiltInThermistor"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="BuiltInThermistor-223"><a href="#BuiltInThermistor-223"><span class="linenos">223</span></a><span class="k">class</span> <span class="nc">BuiltInThermistor</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="BuiltInThermistor-224"><a href="#BuiltInThermistor-224"><span class="linenos">224</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor-224"><a href="#BuiltInThermistor-224"><span class="linenos">224</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-225"><a href="#BuiltInThermistor-225"><span class="linenos">225</span></a><span class="sd">    This class contains the definitions for builtin thermistor.</span>
 </span><span id="BuiltInThermistor-226"><a href="#BuiltInThermistor-226"><span class="linenos">226</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-227"><a href="#BuiltInThermistor-227"><span class="linenos">227</span></a>
@@ -1514,7 +1514,7 @@ It is provided for consistency with the way sensors units are defined.</p>
 </span><span id="BuiltInThermistor-241"><a href="#BuiltInThermistor-241"><span class="linenos">241</span></a>    <span class="c1">###</span>
 </span><span id="BuiltInThermistor-242"><a href="#BuiltInThermistor-242"><span class="linenos">242</span></a>
 </span><span id="BuiltInThermistor-243"><a href="#BuiltInThermistor-243"><span class="linenos">243</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor-244"><a href="#BuiltInThermistor-244"><span class="linenos">244</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor-244"><a href="#BuiltInThermistor-244"><span class="linenos">244</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-245"><a href="#BuiltInThermistor-245"><span class="linenos">245</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="BuiltInThermistor-246"><a href="#BuiltInThermistor-246"><span class="linenos">246</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="BuiltInThermistor-247"><a href="#BuiltInThermistor-247"><span class="linenos">247</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -1552,7 +1552,7 @@ It is provided for consistency with the way sensors units are defined.</p>
 </span><span id="BuiltInThermistor-279"><a href="#BuiltInThermistor-279"><span class="linenos">279</span></a>        <span class="k">return</span> <span class="n">K_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="BuiltInThermistor-280"><a href="#BuiltInThermistor-280"><span class="linenos">280</span></a>
 </span><span id="BuiltInThermistor-281"><a href="#BuiltInThermistor-281"><span class="linenos">281</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor-282"><a href="#BuiltInThermistor-282"><span class="linenos">282</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor-282"><a href="#BuiltInThermistor-282"><span class="linenos">282</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-283"><a href="#BuiltInThermistor-283"><span class="linenos">283</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="BuiltInThermistor-284"><a href="#BuiltInThermistor-284"><span class="linenos">284</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="BuiltInThermistor-285"><a href="#BuiltInThermistor-285"><span class="linenos">285</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -1571,7 +1571,7 @@ It is provided for consistency with the way sensors units are defined.</p>
 </span><span id="BuiltInThermistor-298"><a href="#BuiltInThermistor-298"><span class="linenos">298</span></a>        <span class="k">return</span> <span class="n">C_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="BuiltInThermistor-299"><a href="#BuiltInThermistor-299"><span class="linenos">299</span></a>
 </span><span id="BuiltInThermistor-300"><a href="#BuiltInThermistor-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor-301"><a href="#BuiltInThermistor-301"><span class="linenos">301</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor-301"><a href="#BuiltInThermistor-301"><span class="linenos">301</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-302"><a href="#BuiltInThermistor-302"><span class="linenos">302</span></a><span class="sd">        The returned values are in deg F. It is assumed that the distribution</span>
 </span><span id="BuiltInThermistor-303"><a href="#BuiltInThermistor-303"><span class="linenos">303</span></a><span class="sd">        is symmetric guassian even in deg F. This may not be true, but still</span>
 </span><span id="BuiltInThermistor-304"><a href="#BuiltInThermistor-304"><span class="linenos">304</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -1592,7 +1592,7 @@ It is provided for consistency with the way sensors units are defined.</p>
 </span><span id="BuiltInThermistor-319"><a href="#BuiltInThermistor-319"><span class="linenos">319</span></a>        <span class="k">return</span> <span class="n">F_avg</span><span class="p">,</span> <span class="n">F_std</span><span class="p">,</span> <span class="n">F_avg_std</span>
 </span><span id="BuiltInThermistor-320"><a href="#BuiltInThermistor-320"><span class="linenos">320</span></a>
 </span><span id="BuiltInThermistor-321"><a href="#BuiltInThermistor-321"><span class="linenos">321</span></a>    <span class="k">def</span> <span class="nf">_VtoK</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volts</span><span class="p">):</span>
-</span><span id="BuiltInThermistor-322"><a href="#BuiltInThermistor-322"><span class="linenos">322</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor-322"><a href="#BuiltInThermistor-322"><span class="linenos">322</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor-323"><a href="#BuiltInThermistor-323"><span class="linenos">323</span></a><span class="sd">        :param volts: voltage measurement</span>
 </span><span id="BuiltInThermistor-324"><a href="#BuiltInThermistor-324"><span class="linenos">324</span></a><span class="sd">        :return: temperature in K.</span>
 </span><span id="BuiltInThermistor-325"><a href="#BuiltInThermistor-325"><span class="linenos">325</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -1668,7 +1668,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#BuiltInThermistor.K"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="BuiltInThermistor.K-243"><a href="#BuiltInThermistor.K-243"><span class="linenos">243</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor.K-244"><a href="#BuiltInThermistor.K-244"><span class="linenos">244</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor.K-244"><a href="#BuiltInThermistor.K-244"><span class="linenos">244</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor.K-245"><a href="#BuiltInThermistor.K-245"><span class="linenos">245</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="BuiltInThermistor.K-246"><a href="#BuiltInThermistor.K-246"><span class="linenos">246</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="BuiltInThermistor.K-247"><a href="#BuiltInThermistor.K-247"><span class="linenos">247</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -1746,7 +1746,7 @@ a reasonable estimate of the standard deviation.</p>
     </div>
     <a class="headerlink" href="#BuiltInThermistor.C"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="BuiltInThermistor.C-281"><a href="#BuiltInThermistor.C-281"><span class="linenos">281</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor.C-282"><a href="#BuiltInThermistor.C-282"><span class="linenos">282</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor.C-282"><a href="#BuiltInThermistor.C-282"><span class="linenos">282</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor.C-283"><a href="#BuiltInThermistor.C-283"><span class="linenos">283</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="BuiltInThermistor.C-284"><a href="#BuiltInThermistor.C-284"><span class="linenos">284</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="BuiltInThermistor.C-285"><a href="#BuiltInThermistor.C-285"><span class="linenos">285</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -1804,7 +1804,7 @@ gives a reasonable estimate of the standard deviation.</p>
     </div>
     <a class="headerlink" href="#BuiltInThermistor.F"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="BuiltInThermistor.F-300"><a href="#BuiltInThermistor.F-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="BuiltInThermistor.F-301"><a href="#BuiltInThermistor.F-301"><span class="linenos">301</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="BuiltInThermistor.F-301"><a href="#BuiltInThermistor.F-301"><span class="linenos">301</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="BuiltInThermistor.F-302"><a href="#BuiltInThermistor.F-302"><span class="linenos">302</span></a><span class="sd">        The returned values are in deg F. It is assumed that the distribution</span>
 </span><span id="BuiltInThermistor.F-303"><a href="#BuiltInThermistor.F-303"><span class="linenos">303</span></a><span class="sd">        is symmetric guassian even in deg F. This may not be true, but still</span>
 </span><span id="BuiltInThermistor.F-304"><a href="#BuiltInThermistor.F-304"><span class="linenos">304</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -1873,7 +1873,7 @@ gives a reasonable estimate of the standard deviation.</p>
     </div>
     <a class="headerlink" href="#VernierSSTemp"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierSSTemp-342"><a href="#VernierSSTemp-342"><span class="linenos">342</span></a><span class="k">class</span> <span class="nc">VernierSSTemp</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="VernierSSTemp-343"><a href="#VernierSSTemp-343"><span class="linenos">343</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp-343"><a href="#VernierSSTemp-343"><span class="linenos">343</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp-344"><a href="#VernierSSTemp-344"><span class="linenos">344</span></a><span class="sd">    This class contains the definitions for Vernier Stainless Steel Temperature</span>
 </span><span id="VernierSSTemp-345"><a href="#VernierSSTemp-345"><span class="linenos">345</span></a><span class="sd">    Probe. A 20K thermistor.</span>
 </span><span id="VernierSSTemp-346"><a href="#VernierSSTemp-346"><span class="linenos">346</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -1892,7 +1892,7 @@ gives a reasonable estimate of the standard deviation.</p>
 </span><span id="VernierSSTemp-359"><a href="#VernierSSTemp-359"><span class="linenos">359</span></a>    <span class="c1">###</span>
 </span><span id="VernierSSTemp-360"><a href="#VernierSSTemp-360"><span class="linenos">360</span></a>
 </span><span id="VernierSSTemp-361"><a href="#VernierSSTemp-361"><span class="linenos">361</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp-362"><a href="#VernierSSTemp-362"><span class="linenos">362</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp-362"><a href="#VernierSSTemp-362"><span class="linenos">362</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp-363"><a href="#VernierSSTemp-363"><span class="linenos">363</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="VernierSSTemp-364"><a href="#VernierSSTemp-364"><span class="linenos">364</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="VernierSSTemp-365"><a href="#VernierSSTemp-365"><span class="linenos">365</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -1934,7 +1934,7 @@ gives a reasonable estimate of the standard deviation.</p>
 </span><span id="VernierSSTemp-401"><a href="#VernierSSTemp-401"><span class="linenos">401</span></a>        <span class="k">return</span> <span class="n">K_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="VernierSSTemp-402"><a href="#VernierSSTemp-402"><span class="linenos">402</span></a>
 </span><span id="VernierSSTemp-403"><a href="#VernierSSTemp-403"><span class="linenos">403</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp-404"><a href="#VernierSSTemp-404"><span class="linenos">404</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp-404"><a href="#VernierSSTemp-404"><span class="linenos">404</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp-405"><a href="#VernierSSTemp-405"><span class="linenos">405</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="VernierSSTemp-406"><a href="#VernierSSTemp-406"><span class="linenos">406</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="VernierSSTemp-407"><a href="#VernierSSTemp-407"><span class="linenos">407</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -1954,7 +1954,7 @@ gives a reasonable estimate of the standard deviation.</p>
 </span><span id="VernierSSTemp-421"><a href="#VernierSSTemp-421"><span class="linenos">421</span></a>        <span class="k">return</span> <span class="n">C_avg</span><span class="p">,</span> <span class="n">K_std</span><span class="p">,</span> <span class="n">K_avg_std</span>
 </span><span id="VernierSSTemp-422"><a href="#VernierSSTemp-422"><span class="linenos">422</span></a>
 </span><span id="VernierSSTemp-423"><a href="#VernierSSTemp-423"><span class="linenos">423</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp-424"><a href="#VernierSSTemp-424"><span class="linenos">424</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp-424"><a href="#VernierSSTemp-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp-425"><a href="#VernierSSTemp-425"><span class="linenos">425</span></a><span class="sd">        The returned values are in deg F. It is assumed that the</span>
 </span><span id="VernierSSTemp-426"><a href="#VernierSSTemp-426"><span class="linenos">426</span></a><span class="sd">        distribution is symmetric guassian even in deg F. This may not be</span>
 </span><span id="VernierSSTemp-427"><a href="#VernierSSTemp-427"><span class="linenos">427</span></a><span class="sd">        true, but still gives a reasonable estimate of the standard</span>
@@ -1979,7 +1979,7 @@ gives a reasonable estimate of the standard deviation.</p>
 </span><span id="VernierSSTemp-446"><a href="#VernierSSTemp-446"><span class="linenos">446</span></a>        <span class="k">return</span> <span class="n">F_avg</span><span class="p">,</span> <span class="n">F_std</span><span class="p">,</span> <span class="n">F_avg_std</span>
 </span><span id="VernierSSTemp-447"><a href="#VernierSSTemp-447"><span class="linenos">447</span></a>
 </span><span id="VernierSSTemp-448"><a href="#VernierSSTemp-448"><span class="linenos">448</span></a>    <span class="k">def</span> <span class="nf">_VtoK</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volts</span><span class="p">):</span>
-</span><span id="VernierSSTemp-449"><a href="#VernierSSTemp-449"><span class="linenos">449</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp-449"><a href="#VernierSSTemp-449"><span class="linenos">449</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp-450"><a href="#VernierSSTemp-450"><span class="linenos">450</span></a><span class="sd">        :param volts: voltage measurement</span>
 </span><span id="VernierSSTemp-451"><a href="#VernierSSTemp-451"><span class="linenos">451</span></a><span class="sd">        :return: temperature in K.</span>
 </span><span id="VernierSSTemp-452"><a href="#VernierSSTemp-452"><span class="linenos">452</span></a><span class="sd">        &quot;&quot;&quot;</span>
@@ -2057,7 +2057,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#VernierSSTemp.K"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierSSTemp.K-361"><a href="#VernierSSTemp.K-361"><span class="linenos">361</span></a>    <span class="k">def</span> <span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp.K-362"><a href="#VernierSSTemp.K-362"><span class="linenos">362</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp.K-362"><a href="#VernierSSTemp.K-362"><span class="linenos">362</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp.K-363"><a href="#VernierSSTemp.K-363"><span class="linenos">363</span></a><span class="sd">        The returned values are in K. It is assumed that the distribution is</span>
 </span><span id="VernierSSTemp.K-364"><a href="#VernierSSTemp.K-364"><span class="linenos">364</span></a><span class="sd">        symmetric guassian even in K. This may not be true, but still gives</span>
 </span><span id="VernierSSTemp.K-365"><a href="#VernierSSTemp.K-365"><span class="linenos">365</span></a><span class="sd">        a reasonable estimate of the standard deviation.</span>
@@ -2133,7 +2133,7 @@ a reasonable estimate of the standard deviation.</p>
     </div>
     <a class="headerlink" href="#VernierSSTemp.C"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierSSTemp.C-403"><a href="#VernierSSTemp.C-403"><span class="linenos">403</span></a>    <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp.C-404"><a href="#VernierSSTemp.C-404"><span class="linenos">404</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp.C-404"><a href="#VernierSSTemp.C-404"><span class="linenos">404</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp.C-405"><a href="#VernierSSTemp.C-405"><span class="linenos">405</span></a><span class="sd">        The returned values are in deg C. It is assumed that the distribution</span>
 </span><span id="VernierSSTemp.C-406"><a href="#VernierSSTemp.C-406"><span class="linenos">406</span></a><span class="sd">        is symmetric guassian even in deg C. This may not be true, but still</span>
 </span><span id="VernierSSTemp.C-407"><a href="#VernierSSTemp.C-407"><span class="linenos">407</span></a><span class="sd">        gives a reasonable estimate of the standard deviation.</span>
@@ -2192,7 +2192,7 @@ gives a reasonable estimate of the standard deviation.</p>
     </div>
     <a class="headerlink" href="#VernierSSTemp.F"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierSSTemp.F-423"><a href="#VernierSSTemp.F-423"><span class="linenos">423</span></a>    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierSSTemp.F-424"><a href="#VernierSSTemp.F-424"><span class="linenos">424</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierSSTemp.F-424"><a href="#VernierSSTemp.F-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierSSTemp.F-425"><a href="#VernierSSTemp.F-425"><span class="linenos">425</span></a><span class="sd">        The returned values are in deg F. It is assumed that the</span>
 </span><span id="VernierSSTemp.F-426"><a href="#VernierSSTemp.F-426"><span class="linenos">426</span></a><span class="sd">        distribution is symmetric guassian even in deg F. This may not be</span>
 </span><span id="VernierSSTemp.F-427"><a href="#VernierSSTemp.F-427"><span class="linenos">427</span></a><span class="sd">        true, but still gives a reasonable estimate of the standard</span>
@@ -2272,7 +2272,7 @@ deviation.</p>
     </div>
     <a class="headerlink" href="#VernierGasP"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP-472"><a href="#VernierGasP-472"><span class="linenos">472</span></a><span class="k">class</span> <span class="nc">VernierGasP</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="VernierGasP-473"><a href="#VernierGasP-473"><span class="linenos">473</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-473"><a href="#VernierGasP-473"><span class="linenos">473</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-474"><a href="#VernierGasP-474"><span class="linenos">474</span></a><span class="sd">    This class contains the definitions for Vernier absolute gas pressure</span>
 </span><span id="VernierGasP-475"><a href="#VernierGasP-475"><span class="linenos">475</span></a><span class="sd">    sensor, GPS-BTA (post 2011 manufacture).</span>
 </span><span id="VernierGasP-476"><a href="#VernierGasP-476"><span class="linenos">476</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -2291,7 +2291,7 @@ deviation.</p>
 </span><span id="VernierGasP-489"><a href="#VernierGasP-489"><span class="linenos">489</span></a>    <span class="c1">###</span>
 </span><span id="VernierGasP-490"><a href="#VernierGasP-490"><span class="linenos">490</span></a>
 </span><span id="VernierGasP-491"><a href="#VernierGasP-491"><span class="linenos">491</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-492"><a href="#VernierGasP-492"><span class="linenos">492</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-492"><a href="#VernierGasP-492"><span class="linenos">492</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-493"><a href="#VernierGasP-493"><span class="linenos">493</span></a>
 </span><span id="VernierGasP-494"><a href="#VernierGasP-494"><span class="linenos">494</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-495"><a href="#VernierGasP-495"><span class="linenos">495</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2308,7 +2308,7 @@ deviation.</p>
 </span><span id="VernierGasP-506"><a href="#VernierGasP-506"><span class="linenos">506</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP-507"><a href="#VernierGasP-507"><span class="linenos">507</span></a>
 </span><span id="VernierGasP-508"><a href="#VernierGasP-508"><span class="linenos">508</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-509"><a href="#VernierGasP-509"><span class="linenos">509</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-509"><a href="#VernierGasP-509"><span class="linenos">509</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-510"><a href="#VernierGasP-510"><span class="linenos">510</span></a>
 </span><span id="VernierGasP-511"><a href="#VernierGasP-511"><span class="linenos">511</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-512"><a href="#VernierGasP-512"><span class="linenos">512</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2325,7 +2325,7 @@ deviation.</p>
 </span><span id="VernierGasP-523"><a href="#VernierGasP-523"><span class="linenos">523</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP-524"><a href="#VernierGasP-524"><span class="linenos">524</span></a>
 </span><span id="VernierGasP-525"><a href="#VernierGasP-525"><span class="linenos">525</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-526"><a href="#VernierGasP-526"><span class="linenos">526</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-526"><a href="#VernierGasP-526"><span class="linenos">526</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-527"><a href="#VernierGasP-527"><span class="linenos">527</span></a>
 </span><span id="VernierGasP-528"><a href="#VernierGasP-528"><span class="linenos">528</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-529"><a href="#VernierGasP-529"><span class="linenos">529</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2342,7 +2342,7 @@ deviation.</p>
 </span><span id="VernierGasP-540"><a href="#VernierGasP-540"><span class="linenos">540</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP-541"><a href="#VernierGasP-541"><span class="linenos">541</span></a>
 </span><span id="VernierGasP-542"><a href="#VernierGasP-542"><span class="linenos">542</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-543"><a href="#VernierGasP-543"><span class="linenos">543</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-543"><a href="#VernierGasP-543"><span class="linenos">543</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-544"><a href="#VernierGasP-544"><span class="linenos">544</span></a>
 </span><span id="VernierGasP-545"><a href="#VernierGasP-545"><span class="linenos">545</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-546"><a href="#VernierGasP-546"><span class="linenos">546</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2360,7 +2360,7 @@ deviation.</p>
 </span><span id="VernierGasP-558"><a href="#VernierGasP-558"><span class="linenos">558</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP-559"><a href="#VernierGasP-559"><span class="linenos">559</span></a>
 </span><span id="VernierGasP-560"><a href="#VernierGasP-560"><span class="linenos">560</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-561"><a href="#VernierGasP-561"><span class="linenos">561</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-561"><a href="#VernierGasP-561"><span class="linenos">561</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-562"><a href="#VernierGasP-562"><span class="linenos">562</span></a>
 </span><span id="VernierGasP-563"><a href="#VernierGasP-563"><span class="linenos">563</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-564"><a href="#VernierGasP-564"><span class="linenos">564</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2374,7 +2374,7 @@ deviation.</p>
 </span><span id="VernierGasP-572"><a href="#VernierGasP-572"><span class="linenos">572</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Torr</span><span class="p">(</span><span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">)</span>
 </span><span id="VernierGasP-573"><a href="#VernierGasP-573"><span class="linenos">573</span></a>
 </span><span id="VernierGasP-574"><a href="#VernierGasP-574"><span class="linenos">574</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP-575"><a href="#VernierGasP-575"><span class="linenos">575</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP-575"><a href="#VernierGasP-575"><span class="linenos">575</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP-576"><a href="#VernierGasP-576"><span class="linenos">576</span></a>
 </span><span id="VernierGasP-577"><a href="#VernierGasP-577"><span class="linenos">577</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP-578"><a href="#VernierGasP-578"><span class="linenos">578</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2447,7 +2447,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#VernierGasP.Pa"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.Pa-491"><a href="#VernierGasP.Pa-491"><span class="linenos">491</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.Pa-492"><a href="#VernierGasP.Pa-492"><span class="linenos">492</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.Pa-492"><a href="#VernierGasP.Pa-492"><span class="linenos">492</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.Pa-493"><a href="#VernierGasP.Pa-493"><span class="linenos">493</span></a>
 </span><span id="VernierGasP.Pa-494"><a href="#VernierGasP.Pa-494"><span class="linenos">494</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.Pa-495"><a href="#VernierGasP.Pa-495"><span class="linenos">495</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2498,7 +2498,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP.kPa"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.kPa-508"><a href="#VernierGasP.kPa-508"><span class="linenos">508</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.kPa-509"><a href="#VernierGasP.kPa-509"><span class="linenos">509</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.kPa-509"><a href="#VernierGasP.kPa-509"><span class="linenos">509</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.kPa-510"><a href="#VernierGasP.kPa-510"><span class="linenos">510</span></a>
 </span><span id="VernierGasP.kPa-511"><a href="#VernierGasP.kPa-511"><span class="linenos">511</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.kPa-512"><a href="#VernierGasP.kPa-512"><span class="linenos">512</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2549,7 +2549,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP.Bar"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.Bar-525"><a href="#VernierGasP.Bar-525"><span class="linenos">525</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.Bar-526"><a href="#VernierGasP.Bar-526"><span class="linenos">526</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.Bar-526"><a href="#VernierGasP.Bar-526"><span class="linenos">526</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.Bar-527"><a href="#VernierGasP.Bar-527"><span class="linenos">527</span></a>
 </span><span id="VernierGasP.Bar-528"><a href="#VernierGasP.Bar-528"><span class="linenos">528</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.Bar-529"><a href="#VernierGasP.Bar-529"><span class="linenos">529</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2600,7 +2600,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP.Torr"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.Torr-542"><a href="#VernierGasP.Torr-542"><span class="linenos">542</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.Torr-543"><a href="#VernierGasP.Torr-543"><span class="linenos">543</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.Torr-543"><a href="#VernierGasP.Torr-543"><span class="linenos">543</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.Torr-544"><a href="#VernierGasP.Torr-544"><span class="linenos">544</span></a>
 </span><span id="VernierGasP.Torr-545"><a href="#VernierGasP.Torr-545"><span class="linenos">545</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.Torr-546"><a href="#VernierGasP.Torr-546"><span class="linenos">546</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2652,7 +2652,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP.mmHg"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.mmHg-560"><a href="#VernierGasP.mmHg-560"><span class="linenos">560</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.mmHg-561"><a href="#VernierGasP.mmHg-561"><span class="linenos">561</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.mmHg-561"><a href="#VernierGasP.mmHg-561"><span class="linenos">561</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.mmHg-562"><a href="#VernierGasP.mmHg-562"><span class="linenos">562</span></a>
 </span><span id="VernierGasP.mmHg-563"><a href="#VernierGasP.mmHg-563"><span class="linenos">563</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.mmHg-564"><a href="#VernierGasP.mmHg-564"><span class="linenos">564</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2700,7 +2700,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP.atm"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP.atm-574"><a href="#VernierGasP.atm-574"><span class="linenos">574</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP.atm-575"><a href="#VernierGasP.atm-575"><span class="linenos">575</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP.atm-575"><a href="#VernierGasP.atm-575"><span class="linenos">575</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP.atm-576"><a href="#VernierGasP.atm-576"><span class="linenos">576</span></a>
 </span><span id="VernierGasP.atm-577"><a href="#VernierGasP.atm-577"><span class="linenos">577</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP.atm-578"><a href="#VernierGasP.atm-578"><span class="linenos">578</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2766,7 +2766,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD-592"><a href="#VernierGasP_OLD-592"><span class="linenos">592</span></a><span class="k">class</span> <span class="nc">VernierGasP_OLD</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-593"><a href="#VernierGasP_OLD-593"><span class="linenos">593</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-593"><a href="#VernierGasP_OLD-593"><span class="linenos">593</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-594"><a href="#VernierGasP_OLD-594"><span class="linenos">594</span></a><span class="sd">    This class contains the definitions for Vernier absolute gas pressure</span>
 </span><span id="VernierGasP_OLD-595"><a href="#VernierGasP_OLD-595"><span class="linenos">595</span></a><span class="sd">    sensor, GPS-BTA (pre 2011 manufacture. Label does not depict a caliper</span>
 </span><span id="VernierGasP_OLD-596"><a href="#VernierGasP_OLD-596"><span class="linenos">596</span></a><span class="sd">    with the registered trademark symbol).</span>
@@ -2786,7 +2786,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-610"><a href="#VernierGasP_OLD-610"><span class="linenos">610</span></a>    <span class="c1">###</span>
 </span><span id="VernierGasP_OLD-611"><a href="#VernierGasP_OLD-611"><span class="linenos">611</span></a>
 </span><span id="VernierGasP_OLD-612"><a href="#VernierGasP_OLD-612"><span class="linenos">612</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-613"><a href="#VernierGasP_OLD-613"><span class="linenos">613</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-613"><a href="#VernierGasP_OLD-613"><span class="linenos">613</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-614"><a href="#VernierGasP_OLD-614"><span class="linenos">614</span></a>
 </span><span id="VernierGasP_OLD-615"><a href="#VernierGasP_OLD-615"><span class="linenos">615</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-616"><a href="#VernierGasP_OLD-616"><span class="linenos">616</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2803,7 +2803,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-627"><a href="#VernierGasP_OLD-627"><span class="linenos">627</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP_OLD-628"><a href="#VernierGasP_OLD-628"><span class="linenos">628</span></a>
 </span><span id="VernierGasP_OLD-629"><a href="#VernierGasP_OLD-629"><span class="linenos">629</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-630"><a href="#VernierGasP_OLD-630"><span class="linenos">630</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-630"><a href="#VernierGasP_OLD-630"><span class="linenos">630</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-631"><a href="#VernierGasP_OLD-631"><span class="linenos">631</span></a>
 </span><span id="VernierGasP_OLD-632"><a href="#VernierGasP_OLD-632"><span class="linenos">632</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-633"><a href="#VernierGasP_OLD-633"><span class="linenos">633</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2820,7 +2820,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-644"><a href="#VernierGasP_OLD-644"><span class="linenos">644</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP_OLD-645"><a href="#VernierGasP_OLD-645"><span class="linenos">645</span></a>
 </span><span id="VernierGasP_OLD-646"><a href="#VernierGasP_OLD-646"><span class="linenos">646</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-647"><a href="#VernierGasP_OLD-647"><span class="linenos">647</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-647"><a href="#VernierGasP_OLD-647"><span class="linenos">647</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-648"><a href="#VernierGasP_OLD-648"><span class="linenos">648</span></a>
 </span><span id="VernierGasP_OLD-649"><a href="#VernierGasP_OLD-649"><span class="linenos">649</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-650"><a href="#VernierGasP_OLD-650"><span class="linenos">650</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2837,7 +2837,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-661"><a href="#VernierGasP_OLD-661"><span class="linenos">661</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP_OLD-662"><a href="#VernierGasP_OLD-662"><span class="linenos">662</span></a>
 </span><span id="VernierGasP_OLD-663"><a href="#VernierGasP_OLD-663"><span class="linenos">663</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-664"><a href="#VernierGasP_OLD-664"><span class="linenos">664</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-664"><a href="#VernierGasP_OLD-664"><span class="linenos">664</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-665"><a href="#VernierGasP_OLD-665"><span class="linenos">665</span></a>
 </span><span id="VernierGasP_OLD-666"><a href="#VernierGasP_OLD-666"><span class="linenos">666</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-667"><a href="#VernierGasP_OLD-667"><span class="linenos">667</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2855,7 +2855,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-679"><a href="#VernierGasP_OLD-679"><span class="linenos">679</span></a>        <span class="k">return</span> <span class="n">P_avg</span><span class="p">,</span> <span class="n">P_std</span><span class="p">,</span> <span class="n">P_avg_std</span>
 </span><span id="VernierGasP_OLD-680"><a href="#VernierGasP_OLD-680"><span class="linenos">680</span></a>
 </span><span id="VernierGasP_OLD-681"><a href="#VernierGasP_OLD-681"><span class="linenos">681</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-682"><a href="#VernierGasP_OLD-682"><span class="linenos">682</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-682"><a href="#VernierGasP_OLD-682"><span class="linenos">682</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-683"><a href="#VernierGasP_OLD-683"><span class="linenos">683</span></a>
 </span><span id="VernierGasP_OLD-684"><a href="#VernierGasP_OLD-684"><span class="linenos">684</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-685"><a href="#VernierGasP_OLD-685"><span class="linenos">685</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2869,7 +2869,7 @@ not used)</li>
 </span><span id="VernierGasP_OLD-693"><a href="#VernierGasP_OLD-693"><span class="linenos">693</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Torr</span><span class="p">(</span><span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">)</span>
 </span><span id="VernierGasP_OLD-694"><a href="#VernierGasP_OLD-694"><span class="linenos">694</span></a>
 </span><span id="VernierGasP_OLD-695"><a href="#VernierGasP_OLD-695"><span class="linenos">695</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD-696"><a href="#VernierGasP_OLD-696"><span class="linenos">696</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD-696"><a href="#VernierGasP_OLD-696"><span class="linenos">696</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD-697"><a href="#VernierGasP_OLD-697"><span class="linenos">697</span></a>
 </span><span id="VernierGasP_OLD-698"><a href="#VernierGasP_OLD-698"><span class="linenos">698</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD-699"><a href="#VernierGasP_OLD-699"><span class="linenos">699</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -2943,7 +2943,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.Pa"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.Pa-612"><a href="#VernierGasP_OLD.Pa-612"><span class="linenos">612</span></a>    <span class="k">def</span> <span class="nf">Pa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.Pa-613"><a href="#VernierGasP_OLD.Pa-613"><span class="linenos">613</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.Pa-613"><a href="#VernierGasP_OLD.Pa-613"><span class="linenos">613</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.Pa-614"><a href="#VernierGasP_OLD.Pa-614"><span class="linenos">614</span></a>
 </span><span id="VernierGasP_OLD.Pa-615"><a href="#VernierGasP_OLD.Pa-615"><span class="linenos">615</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.Pa-616"><a href="#VernierGasP_OLD.Pa-616"><span class="linenos">616</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -2994,7 +2994,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.kPa"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.kPa-629"><a href="#VernierGasP_OLD.kPa-629"><span class="linenos">629</span></a>    <span class="k">def</span> <span class="nf">kPa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.kPa-630"><a href="#VernierGasP_OLD.kPa-630"><span class="linenos">630</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.kPa-630"><a href="#VernierGasP_OLD.kPa-630"><span class="linenos">630</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.kPa-631"><a href="#VernierGasP_OLD.kPa-631"><span class="linenos">631</span></a>
 </span><span id="VernierGasP_OLD.kPa-632"><a href="#VernierGasP_OLD.kPa-632"><span class="linenos">632</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.kPa-633"><a href="#VernierGasP_OLD.kPa-633"><span class="linenos">633</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3045,7 +3045,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.Bar"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.Bar-646"><a href="#VernierGasP_OLD.Bar-646"><span class="linenos">646</span></a>    <span class="k">def</span> <span class="nf">Bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.Bar-647"><a href="#VernierGasP_OLD.Bar-647"><span class="linenos">647</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.Bar-647"><a href="#VernierGasP_OLD.Bar-647"><span class="linenos">647</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.Bar-648"><a href="#VernierGasP_OLD.Bar-648"><span class="linenos">648</span></a>
 </span><span id="VernierGasP_OLD.Bar-649"><a href="#VernierGasP_OLD.Bar-649"><span class="linenos">649</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.Bar-650"><a href="#VernierGasP_OLD.Bar-650"><span class="linenos">650</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3096,7 +3096,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.Torr"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.Torr-663"><a href="#VernierGasP_OLD.Torr-663"><span class="linenos">663</span></a>    <span class="k">def</span> <span class="nf">Torr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.Torr-664"><a href="#VernierGasP_OLD.Torr-664"><span class="linenos">664</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.Torr-664"><a href="#VernierGasP_OLD.Torr-664"><span class="linenos">664</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.Torr-665"><a href="#VernierGasP_OLD.Torr-665"><span class="linenos">665</span></a>
 </span><span id="VernierGasP_OLD.Torr-666"><a href="#VernierGasP_OLD.Torr-666"><span class="linenos">666</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.Torr-667"><a href="#VernierGasP_OLD.Torr-667"><span class="linenos">667</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -3148,7 +3148,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.mmHg"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.mmHg-681"><a href="#VernierGasP_OLD.mmHg-681"><span class="linenos">681</span></a>    <span class="k">def</span> <span class="nf">mmHg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.mmHg-682"><a href="#VernierGasP_OLD.mmHg-682"><span class="linenos">682</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.mmHg-682"><a href="#VernierGasP_OLD.mmHg-682"><span class="linenos">682</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.mmHg-683"><a href="#VernierGasP_OLD.mmHg-683"><span class="linenos">683</span></a>
 </span><span id="VernierGasP_OLD.mmHg-684"><a href="#VernierGasP_OLD.mmHg-684"><span class="linenos">684</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.mmHg-685"><a href="#VernierGasP_OLD.mmHg-685"><span class="linenos">685</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -3196,7 +3196,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierGasP_OLD.atm"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierGasP_OLD.atm-695"><a href="#VernierGasP_OLD.atm-695"><span class="linenos">695</span></a>    <span class="k">def</span> <span class="nf">atm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierGasP_OLD.atm-696"><a href="#VernierGasP_OLD.atm-696"><span class="linenos">696</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierGasP_OLD.atm-696"><a href="#VernierGasP_OLD.atm-696"><span class="linenos">696</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierGasP_OLD.atm-697"><a href="#VernierGasP_OLD.atm-697"><span class="linenos">697</span></a>
 </span><span id="VernierGasP_OLD.atm-698"><a href="#VernierGasP_OLD.atm-698"><span class="linenos">698</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierGasP_OLD.atm-699"><a href="#VernierGasP_OLD.atm-699"><span class="linenos">699</span></a><span class="sd">        :param float v_std: standard deviation of the voltage measurements</span>
@@ -3262,7 +3262,7 @@ not used)</li>
     </div>
     <a class="headerlink" href="#VernierpH"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierpH-713"><a href="#VernierpH-713"><span class="linenos">713</span></a><span class="k">class</span> <span class="nc">VernierpH</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="VernierpH-714"><a href="#VernierpH-714"><span class="linenos">714</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierpH-714"><a href="#VernierpH-714"><span class="linenos">714</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierpH-715"><a href="#VernierpH-715"><span class="linenos">715</span></a><span class="sd">    This class contains the definitions for Vernier standard pH</span>
 </span><span id="VernierpH-716"><a href="#VernierpH-716"><span class="linenos">716</span></a><span class="sd">    sensor, PH-BTA.</span>
 </span><span id="VernierpH-717"><a href="#VernierpH-717"><span class="linenos">717</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -3281,7 +3281,7 @@ not used)</li>
 </span><span id="VernierpH-730"><a href="#VernierpH-730"><span class="linenos">730</span></a>    <span class="c1">###</span>
 </span><span id="VernierpH-731"><a href="#VernierpH-731"><span class="linenos">731</span></a>
 </span><span id="VernierpH-732"><a href="#VernierpH-732"><span class="linenos">732</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierpH-733"><a href="#VernierpH-733"><span class="linenos">733</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierpH-733"><a href="#VernierpH-733"><span class="linenos">733</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierpH-734"><a href="#VernierpH-734"><span class="linenos">734</span></a>
 </span><span id="VernierpH-735"><a href="#VernierpH-735"><span class="linenos">735</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierpH-736"><a href="#VernierpH-736"><span class="linenos">736</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3353,7 +3353,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#VernierpH.pH"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierpH.pH-732"><a href="#VernierpH.pH-732"><span class="linenos">732</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierpH.pH-733"><a href="#VernierpH.pH-733"><span class="linenos">733</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierpH.pH-733"><a href="#VernierpH.pH-733"><span class="linenos">733</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierpH.pH-734"><a href="#VernierpH.pH-734"><span class="linenos">734</span></a>
 </span><span id="VernierpH.pH-735"><a href="#VernierpH.pH-735"><span class="linenos">735</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierpH.pH-736"><a href="#VernierpH.pH-736"><span class="linenos">736</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3418,7 +3418,7 @@ used)</li>
     </div>
     <a class="headerlink" href="#VernierFlatpH"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierFlatpH-749"><a href="#VernierFlatpH-749"><span class="linenos">749</span></a><span class="k">class</span> <span class="nc">VernierFlatpH</span><span class="p">(</span><span class="n">RawAtoD</span><span class="p">):</span>
-</span><span id="VernierFlatpH-750"><a href="#VernierFlatpH-750"><span class="linenos">750</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierFlatpH-750"><a href="#VernierFlatpH-750"><span class="linenos">750</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierFlatpH-751"><a href="#VernierFlatpH-751"><span class="linenos">751</span></a><span class="sd">    This class contains the definitions for Vernier flat tris-compatible pH</span>
 </span><span id="VernierFlatpH-752"><a href="#VernierFlatpH-752"><span class="linenos">752</span></a><span class="sd">    sensor, FPH-BTA.</span>
 </span><span id="VernierFlatpH-753"><a href="#VernierFlatpH-753"><span class="linenos">753</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -3437,7 +3437,7 @@ used)</li>
 </span><span id="VernierFlatpH-766"><a href="#VernierFlatpH-766"><span class="linenos">766</span></a>    <span class="c1">###</span>
 </span><span id="VernierFlatpH-767"><a href="#VernierFlatpH-767"><span class="linenos">767</span></a>
 </span><span id="VernierFlatpH-768"><a href="#VernierFlatpH-768"><span class="linenos">768</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierFlatpH-769"><a href="#VernierFlatpH-769"><span class="linenos">769</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierFlatpH-769"><a href="#VernierFlatpH-769"><span class="linenos">769</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierFlatpH-770"><a href="#VernierFlatpH-770"><span class="linenos">770</span></a>
 </span><span id="VernierFlatpH-771"><a href="#VernierFlatpH-771"><span class="linenos">771</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierFlatpH-772"><a href="#VernierFlatpH-772"><span class="linenos">772</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3509,7 +3509,7 @@ board in case the sensor output depends on this.</li>
     </div>
     <a class="headerlink" href="#VernierFlatpH.pH"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="VernierFlatpH.pH-768"><a href="#VernierFlatpH.pH-768"><span class="linenos">768</span></a>    <span class="k">def</span> <span class="nf">pH</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_avg</span><span class="p">,</span> <span class="n">v_std</span><span class="p">,</span> <span class="n">avg_std</span><span class="p">,</span> <span class="n">avg_vdd</span><span class="p">):</span>
-</span><span id="VernierFlatpH.pH-769"><a href="#VernierFlatpH.pH-769"><span class="linenos">769</span></a>        <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="VernierFlatpH.pH-769"><a href="#VernierFlatpH.pH-769"><span class="linenos">769</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="VernierFlatpH.pH-770"><a href="#VernierFlatpH.pH-770"><span class="linenos">770</span></a>
 </span><span id="VernierFlatpH.pH-771"><a href="#VernierFlatpH.pH-771"><span class="linenos">771</span></a><span class="sd">        :param float v_avg: average raw voltage</span>
 </span><span id="VernierFlatpH.pH-772"><a href="#VernierFlatpH.pH-772"><span class="linenos">772</span></a><span class="sd">        :param float v_std: standard deviation of the raw voltage</span>
@@ -3682,7 +3682,7 @@ used)</li>
                         if (doc.annotation)
                             heading += `<span class="annotation">${doc.annotation}</span>`;
                         if (doc.default_value)
-                            heading += `<span class="default_value">${doc.default_value}</span>`;
+                            heading += `<span class="default_value"> = ${doc.default_value}</span>`;
                         break;
                     default:
                         heading = `<span class="name">${doc.fullname}</span>`;

@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 setuptools.setup(
     name="JupyterPiDAQ",
     url = "https://github.com/JupyterPhysSciLab/JupyterPiDAQ",
-    version="0.7.8",
+    version="0.7.9",
     description="Data Acquisition in Jupyter notebook on Raspberry Pi",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -20,9 +20,8 @@ setuptools.setup(
     ],
     include_package_data=True,
     install_requires=[
-        #RPi.GPIO is required by pi-plates, not sure why not included in the
-        # pi-plates setup.py, maybe because only works on Linux?.
-        'RPi.GPIO>=0.7.0;platform_system=="Linux"',
+        'RPi.GPIO>=0.7.0;platform_system=="Linux"', # pi-plates requires
+        'spidev>=3.5;platform_system=="Linux"', # pi-plates requires
         'Adafruit-PureIO>=1.1.9',
         'Adafruit-ADS1x15>=1.0.2',
         'Adafruit-GPIO>=1.0.3',

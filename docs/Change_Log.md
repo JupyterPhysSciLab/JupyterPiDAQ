@@ -1,4 +1,7 @@
 # Change Log
+* 0.7.9 (Mar. 9 2023)
+  * Added `spidev` package to requirements because `pi-plates` requires it.
+  * More robust exception handling when searching for boards/A-to-Ds.
 * 0.7.8
   * Updated text for insertion into cells to make better use of escaping 
     updates in JPSLUtils >=0.7.0.
