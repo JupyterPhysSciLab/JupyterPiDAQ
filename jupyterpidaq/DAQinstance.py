@@ -123,12 +123,11 @@ except FileNotFoundError:
 
 # Data Aquistion Instance (a run).
 class DAQinstance():
-    def __init__(self, idno, livefig, title='None', ntraces=4, **kwargs):
+    def __init__(self, idno, title='None', ntraces=4, **kwargs):
         """
         Data Aquistion Instance (a run).
 
         :param idno : id number you wish to use to keep track
-        :param livefig: plotly FigureWidget to use for live display
         :param title: optional name
         :param ntraces: number of traces (default = 4) more than 4 easily
             overwhelms a pi4.
@@ -138,11 +137,12 @@ class DAQinstance():
             data collection. If False a separate set of time will be
             recorded for each channel.
         """
+        from plotly import graph_objects as go
         self.ignore_skew = kwargs.pop('ignore_skew',True)
         self.idno = idno
-        self.livefig = livefig
+        self.livefig = go.FigureWidget(layout_template='simple_white')
         self.title = str(title)
-        self.svname = ''
+        self.svname = title + '.jpidaq.html'
         self.averaging_time = 0.1  # seconds adjusted based on collection rate
         self.gain = [1] * ntraces
         self.data = []
@@ -482,8 +482,8 @@ class DAQinstance():
             self.fillpandadf()
             # save data to html file so it is human readable and can be loaded
             # elsewhere.
-            self.svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
-                                        time.localtime()) + '.html'
+            #self.svname = self.title + '_' + time.strftime('%y-%m-%d_%H%M%S',
+                                       # time.localtime()) + '.html'
             svhtml = '<!DOCTYPE html>' \
                      '<html><body>'+ self.defaultparamtxt + \
                      '<table id="file_info" border="1"><tr><th>Saved as ' \
@@ -706,6 +706,41 @@ def newRun(livefig):
     runs[nrun - 1].setup()
     pass
 
+def Run(name):
+    """Load a run from stored data or start a new run if the local file for
+    the run does not exist.
+    Parameters
+    ----------
+    name: str
+        String name for the run. The data will be stored in a file of this
+        name with the extension of `.jpidaq.html`.
+    """
+    from pathlib import Path
+    from IPython import get_ipython
+    from IPython.display import display
+    global_dict = get_ipython().user_ns
+    runs = None
+    if 'runs' in global_dict and 'DAQinstance' in global_dict:
+        runs = global_dict['runs']
+    else:
+        return ('Initialization of JupyterPiDAQ required')
+    # Check if run completed, if so reload data, display and exit
+    datafilepath = Path.cwd() / Path(str(name) + '.jpidaq.html')
+    if datafilepath.exists():
+        # display the data as a live plotly plot.
+        svname = name + '.jpidaq.html'
+        runs.append(DAQinstance(len(runs)+1, title = name))
+        runs[-1]._load_from_html(svname)
+        display(HTML(runs[-1].defaultparamtxt))
+        display(HTML('<h3>Saved as: '+runs[-1].svname+'</h3>'))
+        display(runs[-1].livefig)
+        display(HTML(runs[-1].defaultcollecttxt))
+        return
+    nrun = len(runs) + 1
+    runs.append(DAQinstance(nrun, title=name))
+    runs[-1].setup()
+    return
+
 def doRun(whichrun):
     with whichrun.output:
         display(HTML('<span id="LiveRun_'+str(whichrun.idno)+'"></span>'))
@@ -790,11 +825,15 @@ def update_runsdrp():
 
 def showSelectedRunTable(change):
     global runsdrp
+    global last_run_table_out
     whichrun = runsdrp.value
     runsdrp.close()
+    last_run_table_out.clear_output()
     tbldiv = '<div style="height:10em;">' + str(runs[whichrun].title)
     tbldiv += str(runs[whichrun].pandadf.to_html()) + '</div>'
-    display(HTML(tbldiv))
+    with last_run_table_out:
+        display(HTML(tbldiv))
+    return
 
 def showDataTable():
     """
@@ -802,12 +841,17 @@ def showDataTable():
     10 em high scrolling table. Selection menu is removed after choice
     is made.
     """
+    from ipywidgets import Output
+    global last_run_table_out
+    last_run_table_out = Output()
     update_runsdrp()
     global runsdrp
     runsdrp.observe(showSelectedRunTable, names='value')
-    display(runsdrp)
+    with last_run_table_out:
+        display(runsdrp)
+    display(last_run_table_out)
     # will display selected run and delete menu upon selection.
-
+    return
 def newCalculatedColumn():
     """
     Uses jupyter-pandas-GUI.new_pandas_column_GUI to provide a GUI expression
