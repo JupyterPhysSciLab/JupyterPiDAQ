@@ -214,7 +214,7 @@ class DAQinstance():
         self.setup_layout = widgets.VBox([self.separate_traces_checkbox,
                                           self.setup_layout_bottom])
         self.collect_layout = widgets.HBox([self.collectbtn, self.collecttxt])
-        
+        self.output = widgets.Output()
     def _make_defaultparamtxt(self):
         """
         Uses AdvancedHTMLParser (mimics javascript) to generate valid HTML for
@@ -417,23 +417,22 @@ class DAQinstance():
         del self.runtitle
         self.setup_layout.close()
         del self.setup_layout
-        JPSLUtils.new_cell_immediately_below()
-        cmdstr = 'doRun(runs[' + str(self.idno - 1) + '])'
-        cmdstr += '\\nruns[' + str(self.idno - 1) + '].livefig'
-        JPSLUtils.insert_text_into_next_cell(cmdstr)
-        JPSLUtils.select_containing_cell("RunSetUp")
-        JPSLUtils.select_cell_immediately_below()
-        JPSLUtils.OTJS('Jupyter.notebook.get_selected_cell().execute()')
+        self.output.clear_output()
+        doRun(runs[self.idno-1])
+        with self.output:
+            display(runs[self.idno - 1].livefig)
         pass
 
     def setup(self):
-        display(HTML("<h3 id ='RunSetUp' "
-                     "style='text-align:center;'>Set Run Parameters</h3>"))
-        self.setupbtn.on_click(self.setupclick)
-        display(self.runtitle)
-        for i in range(self.ntraces):
-            self.traces[i].setup()
-        display(self.setup_layout)
+        with self.output:
+            display(HTML("<h3 id ='RunSetUp' "
+                         "style='text-align:center;'>Set Run Parameters</h3>"))
+            self.setupbtn.on_click(self.setupclick)
+            display(self.runtitle)
+            for i in range(self.ntraces):
+                self.traces[i].setup()
+            display(self.setup_layout)
+        display(self.output)
         pass
 
     def collectclick(self, btn):
@@ -446,7 +445,31 @@ class DAQinstance():
             self.setupbtn.tooltip = 'Parameters locked. The run has started.'
             self.rateinp.disabled = True
             self.timelbl.disabled = True
-            thread = threading.Thread(target=self.updatingplot, args=())
+            PLTconn, DAQconn = Pipe()
+            DAQCTL, PLTCTL = Pipe()
+            nactive = 0
+            for k in self.traces:
+                if k.isactive:
+                    nactive += 1
+            whichchn = []
+            gains =[]
+            for i in range(self.ntraces):
+                if (self.traces[i].isactive):
+                    whichchn.append({'board': self.traces[i].board,
+                                     'chnl': self.traces[i].channel})
+                    gains.append(self.traces[i].toselectedgain)
+            # Use up to 30% of the time for averaging if channels were spaced
+            # evenly between data collection times (with DACQ2 they appear
+            # more synchronous than that).
+            self.averaging_time = self.delta / nactive / 3
+            print("Trying to spawn the DAQ Process...")
+            DAQ = Process(target=DAQProc,
+                          args=(
+                              whichchn, gains, self.averaging_time, self.delta,
+                              DAQconn, DAQCTL))
+            DAQ.start()
+            thread = threading.Thread(target=self.updatingplot, args=(
+                                        PLTconn, PLTCTL))
             thread.start()
             # self.updatingplot() hangs up user interface
         else:
@@ -474,20 +497,11 @@ class DAQinstance():
             f.close()
             self.collectbtn.close()
             del self.collectbtn
-            #display(self.collecttxt)
-            display(HTML(
-                '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
-                self.svname + '</span>'))
-            JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
-            JPSLUtils.new_cell_immediately_below()
-            cmdstr = 'from jupyterpidaq.DAQinstance import * ' \
-                    '# Does nothing if already imported.\n' \
-                    'displayRun(' + str(self.idno)+', \"' \
-                    + self.svname + '\") # display the data'
-            JPSLUtils.insert_text_into_next_cell(cmdstr)
-            JPSLUtils.select_containing_cell('LiveRun_'+str(self.idno))
-            JPSLUtils.select_cell_immediately_below()
-            JPSLUtils.OTJS('Jupyter.notebook.get_selected_cell().execute()')
+            with self.output:
+                display(HTML(
+                    '<span style="color:blue;font-weight:bold;">DATA SAVED TO:' +
+                    self.svname + '</span>'))
+        return
 
     def fillpandadf(self):
         datacolumns = []
@@ -527,11 +541,21 @@ class DAQinstance():
         #print(str(datacolumns))
         self.pandadf = pd.DataFrame(np.transpose(datacolumns), columns=titles)
 
-    def updatingplot(self):
+    def updatingplot(self, PLTconn, PLTCTL):
         """
         Runs until a check of self.collectbtn.description does not return
         'Stop Collecting'. This would probably be more efficient if set a
         boolean.
+        Parameters
+        ----------
+        PLTconn: Pipe
+            connection plotter end
+        DAQconn: Pipe
+            connection DAQ end
+        PLTCTL: Pipe
+            control pipe plotter end
+        DAQCTL: Pipe
+            control pipe DAQ end
         """
         starttime = time.time()
         global data
@@ -543,8 +567,6 @@ class DAQinstance():
         datalegend = []
         timelegend = []
         stdevlegend = []
-        PLTconn, DAQconn = Pipe()
-        DAQCTL, PLTCTL = Pipe()
         whichchn = []
         gains = []
         toplotx = []
@@ -565,9 +587,6 @@ class DAQinstance():
         for i in range(self.ntraces):
             if (self.traces[i].isactive):
                 active_count += 1
-                whichchn.append({'board':self.traces[i].board,
-                                'chnl':self.traces[i].channel})
-                gains.append(self.traces[i].toselectedgain)
                 tempstr = self.traces[i].tracelbl.value + '(' + \
                           self.traces[i].units.value + ')'
                 timelegend.append('time_' + tempstr)
@@ -583,18 +602,6 @@ class DAQinstance():
                     self.livefig.add_scatter(y=[],x=[], name=tempstr)
                 toplotx.append([])
                 toploty.append([])
-                
-        #print('whichchn: '+str(whichchn))
-        #print('gains: '+str(gains))
-        # Use up to 30% of the time for averaging if channels were spaced
-        # evenly between data collection times (with DACQ2 they appear
-        # more synchronous than that).
-        self.averaging_time = self.delta/nactive/3
-        DAQ = Process(target=DAQProc,
-                      args=(
-                      whichchn, gains, self.averaging_time, self.delta,
-                      DAQconn, DAQCTL))
-        DAQ.start()
         lastupdatetime = time.time()
 
         pts = 0
@@ -690,12 +697,6 @@ class DAQinstance():
         for k in range(len(self.livefig.data)):
             self.livefig.data[k].x = toplotx[k]
             self.livefig.data[k].y = toploty[k]
-        DAQ.join()  # make sure garbage collection occurs when it stops.
-        DAQconn.close()
-        PLTconn.close()
-        DAQCTL.close()
-        PLTCTL.close()
-
 
 def newRun(livefig):
     """
@@ -707,15 +708,14 @@ def newRun(livefig):
     pass
 
 def doRun(whichrun):
-    display(HTML('<span id="LiveRun_'+str(whichrun.idno)+'"></span>'))
-    display(HTML(whichrun.defaultparamtxt))
-    if hasattr(whichrun, "collectbtn"):
-        # only show if hasn't already collected data
-        whichrun.collectbtn.on_click(whichrun.collectclick)
-        display(whichrun.collectbtn)
-    display(HTML(whichrun.defaultcollecttxt))
-    JPSLUtils.select_containing_cell("RunSetUp")
-    JPSLUtils.delete_selected_cell()
+    with whichrun.output:
+        display(HTML('<span id="LiveRun_'+str(whichrun.idno)+'"></span>'))
+        display(HTML(whichrun.defaultparamtxt))
+        if hasattr(whichrun, "collectbtn"):
+            # only show if hasn't already collected data
+            whichrun.collectbtn.on_click(whichrun.collectclick)
+            display(whichrun.collectbtn)
+        display(HTML(whichrun.defaultcollecttxt))
     pass
 
 def displayRun(runidx,file):
