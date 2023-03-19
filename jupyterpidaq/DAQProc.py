@@ -106,5 +106,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
                 DAQconn.send(databuf.popleft())
             transmit = False  # we've done our burst of sending.
     DAQCTL.send('done')
-    # f.write('Cleared buffer. Quitting.\n\n')
-    # f.close()
+    # Wait a while to terminate so that the Pipe is up for the other end to
+    # collect the data.
+    time.sleep(5)
+    return

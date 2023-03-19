@@ -462,7 +462,6 @@ class DAQinstance():
             # evenly between data collection times (with DACQ2 they appear
             # more synchronous than that).
             self.averaging_time = self.delta / nactive / 3
-            print("Trying to spawn the DAQ Process...")
             DAQ = Process(target=DAQProc,
                           args=(
                               whichchn, gains, self.averaging_time, self.delta,
