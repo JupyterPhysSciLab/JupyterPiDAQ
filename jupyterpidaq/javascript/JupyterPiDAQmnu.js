@@ -1,11 +1,11 @@
 // TODO: isolate under a name such as juputerPiDAQ.
 var insertruncount = 0
 var newrunstr = '# EDIT THE COMMAND BELOW BY PROVIDING A RUN NAME.\n'
-newrunstr += '# The name should be surrounded by double quotes ("run_name").'
+newrunstr += '# The name should be surrounded by double quotes ("run_name").\n'
 newrunstr += '# using _ instead of spaces will avoid problems, especially on '
-                'Windows machines.'
+newrunstr += 'Windows machines.\n'
 newrunstr += 'Run("REPLACE_ME_WITH_NAME_FOR_RUN") # Initiate run or load a '
-                'completed run.'
+newrunstr += 'completed run.'
 
 function insertnewRun(){
     //Insert a cell below the current selection
@@ -16,7 +16,7 @@ function insertnewRun(){
     insertruncount += 1
     var cmdstr = newrunstr
     currentcell.set_text(cmdstr);
-    currentcell.execute();
+    //currentcell.execute();
 }
 
 function addnewRun(){
@@ -38,7 +38,7 @@ function addnewRun(){
         lastcell=Jupyter.notebook.get_cell(lastcellidx+1);
         lastcell.set_text(cmdstr);
     }
-    lastcell.execute();
+    //lastcell.execute();
 }
 
 function showDataTable(){
