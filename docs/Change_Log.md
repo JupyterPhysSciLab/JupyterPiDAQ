@@ -1,4 +1,8 @@
 # Change Log
+* 0.8.0dev ()
+  * Replaced `NewRun()` command with `Run()` command. This version works in 
+    Jupyter Lab and removes the need for the `DisplayRun()` command because 
+    `Run()` will load an already collected dataset or start a new one.
 * 0.7.9 (Mar. 9 2023)
   * Added `spidev` package to requirements because `pi-plates` requires it.
   * More robust exception handling when searching for boards/A-to-Ds.

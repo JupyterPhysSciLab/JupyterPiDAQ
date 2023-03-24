@@ -1,8 +1,11 @@
 // TODO: isolate under a name such as juputerPiDAQ.
 var insertruncount = 0
-var newrunstr = 'run_fig$ = go.FigureWidget() # Create figure to show data.\n'
-newrunstr += 'newRun(run_fig$) # Initiate run setup.'
-//newrunstr += 'fig$ # Display the live figure.'
+var newrunstr = '# EDIT THE COMMAND BELOW BY PROVIDING A RUN NAME.\n'
+newrunstr += '# The name should be surrounded by double quotes ("run_name").'
+newrunstr += '# using _ instead of spaces will avoid problems, especially on '
+                'Windows machines.'
+newrunstr += 'Run("REPLACE_ME_WITH_NAME_FOR_RUN") # Initiate run or load a '
+                'completed run.'
 
 function insertnewRun(){
     //Insert a cell below the current selection
@@ -11,7 +14,7 @@ function insertnewRun(){
     Jupyter.notebook.focus_cell();
     var currentcell = Jupyter.notebook.get_selected_cell();
     insertruncount += 1
-    var cmdstr = newrunstr.replaceAll('$',insertruncount)
+    var cmdstr = newrunstr
     currentcell.set_text(cmdstr);
     currentcell.execute();
 }
@@ -25,7 +28,7 @@ function addnewRun(){
     //add another cell at the end of the worksheet. Then
     //put the command in the new lastcell.
     insertruncount += 1
-    var cmdstr = newrunstr.replaceAll('$',insertruncount)
+    var cmdstr = newrunstr
     if(lastcell.get_text()==''){
         lastcell.set_text(cmdstr);
     }else{

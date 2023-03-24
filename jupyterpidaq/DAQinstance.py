@@ -697,14 +697,15 @@ class DAQinstance():
             self.livefig.data[k].x = toplotx[k]
             self.livefig.data[k].y = toploty[k]
 
-def newRun(livefig):
-    """
-    Set up a new data collection run and add it to the list of runs.
-    """
-    nrun = len(runs) + 1
-    runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
-    runs[nrun - 1].setup()
-    pass
+# TODO delete newRun once sure not needed.
+# def newRun(livefig):
+#     """
+#     Set up a new data collection run and add it to the list of runs.
+#     """
+#     nrun = len(runs) + 1
+#     runs.append(DAQinstance(nrun, livefig, title='Run-' + str(nrun)))
+#     runs[nrun - 1].setup()
+#     pass
 
 def Run(name):
     """Load a run from stored data or start a new run if the local file for
@@ -752,61 +753,62 @@ def doRun(whichrun):
         display(HTML(whichrun.defaultcollecttxt))
     pass
 
-def displayRun(runidx,file):
-    """
-    Displays a run. It can fall back to loading from a file if the outputarea
-    is accidentally cleared.
-    :param runidx: index+1 for the run in the runs array. Thus, the run id #.
-    :param file: name of the file the run is saved to
-    :return: A string warning if things are not initialized properly.
-    """
-    from IPython import get_ipython
-    from JPSLUtils import find_pandas_dataframe_names, find_figure_names
-    idxnum = runidx - 1
-    run_id_table = pd.read_html(file, attrs={'id': 'run_id'})[0]
-    run_title = run_id_table['Title'][0]
-    run_id = run_id_table['Id #'][0]
-    svname = pd.read_html(file, attrs={'id': 'file_info'})[0]['Saved as'][0]
-    global_dict = get_ipython().user_ns
-    runs = None
-    if 'runs' in global_dict and 'DAQinstance' in global_dict:
-        runs = global_dict['runs']
-    else:
-        return ('Initialization of JupyterPiDAQ required')
-    exists = None
-    if len(runs)>=runidx:
-        if isinstance(runs[idxnum].livefig,go.FigureWidget) and runs[
-            idxnum].idno == run_id and runs[idxnum].svname ==svname:
-            exists = True
-        else:
-            exists = False
-    if exists:
-        display(HTML(runs[idxnum].defaultparamtxt))
-        display(HTML('<h3>Saved as: '+runs[idxnum].svname+'</h3>'))
-        runs[idxnum].livefig.show()
-        display(HTML(runs[idxnum].defaultcollecttxt))
-        JPSLUtils.select_containing_cell("LiveRun_"+str(runidx))
-        JPSLUtils.delete_selected_cell()
-    else:
-        # Fall back on loading the data from the default save file.
-        # Note: the file must be available.
-        nrunfigs = 0
-        for k in find_figure_names():
-            if k.startswith('run_fig'):
-                nrunfigs+=1
-        runfigname = 'run_fig'+str(nrunfigs+1)
-        global_dict[runfigname] = go.FigureWidget()
-        fig = global_dict[runfigname]
-        runs.append(DAQinstance(run_id, fig, title=run_title))
-        idxnum = len(runs)-1
-        runs[idxnum]._load_from_html(file)
-        display(HTML(runs[idxnum].defaultparamtxt))
-        display(HTML('<h3>Saved as: ' + runs[idxnum].svname + '</h3>'))
-        runs[idxnum].livefig.show()
-        display(HTML(runs[idxnum].defaultcollecttxt))
-    # protect the cell
-    JPSLUtils.OTJS('protect_selected_cells();')
-    pass
+# TODO delete displayRun once not needed.
+# def displayRun(runidx,file):
+#     """
+#     Displays a run. It can fall back to loading from a file if the outputarea
+#     is accidentally cleared.
+#     :param runidx: index+1 for the run in the runs array. Thus, the run id #.
+#     :param file: name of the file the run is saved to
+#     :return: A string warning if things are not initialized properly.
+#     """
+#     from IPython import get_ipython
+#     from JPSLUtils import find_pandas_dataframe_names, find_figure_names
+#     idxnum = runidx - 1
+#     run_id_table = pd.read_html(file, attrs={'id': 'run_id'})[0]
+#     run_title = run_id_table['Title'][0]
+#     run_id = run_id_table['Id #'][0]
+#     svname = pd.read_html(file, attrs={'id': 'file_info'})[0]['Saved as'][0]
+#     global_dict = get_ipython().user_ns
+#     runs = None
+#     if 'runs' in global_dict and 'DAQinstance' in global_dict:
+#         runs = global_dict['runs']
+#     else:
+#         return ('Initialization of JupyterPiDAQ required')
+#     exists = None
+#     if len(runs)>=runidx:
+#         if isinstance(runs[idxnum].livefig,go.FigureWidget) and runs[
+#             idxnum].idno == run_id and runs[idxnum].svname ==svname:
+#             exists = True
+#         else:
+#             exists = False
+#     if exists:
+#         display(HTML(runs[idxnum].defaultparamtxt))
+#         display(HTML('<h3>Saved as: '+runs[idxnum].svname+'</h3>'))
+#         runs[idxnum].livefig.show()
+#         display(HTML(runs[idxnum].defaultcollecttxt))
+#         JPSLUtils.select_containing_cell("LiveRun_"+str(runidx))
+#         JPSLUtils.delete_selected_cell()
+#     else:
+#         # Fall back on loading the data from the default save file.
+#         # Note: the file must be available.
+#         nrunfigs = 0
+#         for k in find_figure_names():
+#             if k.startswith('run_fig'):
+#                 nrunfigs+=1
+#         runfigname = 'run_fig'+str(nrunfigs+1)
+#         global_dict[runfigname] = go.FigureWidget()
+#         fig = global_dict[runfigname]
+#         runs.append(DAQinstance(run_id, fig, title=run_title))
+#         idxnum = len(runs)-1
+#         runs[idxnum]._load_from_html(file)
+#         display(HTML(runs[idxnum].defaultparamtxt))
+#         display(HTML('<h3>Saved as: ' + runs[idxnum].svname + '</h3>'))
+#         runs[idxnum].livefig.show()
+#         display(HTML(runs[idxnum].defaultcollecttxt))
+#     # protect the cell
+#     JPSLUtils.OTJS('protect_selected_cells();')
+#     pass
 
 def update_runsdrp():
     # get list of runs
