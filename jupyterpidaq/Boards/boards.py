@@ -16,7 +16,8 @@ logger = logging.getLogger(__name__)
 # python file defining the required board operations.
 
 knownboardpkgs = ('jupyterpidaq.Boards.PiGPIO.ADS1115',
-                  'jupyterpidaq.Boards.PiGPIO.DAQC2')
+                  'jupyterpidaq.Boards.PiGPIO.DAQC2',
+                  'jupyterpidaq.Boards.vernier.labquest')
 knownsimulators = ('jupyterpidaq.Boards.Simulated.ADCsim',
                    'jupyterpidaq.Boards.Simulated.ADCsim_line')
 
