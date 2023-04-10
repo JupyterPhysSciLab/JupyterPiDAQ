@@ -264,32 +264,45 @@ def LQProc(cmdrcv, datasend):
     import labquest
     from collections import deque
     lqs = labquest.LabQuest()
-    if lqs.open() == 1:
+    cmd_deque = deque()
+    RATE = 10000.0 # despite supposedly doing 100 kHz.
+    PERIOD = 1000/RATE # msec
+    if lqs.open() == 0:
         # we're good to go
-        # make a list of boards with a deque for each the channel voltages
-        # in each board list (e.g. deque channel X, where X = 1, 2 or 3,
-        # of board 0 accessed as `boards[0][X-1]`).
+        # make a list of boards
         boards = []
         nboards = len(labquest.config.hDevice)
         for i in range(nboards):
-            boards.append([])
             # Tell the board we will monitor all three channels
             lqs.select_sensors(ch1="raw_voltage", ch2="raw_voltage",
                                ch3="raw_voltage",
                                device=i)
-            for k in range(3):
-                # deque with max 200000 data points allowing 2 second buffer
-                # at max collection rate of 100 kHz.
-                boards[i].append(deque(maxlen=200000))
-        lqs.start(0.01)
+        lqs.start(PERIOD)
         running = True
         while running:
-            # TODO use existing buffers and read from them as
-            #  commands come in.
-            # TODO need to clear the buffer at beginning of run to
-            #  have good time zero.
-            # check for a command
-            # send requested data
+            # check for a command: start (clears buffers), send (sends content
+            # of buffers, removing the sent content), close (shutdown the process).
+            # Each command is a list ['cmd str',<cmd data>]:
+            #    ['start',]
+            #    ['close',]
+            #    ['send',board#, ch#, num_pts].
+            while cmdrcv.poll():
+                cmd_deque.append(cmdrcv.recv())
+            # Start responding to commands
+            while len(cmd_deque) > 0:
+                cmd = cmd_deque.popleft()
+                if cmd[0] == 'close':
+                    # stop thread
+                    running = False
+                if cmd[0] == 'start':
+                    # restart data collection to get good zero
+                    lqs.stop()
+                    lqs.start(PERIOD)
+                if cmd[0] == 'send':
+                    # return requested amount of data for the channel
+                    chan = 'ch'+str(cmd[2])
+                    data = lqs.read_multi_pt(chan,cmd[3],device=cmd[1])
+                    datasend.send(data)
         lqs.close()
         return
     else:
