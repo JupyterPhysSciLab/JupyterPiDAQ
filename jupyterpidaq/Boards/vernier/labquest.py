@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 # Optimized for Pi 3B+ for an installed ADS1115 ADC PiHAT. This is
 # actually ignored by this board, but necessary for ADC call
 # compatibility.
-RATE = 10000 #maximum 100 kHz
+RATE = 10000 #maximum 10 kHz
 
 def find_boards():
     """
@@ -35,23 +35,25 @@ def find_boards():
     # is to upon discovery spawn a process and then just communicate with it.
     if labquestdrvs:
         LabQuests = labquest.LabQuest()
-        if LabQuests.open() == 1:
+        if LabQuests.open() == 0:
             # Count number of boards
-            nboards = len(hDevice)
+            nboards = len(labquest.config.hDevice)
             # Close things
             LabQuests.close()
             # launch a process to talk to, need Pipes to communicate.
             from multiprocessing import Process, Pipe
-            send, cmdrcv = Pipe()
-            datasend, rcv = Pipe()
+            cmdsend, cmdrcv = Pipe()
+            datasend, datarcv = Pipe()
             LQ = Process(target = LQProc,
                          args = (cmdrcv, datasend))
             LQ.start()
             # append an object for each board that knows how to talk to the
             # process and get information from that particular device
+            addr = 0
             for addr in range(nboards):
                 # TODO what to pass to each Board_LQ
-                boards.append(Board_LQ(addr, send, rcv))
+                boards.append(Board_LQ(addr, cmdsend, datarcv))
+                addr+=1
     return boards
 
 class Board_LQ(Board):
@@ -71,6 +73,11 @@ class Board_LQ(Board):
         self.addr = addr
         self.send = send
         self.rcv = rcv
+        # TODO keep track of most recent start time (buffer clearing).
+        # TODO keep track of how many averages have been taken to update
+        #    the timestamp for each point. How does this play with just
+        #    reading a data point. To make sure we are not getting old data
+        #    just reading a data point presently clears the buffers first.
 
     def getsensors(self):
         """
@@ -90,7 +97,8 @@ class Board_LQ(Board):
         # objects when converting the raw board voltage and for producing
         # a menu of valid options for this particular board.
         return sensorlist
-
+# TODO restarting interface collection and buffering for each data point has
+#  too much overhead. Need to start only when I start data collection.
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
         """
         This routine returns the average voltage for the channel
@@ -117,7 +125,7 @@ class Board_LQ(Board):
 
         :param gain: ignored by board. Defaults to 1.
 
-        :param int data_rate: maximum?
+        :param int data_rate: maximum
 
         :param float avg_sec: seconds to average for, actual
          averaging interval will be as close as possible for an integer
@@ -130,19 +138,15 @@ class Board_LQ(Board):
         :return float time_stamp:
         :return float Vdd_avg:
         """
-        LabQuests = self.labquest.LabQuest()
-        LabQuests.open()
-        read = ['no_sensor', 'no_sensor', 'no_sensor']
-        read[chan - 1] = 'raw_voltage'
-        nsamples = round(avg_sec*data_rate)
-        period = 1000/data_rate
-        LabQuests.select_sensors(ch1=read[0], ch2=read[1],
-                                 ch3=read[2], device=self.addr)
         starttime = time.time()
-        self.LabQuests.start(period)
-        value = self.LabQuests.read_multi_pt('ch'+str(chan), nsamples, self.addr)
+        nsamples = round(data_rate*avg_sec)
+        self.send.send(['start',])
+        self.send.send(['send',self.addr, chan, nsamples])
+        while not self.rcv.poll():
+            #we wait for data
+            pass
+        value = self.rcv.recv()
         endtime = starttime + avg_sec
-        self.LabQuests.stop()
         time_stamp = (starttime + endtime) / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
@@ -190,21 +194,17 @@ class Board_LQ(Board):
         :return float time_stamp:
         :return float Vdd_avg:
         '''
-        read = ['no_sensor', 'no_sensor', 'no_sensor']
-        read[chan - 1] = 'raw_voltage'
-        nsamples = round(avg_sec * data_rate)
-        period = 1000 / data_rate
-        self.LabQuests.select_sensors(ch1=read[0], ch2=read[1],
-                                 ch3=read[2], device=self.addr)
         starttime = time.time()
-        self.LabQuests.start(period)
-        value = self.LabQuests.read_multi_pt('ch'+str(chan), nsamples, self.addr)
+        nsamples = round(data_rate * avg_sec)
+        # self.send.send(['start', ])
+        self.send.send(['send', self.addr, chan, nsamples])
+        while  not self.rcv.poll():
+            # we wait for data
+            pass
+        value = self.rcv.recv()
         endtime = starttime + avg_sec
-        self.LabQuests.stop()
         time_stamp = (starttime + endtime) / 2
         ndata = len(value)
-        logging.debug('channel:'+str(chan)+', starttime:'+str(starttime)+', '
-                      'endtime:'+str(endtime)+', ndata:'+str(ndata)+'.')
         V_avg = sum(value) / ndata
         Vdd_avg = 5.00
         stdev = np.std(value, ddof=1, dtype=np.float64)
@@ -234,21 +234,20 @@ class Board_LQ(Board):
 
         :return float time_stamp:
 
-        :return float ref:
+        :return float Vdd:
         '''
-        read = ['no_sensor', 'no_sensor', 'no_sensor']
-        read[chan - 1] = 'raw_voltage'
-        period = 1000 / data_rate
-        self.LabQuests.select_sensors(ch1=read[0], ch2=read[1],
-                                 ch3=read[2], device=self.addr)
         starttime = time.time()
-        self.LabQuests.start(period)
-        value = self.LabQuests.read('ch' + str(chan), self.addr)
+        nsamples = 1
+        self.send.send(['start', ])
+        self.send.send(['send', self.addr, chan, nsamples])
+        while not self.rcv.poll():
+            # we wait for data
+            pass
+        value = self.rcv.recv()[0]
         endtime = time.time()
-        self.LabQuests.stop()
         time_stamp = (starttime + endtime) / 2
-        ref = 5.00
-        return value, time_stamp, ref
+        Vdd = 5.00
+        return value, time_stamp, Vdd
 
 def LQProc(cmdrcv, datasend):
     """Process to spawn that continuously collects from the LabQuests(s)
@@ -265,7 +264,6 @@ def LQProc(cmdrcv, datasend):
     from collections import deque
     lqs = labquest.LabQuest()
     cmd_deque = deque()
-    RATE = 10000.0 # despite supposedly doing 100 kHz.
     PERIOD = 1000/RATE # msec
     if lqs.open() == 0:
         # we're good to go
@@ -296,8 +294,9 @@ def LQProc(cmdrcv, datasend):
                     running = False
                 if cmd[0] == 'start':
                     # restart data collection to get good zero
-                    lqs.stop()
-                    lqs.start(PERIOD)
+                    #lqs.stop()
+                    #lqs.start(PERIOD)
+                    labquest.buf.buffer_clear()
                 if cmd[0] == 'send':
                     # return requested amount of data for the channel
                     chan = 'ch'+str(cmd[2])
