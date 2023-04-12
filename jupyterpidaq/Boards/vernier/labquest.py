@@ -4,12 +4,17 @@
 # license GPL V3 or greater
 import time
 import numpy as np
+from multiprocessing import Lock, Value
 
 import logging
 
 try:
     import labquest
     labquestdrvs = True
+    starttime = Value('d',time.time())
+    samples = []
+    for k in range(3):
+        samples.append(Value('i',0))
 except Exception as e:
     print("LabQuest: "+str(e))
     labquestdrvs = False
@@ -45,7 +50,7 @@ def find_boards():
             cmdsend, cmdrcv = Pipe()
             datasend, datarcv = Pipe()
             LQ = Process(target = LQProc,
-                         args = (cmdrcv, datasend))
+                         args = (cmdrcv, datasend, starttime, samples))
             LQ.start()
             # append an object for each board that knows how to talk to the
             # process and get information from that particular device
@@ -73,11 +78,10 @@ class Board_LQ(Board):
         self.addr = addr
         self.send = send
         self.rcv = rcv
-        # TODO keep track of most recent start time (buffer clearing).
-        # TODO keep track of how many averages have been taken to update
-        #    the timestamp for each point. How does this play with just
-        #    reading a data point. To make sure we are not getting old data
-        #    just reading a data point presently clears the buffers first.
+        # samples taken from a channel and starttime kept track of in
+        #  shared memory samples[i].value = # of samples taken from channel
+        #   i. starttime.value = time.time() immediately after las clearing
+        #   of the buffers.
 
     def getsensors(self):
         """
@@ -97,8 +101,7 @@ class Board_LQ(Board):
         # objects when converting the raw board voltage and for producing
         # a menu of valid options for this particular board.
         return sensorlist
-# TODO restarting interface collection and buffering for each data point has
-#  too much overhead. Need to start only when I start data collection.
+
     def V_oversampchan(self, chan, gain, avg_sec, data_rate=RATE):
         """
         This routine returns the average voltage for the channel
@@ -138,16 +141,15 @@ class Board_LQ(Board):
         :return float time_stamp:
         :return float Vdd_avg:
         """
-        starttime = time.time()
         nsamples = round(data_rate*avg_sec)
-        self.send.send(['start',])
         self.send.send(['send',self.addr, chan, nsamples])
         while not self.rcv.poll():
             #we wait for data
             pass
         value = self.rcv.recv()
-        endtime = starttime + avg_sec
-        time_stamp = (starttime + endtime) / 2
+        samples[chan - 1].value = samples[chan - 1].value + nsamples
+        endtime = starttime.value + samples[chan-1].value/data_rate
+        time_stamp = endtime - avg_sec / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
         Vdd_avg = 5.00
@@ -194,16 +196,15 @@ class Board_LQ(Board):
         :return float time_stamp:
         :return float Vdd_avg:
         '''
-        starttime = time.time()
         nsamples = round(data_rate * avg_sec)
-        # self.send.send(['start', ])
         self.send.send(['send', self.addr, chan, nsamples])
         while  not self.rcv.poll():
             # we wait for data
             pass
         value = self.rcv.recv()
-        endtime = starttime + avg_sec
-        time_stamp = (starttime + endtime) / 2
+        samples[chan - 1].value = samples[chan - 1].value + nsamples
+        endtime = starttime.value + samples[chan-1].value/data_rate
+        time_stamp = endtime - avg_sec / 2
         ndata = len(value)
         V_avg = sum(value) / ndata
         Vdd_avg = 5.00
@@ -236,7 +237,6 @@ class Board_LQ(Board):
 
         :return float Vdd:
         '''
-        starttime = time.time()
         nsamples = 1
         self.send.send(['start', ])
         self.send.send(['send', self.addr, chan, nsamples])
@@ -244,12 +244,12 @@ class Board_LQ(Board):
             # we wait for data
             pass
         value = self.rcv.recv()[0]
-        endtime = time.time()
-        time_stamp = (starttime + endtime) / 2
+        samples[chan - 1].value = samples[chan - 1].value + nsamples
+        time_stamp = starttime.value
         Vdd = 5.00
         return value, time_stamp, Vdd
 
-def LQProc(cmdrcv, datasend):
+def LQProc(cmdrcv, datasend, starttime, samples):
     """Process to spawn that continuously collects from the LabQuests(s)
     Parameters
     ----------
@@ -276,6 +276,7 @@ def LQProc(cmdrcv, datasend):
                                ch3="raw_voltage",
                                device=i)
         lqs.start(PERIOD)
+        starttime.value = time.time()
         running = True
         while running:
             # check for a command: start (clears buffers), send (sends content
@@ -296,7 +297,13 @@ def LQProc(cmdrcv, datasend):
                     # restart data collection to get good zero
                     #lqs.stop()
                     #lqs.start(PERIOD)
+                    print("Reached start.")
                     labquest.buf.buffer_clear()
+                    now = time.time()
+                    starttime.value = now
+                    for k in range(3):
+                        samples[k].value = 0
+                    print("  Time should set to: "+str(now))
                 if cmd[0] == 'send':
                     # return requested amount of data for the channel
                     chan = 'ch'+str(cmd[2])
