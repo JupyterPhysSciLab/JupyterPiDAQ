@@ -78,6 +78,7 @@ class Board_LQ(Board):
         self.addr = addr
         self.send = send
         self.rcv = rcv
+        self.Vdd = 5.00
         # samples taken from a channel and starttime kept track of in
         #  shared memory samples[i].value = # of samples taken from channel
         #   i. starttime.value = time.time() immediately after las clearing
