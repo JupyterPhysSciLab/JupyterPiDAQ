@@ -9,6 +9,7 @@
 # utilities for timing and queues
 from collections import deque
 import time
+from jupyterpidaq.Boards.vernier.labquest import Board_LQ
 
 def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
     """
@@ -32,7 +33,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
         On the DAQCTL pipe this only returns 'done'
         On the DAQconn pipe a list of lists with data is returned.
     """
-    f=open('daq.log','w')
+    #f=open('daq.log','w')
     databuf = deque()
     collect = True
     transmit = False
@@ -52,13 +53,20 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
         for i in range(len(whichchn)):
             if (whichchn[i]):
                 time.sleep(0.001)
-                f.write('Calling adc...')
-                v_avg, v_std, avg_std, meastime, vdd_avg = \
+                #f.write('Calling adc...')
+                if isinstance(whichchn[i]["board"],Board_LQ):
+                    v_avg, v_std, avg_std, meastime, vdd_avg = \
+                    whichchn[i]['board'].V_oversampchan_stats(whichchn[i][
+                                                                  'chnl'],
+                                                              gains[i],
+                                                              timedelta)
+                else:
+                    v_avg, v_std, avg_std, meastime, vdd_avg = \
                     whichchn[i]['board'].V_oversampchan_stats(whichchn[i][
                                                                    'chnl'],
                                                               gains[i],
                                                            avgtime)
-                f.write('Successful return from call to adc.\n')
+                #f.write('Successful return from call to adc.\n')
                 times.append(meastime - starttime)
                 values.append(v_avg)
                 stdevs.append(v_std)
@@ -70,15 +78,15 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
         pkg.append(avg_stdevs)
         pkg.append(avg_vdds)
         databuf.append(pkg)
-        f.write('Buffer length: '+str(len(databuf))+'\n')
-        f.write('Buffer[0]: ' + str(databuf) + '\n')
+        #f.write('Buffer length: '+str(len(databuf))+'\n')
+        #f.write('Buffer[0]: ' + str(databuf) + '\n')
         if DAQCTL.poll():
             CTLmsg = DAQCTL.recv()
             if (CTLmsg == 'Send' or CTLmsg == 'send'):
                 transmit = True
             if (CTLmsg == 'Stop' or CTLmsg == 'stop'):
                 collect = False
-            f.write('Received msg: '+str(CTLmsg)+'\n')
+            #f.write('Received msg: '+str(CTLmsg)+'\n')
         if transmit:  # the other end is ready
             navail = len(databuf)
             nsend = 60
@@ -86,13 +94,13 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
                 nsend = navail
             for i in range(nsend):
                 DAQconn.send(databuf.popleft())
-                f.write('Sent '+str(nsend)+' buffer chunks.\n')
+                #f.write('Sent '+str(nsend)+' buffer chunks.\n')
             transmit = False  # we've done our burst of sending.
         elapsedtime = time.time() - calltime
         if elapsedtime < timedelta:
             time.sleep(timedelta -elapsedtime- 0.002)
     # We should now send anything left...
-    f.write('Left in buffer: '+str(len(databuf))+'\n')
+    #f.write('Left in buffer: '+str(len(databuf))+'\n')
     while len(databuf) > 1:
         if DAQCTL.poll():
             CTLmsg = DAQCTL.recv()
@@ -109,7 +117,7 @@ def DAQProc(whichchn, gains, avgtime, timedelta, DAQconn, DAQCTL):
     DAQCTL.send('done')
     # Wait a while to terminate so that the Pipe is up for the other end to
     # collect the data.
-    f.flush()
-    f.close()
+    #f.flush()
+    #f.close()
     time.sleep(5)
     return
