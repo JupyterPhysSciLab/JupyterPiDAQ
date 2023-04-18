@@ -154,6 +154,7 @@ class DAQinstance():
         self.traces = []
         # index map from returned data to trace,
         self.tracemap = []
+        self.tracefrdatachn = []
         self.tracelbls = []
         self.units = []
         for i in range(self.ntraces):
@@ -455,9 +456,20 @@ class DAQinstance():
             gains =[]
             for i in range(self.ntraces):
                 if (self.traces[i].isactive):
-                    whichchn.append({'board': self.traces[i].board,
-                                     'chnl': self.traces[i].channel})
-                    gains.append(self.traces[i].toselectedgain)
+                    brd = self.traces[i].board
+                    chn = self.traces[i].channel
+                    newchn = True
+                    if len(whichchn) > 0:
+                        for k in range(len(whichchn)):
+                            if whichchn[k]['board'] == brd \
+                                and whichchn[k]['chnl'] == chn:
+                                self.tracefrdatachn.append(k)
+                                newchn = False
+                    if newchn:
+                        whichchn.append({'board': brd,
+                                         'chnl': chn})
+                        gains.append(self.traces[i].toselectedgain)
+                        self.tracefrdatachn.append(len(whichchn)-1)
             # Use up to 30% of the time for averaging if channels were spaced
             # evenly between data collection times (with DACQ2 they appear
             # more synchronous than that).
@@ -571,6 +583,41 @@ class DAQinstance():
         toplotx = []
         toploty = []
         nactive = 0
+        def convert_pkg():
+            plttime = 0
+            if self.ignore_skew:
+                plttime = sum(pkg[0]) / len(pkg[0])
+            traceidx = 0
+            tmptime = []
+            tmpavg = []
+            tmpstd = []
+            tmpavg_std = []
+            for i, k in zip(self.tracemap, self.tracefrdatachn):
+
+                avg = pkg[1][k]
+                std = pkg[2][k]
+                avg_std = pkg[3][k]
+                avg_vdd = pkg[4][k]
+                avg, std, avg_std = self.traces[i].toselectedunits(avg,
+                                                                   std, avg_std,
+                                                                   avg_vdd)
+                avg, std, avg_std = sensors. \
+                    to_reasonable_significant_figures_fast(avg, std, avg_std)
+                tmptime.append(pkg[0][k])
+                tmpavg.append(avg)
+                tmpstd.append(std)
+                tmpavg_std.append(avg_std)
+                if self.ignore_skew:
+                    toplotx[traceidx].append(plttime)
+                else:
+                    toplotx[traceidx].append(pkg[0][k])
+                toploty[traceidx].append(avg)
+                traceidx += 1
+            timestamp.append(tmptime)
+            data.append(tmpavg)
+            stdev.append(tmpavg_std)
+            return
+
         for k in self.traces:
             if k.isactive:
                 nactive += 1
@@ -613,29 +660,7 @@ class DAQinstance():
                 self.lastpkgstr = str(pkg)
                 #print(self.lastpkgstr)
                 # convert voltage to requested units.
-                tmptime = 0
-                if self.ignore_skew:
-                    tmptime = sum(pkg[0]) / len(pkg[0])
-                for i in range(len(pkg[0])):
-                    avg = pkg[1][i]
-                    std = pkg[2][i]
-                    avg_std = pkg[3][i]
-                    avg_vdd = pkg[4][i]
-                    avg, std, avg_std = self.traces[
-                        self.tracemap[i]].toselectedunits(avg, std, avg_std, avg_vdd)
-                    avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
-                        avg, std, avg_std)
-                    pkg[1][i] = avg
-                    pkg[2][i] = std
-                    pkg[3][i] = avg_std
-                    if self.ignore_skew:
-                        toplotx[i].append(tmptime)
-                    else:
-                        toplotx[i].append(pkg[0][i])
-                    toploty[i].append(avg)
-                timestamp.append(pkg[0])
-                data.append(pkg[1])
-                stdev.append(pkg[3])
+                convert_pkg()
             currenttime = time.time()
             mindelay = 1.0
             if self.separate_traces_checkbox.value:
@@ -663,29 +688,7 @@ class DAQinstance():
                 pkg = PLTconn.recv()
                 # print(str(pkg))
                 # convert voltage to requested units.
-                for i in range(len(pkg[0])):
-                    avg = pkg[1][i]
-                    std = pkg[2][i]
-                    avg_std = pkg[3][i]
-                    avg_vdd = pkg[4][i]
-                    avg, std, avg_std = self.traces[
-                        self.tracemap[i]].toselectedunits(avg, std, avg_std, avg_vdd)
-                    avg, std, avg_std = sensors.to_reasonable_significant_figures_fast(
-                        avg, std, avg_std)
-                    pkg[1][i] = avg
-                    pkg[2][i] = std
-                    pkg[3][i] = avg_std
-                    if self.ignore_skew:
-                        tmptime = sum(pkg[0])/len(pkg[0])
-                        toplotx[i].append(tmptime)
-                    else:
-                        toplotx[i].append(pkg[0][i])
-                    toploty[i].append(avg)
-                    #print(pkg[0][i])
-                    #print(avg)
-                timestamp.append(pkg[0])
-                data.append(pkg[1])
-                stdev.append(pkg[3])
+                convert_pkg()
             PLTCTL.send('send')
             time.sleep(0.2)
             if PLTCTL.poll():
