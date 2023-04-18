@@ -29,6 +29,8 @@ setuptools.setup(
         'numpy>=1.21',
         'plotly>=5.8.2',
         'jupyter>=1.0.0',
+        'jupyterlab>=3.6.2',
+        'labquest>=1.0.0',
         'notebook>=6.4.12', # security fixes
         'jupyter-contrib-nbextensions>=0.5.1',
         'pandas>=1.4.2',

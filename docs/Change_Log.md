@@ -3,6 +3,15 @@
   * Replaced `NewRun()` command with `Run()` command. This version works in 
     Jupyter Lab and removes the need for the `DisplayRun()` command because 
     `Run()` will load an already collected dataset or start a new one.
+  * Now, when multiple traces are assigned to the same board and channel the 
+    channel is only read one time. If the units are different the two 
+    traces will be displayed with different units.
+  * Can read data from [Vernier](https://www.vernier.com) LabQuest USB 
+    analog-to-digital interfaces. Potential data rate is 10 kHz, currently 
+    limited to 20 Hz.
+  * Runs in [Jupyter](https://jupyter.org/) Lab (no menus yet) and Notebook 
+    (menus still work).
+  * Updated requirements to include jupyterlab and labquest packages.
 * 0.7.9 (Mar. 9 2023)
   * Added `spidev` package to requirements because `pi-plates` requires it.
   * More robust exception handling when searching for boards/A-to-Ds.
