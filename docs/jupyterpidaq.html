@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 13.0.0"/>
+    <meta name="generator" content="pdoc 13.1.0"/>
     <title>jupyterpidaq API documentation</title>
 
     <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
@@ -22,8 +22,8 @@
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
 
-        <h2>Contents</h2>
-        <ul>
+            <h2>Contents</h2>
+            <ul>
   <li><a href="#user-guide">User Guide</a>
   <ul>
     <li><a href="#introduction">Introduction</a></li>
@@ -54,21 +54,21 @@
 </ul>
 
 
-        <h2>Submodules</h2>
-        <ul>
-                <li><a href="jupyterpidaq/Boards.html">Boards</a></li>
-                <li><a href="jupyterpidaq/ChannelSettings.html">ChannelSettings</a></li>
-                <li><a href="jupyterpidaq/DAQProc.html">DAQProc</a></li>
-                <li><a href="jupyterpidaq/DAQinstance.html">DAQinstance</a></li>
-                <li><a href="jupyterpidaq/Sensors.html">Sensors</a></li>
-        </ul>
+            <h2>Submodules</h2>
+            <ul>
+                    <li><a href="jupyterpidaq/Boards.html">Boards</a></li>
+                    <li><a href="jupyterpidaq/ChannelSettings.html">ChannelSettings</a></li>
+                    <li><a href="jupyterpidaq/DAQProc.html">DAQProc</a></li>
+                    <li><a href="jupyterpidaq/DAQinstance.html">DAQinstance</a></li>
+                    <li><a href="jupyterpidaq/Sensors.html">Sensors</a></li>
+            </ul>
 
-        <h2>API Documentation</h2>
-            <ul class="memberlist">
+            <h2>API Documentation</h2>
+                <ul class="memberlist">
     </ul>
 
 
-            <footer>JupyterPiDAQ v0.7.9</footer>
+            <footer>JupyterPiDAQ v0.8.0dev</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -90,14 +90,27 @@ jupyterpidaq    </h1>
 <h2 id="introduction">Introduction</h2>
 
 <p>This software allows realtime collection and plotting of 
-digitized data in  a Jupyter notebook using either of the following two
-interface boards on a Raspberry Pi:</p>
+digitized data in  a Jupyter notebook using the following A-to-D
+interfaces:</p>
+
+<p>__on a Raspberry Pi:__</p>
 
 <ul>
 <li>Adafruit compliant ADS1115 boards 
 (<a href="https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P">example</a>,
 also available from other vendors);</li>
-<li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>. </li>
+<li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>.</li>
+</ul>
+
+<p>__on MacOS (probably Windows):__</p>
+
+<ul>
+<li><a href="https://www.vernier.com">Vernier</a> LabQuest USB A-to-Ds.</li>
+</ul>
+
+<p>__demo mode on anything Jupyter runs on__</p>
+
+<ul>
 <li>A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. Example notebooks can be found in the "usage_examples" folder.</li>
 </ul>
@@ -125,7 +138,7 @@ install for the current user (see the very end of the
 <ul>
 <li>In this case launch
 Jupyter, in whichever directory you want to work, using the 
-command: <code>jupyter notebook</code>.</li>
+command: <code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
 <li>Open a new notebook and choose the kernel 
 for <code>JupyterPiDAQ</code>. The kernel name will depend upon what was chosen 
 during installation.</li>
@@ -139,7 +152,7 @@ starting the software.</li>
 <li>Then enter the virtual environment with the command <code>pipenv shell</code>. 
 This assumes you set up <code>pipenv</code> as described in the 
 <a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation">Installation instructions</a>.</li>
-<li>Launch Jupyter using the command: <code>jupyter notebook</code>.</li>
+<li>Launch Jupyter using the command: <code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
 <li>Open a new python notebook.</li>
 </ul></li>
 </ol>
@@ -158,7 +171,7 @@ In demo mode the A-to-D board is simulated by a random number generator.</p>
 <p><img src="DAQmenu.png" alt="DAQ Menu" /></p>
 
 <p><strong>Figure 1</strong>: The menu created once the data acquisition software is 
-initialized.</p>
+initialized. Currently unavailable in Jupyter Lab.</p>
 
 <p>The menu options insert jupyter widget based GUIs for starting a run,
 displaying the data as tables or plots, composing an expression to calculate
@@ -166,12 +179,22 @@ a new column in a DataFrame, or fitting data.</p>
 
 <h3 id="collecting-data">Collecting data</h3>
 
+<p><strong>Using the Menu</strong></p>
+
 <p>From the "DAQ Commands" menu select "Insert New Run After Selection..." or 
 "Append New Run to End...". The first will insert and start the code to set up 
 data collection for a run in the cell below the currently selected cell. 
 The second will append this to the end of the notebook. This will generate 
 a GUI that looks like the figure 2, below. Fill in the information to define 
 what you wish to do (see below figure 2 for more details).</p>
+
+<p><strong>Using a Command</strong></p>
+
+<p>In the cell you wish to collect the data enter the command 
+<code>Run("desired_dataset_name")</code>, where you replace desired_dataset_name with the 
+string you want for this run. Replacing spaces with _ will prevent issues, 
+especially on Windows. After entering the command, run the cell. This will 
+generate the GUI shown in figure 2.</p>
 
 <p><img src="newrun.png" alt="New Run Figure" /></p>
 
@@ -189,7 +212,8 @@ available drop-down menus.</li>
 <li>Once all your traces are set up decide whether they should be displayed in 
 multiple stacked graphs or all on the same graph. Uncheck the box to 
 display all on one graph.</li>
-<li>Select the data collection rate (3 Hz is currently the maximum rate).</li>
+<li>Select the data collection rate (20 Hz is currently the maximum rate, but 
+on a Raspberry Pi you may not be able to sustain more than 5 Hz).</li>
 <li>When everything is set the way you wish, click on the "Set Parameters" 
 button. The collection parameters will be displayed and a button to 
 start the data collection will appear.</li>
@@ -212,7 +236,8 @@ rerunning it will regenerate the display.</li>
 
 <p>Selecting the "Show data in table..." option in the "DAQ Command" menu will 
 insert a cell immediately below the currently selected cell displaying a 
-widget in which you can select which data set to display.</p>
+widget in which you can select which data set to display. The command 
+equivalent is <code>showDataTable()</code>.</p>
 
 <h4 id="plotting-data">Plotting data</h4>
 
@@ -220,7 +245,8 @@ widget in which you can select which data set to display.</p>
 insert two cells immediately below the currently selected cell. The first cell
 will be used to generate a GUI to lead you through creation of the code to
 generate the plot. The second cell is where the plot creation code is 
-generated. The first tab of this GUI looks like figure 3.</p>
+generated. The first tab of this GUI looks like figure 3. The command 
+equivalent is <code>newPlot()</code>.</p>
 
 <p><img src="plot_GUI.png" alt="Plot GUI" /></p>
 
@@ -246,7 +272,8 @@ example Jupyter notebooks referenced there for more information.</p>
 <p>Selecting "Calculate new column..." from the menu will add two cells
 immediately below the selected cell. The first cell will create the GUI to
 lead you through creation of the code to calculate the new column. The second
-cell is where the code is built. The first tab of the GUI looks like figure 4.</p>
+cell is where the code is built. The first tab of the GUI looks like 
+figure 4. The command equivalent is <code>newCalculatedColumn()</code>.</p>
 
 <p><img src="new_col_GUI.png" alt="New Column GUI" /></p>
 
@@ -265,7 +292,7 @@ into the GUI by editing the code generated by this GUI.</p>
 and Gaussian) can be launched by selecting "Insert new Fit after selection..
 ." from the menu. This will create the GUI to lead you through selecting 
 and fitting the data. The code is created in the cell immediately below the 
-GUI.</p>
+GUI. The command equivalent is <code>newFit()</code>.</p>
 
 <p><img src="fit_gaussian_tab1.png" alt="Fit Pandas GUI" /></p>
 
@@ -297,7 +324,8 @@ Notes</a>
 </ul>
 
 <p>OS specific: <a href="#*ubuntu-on-pi*">Ubuntu on Pi</a> | 
-<a href="#*raspberrian-on-pi*">Raspberrian on Pi</a></p>
+<a href="#*raspberrian-on-pi*">Raspberrian on Pi</a> |
+<a href="#macos">MacOS</a> | <a href="#windows">Windows</a></p>
 
 <h3 id="ubuntu-on-pi"><em>Ubuntu on Pi</em></h3>
 
@@ -354,11 +382,33 @@ interface boards, the software will run in demo mode.</li>
 platform, some of the required packages may need to be compiled. If you get
 compilation errors when installing try getting the python header and 
 development files for your platform. To get them on most *nix platforms use the
-command <code>$ sudo apt install python3-dev</code>.</p>
+command <code>sudo apt install python3-dev</code>.</p>
 
 <h3 id="macos"><em>MacOS</em></h3>
 
-<h3 id="windows-please-no"><em>Windows (Please, no.....)</em></h3>
+<p>Currently, the LabQuest A-to-Ds are only working on intel based macs. When 
+Vernier recompiles their interface communication library for the M1 series 
+cpus this will change.</p>
+
+<ol>
+<li>Install the latest version of Python, by following the instructions on 
+the <a href="https://www.python.org/">Python website</a>.</li>
+<li>Make sure a virtual environment tool such as <code>pipenv</code> is installed. In a 
+terminal window try <code>python -m pip install --user pipenv</code>.</li>
+</ol>
+
+<h3 id="windows"><em>Windows</em></h3>
+
+<p>Not well tested but should work as long a LoggerPro software has been 
+installed because that provides the compiled <code>.dll</code> necessary to communicate 
+with the LabQuest interface.</p>
+
+<ol>
+<li>Install the latest version of Python, by following the instructions on 
+the <a href="https://www.python.org/">Python website</a>.</li>
+<li>Make sure a virtual environment tool such as <code>pipenv</code> is installed. In a 
+terminal window try <code>python -m pip install --user pipenv</code>. </li>
+</ol>
 
 <h2 id="final-set-up">Final Set Up</h2>
 
@@ -382,18 +432,19 @@ available in your command shell. More discussion:
 <a href="https://docs.python-guide.org/dev/virtualenvs/">The Hitchhiker's Guide to
 Python</a>.</li>
 <li>Create a directory for the virtual environment you will be installing
-into (example: <code>$ mkdir JupyterPiDAQ</code>).</li>
-<li>Navigate into the directory <code>$ cd JupyterPiDAQ</code>.</li>
+into (example: <code>mkdir JupyterPiDAQ</code>).</li>
+<li>Navigate into the directory <code>cd JupyterPiDAQ</code>.</li>
 <li>Create the virtual environment and enter it <code>$ pipenv shell</code>. To get out of
-the environment you can issue the <code>$ exit</code> command on the command line.</li>
+the environment you can issue the <code>exit</code> command on the command line.</li>
 <li>While still in the shell install the latest JupyterPiDAQ and all its
 requirements
-  <code>$ pip install -U JupyterPiDAQ</code>. This can take a long time, especially on a
+  <code>pip install -U JupyterPiDAQ</code>. This can take a long time, especially on a
   Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
   without at least 1 GB of swap. See: <a href="a href=&quot;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&quot;&gt;https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian&lt;/a">Build Jupyter on a Pi</a>
   for a discussion of adding swap space on a Pi.</li>
 <li>Still within the environment shell test
-this by starting jupyter <code>$ jupyter notebook</code>. Jupyter should launch in your browser.
+this by starting jupyter <code>jupyter notebook</code> or <code>jupyter lab</code>. Jupyter should 
+launch in your browser.
 <ol>
 <li>Open a new notebook using the default (Python 3) kernel.</li>
 <li>In the first cell import all from DAQinstance.py: 
@@ -408,10 +459,10 @@ this by starting jupyter <code>$ jupyter notebook</code>. Jupyter should launch 
 <li>If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
 <ol>
-<li>Make sure you are running in your virtual environment <code>$ pipenv shell</code> 
+<li>Make sure you are running in your virtual environment <code>pipenv shell</code> 
 in the directory for  virtual environment will do that.</li>
 <li>Issue the command to add this as a kernel to your personal space: 
-<code>$ python -m ipykernel install --user --name=&lt;name-you-want-for-kernel&gt;</code>.</li>
+<code>python -m ipykernel install --user --name=&lt;name-you-want-for-kernel&gt;</code>.</li>
 <li>More information is available in the Jupyter/Ipython documentation. 
 A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
 found <a href="https://janakiev.com/til/jupyter-virtual-envs/">here</a>. </li>
@@ -570,6 +621,21 @@ it does not work, pull the release.</li>
 <h1 id="change-log">Change Log</h1>
 
 <ul>
+<li>0.8.0dev ()
+<ul>
+<li>Replaced <code>NewRun()</code> command with <code>Run()</code> command. This version works in 
+Jupyter Lab and removes the need for the <code>DisplayRun()</code> command because 
+<code>Run()</code> will load an already collected dataset or start a new one.</li>
+<li>Now, when multiple traces are assigned to the same board and channel the 
+channel is only read one time. If the units are different the two 
+traces will be displayed with different units.</li>
+<li>Can read data from <a href="https://www.vernier.com">Vernier</a> LabQuest USB 
+analog-to-digital interfaces. Potential data rate is 10 kHz, currently 
+limited to 20 Hz.</li>
+<li>Runs in <a href="https://jupyter.org/">Jupyter</a> Lab (no menus yet) and Notebook 
+(menus still work).</li>
+<li>Updated requirements to include jupyterlab and labquest packages.</li>
+</ul></li>
 <li>0.7.9 (Mar. 9 2023)
 <ul>
 <li>Added <code>spidev</code> package to requirements because <code>pi-plates</code> requires it.</li>
