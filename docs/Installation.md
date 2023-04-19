@@ -73,7 +73,7 @@ NOTE: If a binary distribution (whl or wheel) is not available for your
 platform, some of the required packages may need to be compiled. If you get
 compilation errors when installing try getting the python header and 
 development files for your platform. To get them on most *nix platforms use the
-command `$ sudo apt install python3-dev`.
+command `sudo apt install python3-dev`.
 
 ### *MacOS*
 Currently, the LabQuest A-to-Ds are only working on intel based macs. When 
@@ -86,8 +86,8 @@ cpus this will change.
 
 ### *Windows*
 Not well tested but should work as long a LoggerPro software has been 
-installed as that provides the compiled `.dll` necessary to communicate with 
-the LabQuest interface.
+installed because that provides the compiled `.dll` necessary to communicate 
+with the LabQuest interface.
 1. Install the latest version of Python, by following the instructions on 
    the [Python website](https://www.python.org/).
 2. Make sure a virtual environment tool such as `pipenv` is installed. In a 
@@ -111,10 +111,10 @@ available in your command shell. More discussion:
 [The Hitchhiker's Guide to
 Python](https://docs.python-guide.org/dev/virtualenvs/).
 2. Create a directory for the virtual environment you will be installing
-   into (example: `$ mkdir JupyterPiDAQ`).
-3. Navigate into the directory `$ cd JupyterPiDAQ`.
+   into (example: `mkdir JupyterPiDAQ`).
+3. Navigate into the directory `cd JupyterPiDAQ`.
 4. Create the virtual environment and enter it `$ pipenv shell`. To get out of
-   the environment you can issue the `$ exit` command on the command line.
+   the environment you can issue the `exit` command on the command line.
 5. While still in the shell install the latest JupyterPiDAQ and all its
  requirements
    `pip install -U JupyterPiDAQ`. This can take a long time, especially on a
@@ -136,10 +136,10 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
         possible to run this on any computer, not just a Pi.
 7. If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
-    1. Make sure you are running in your virtual environment `$ pipenv shell` 
+    1. Make sure you are running in your virtual environment `pipenv shell` 
        in the directory for  virtual environment will do that.
     2. Issue the command to add this as a kernel to your personal space: 
-    `$ python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
+    `python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
     3. More information is available in the Jupyter/Ipython documentation. 
     A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 

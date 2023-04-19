@@ -89,13 +89,12 @@ what you wish to do (see below figure 2 for more details).
 
 **Using a Command**
 
-In the cell you wish to collect the data enter the command `Run
-("desired_dataset_name")`, where you replace desired_dataset_name with the 
+In the cell you wish to collect the data enter the command 
+`Run("desired_dataset_name")`, where you replace desired_dataset_name with the 
 string you want for this run. Replacing spaces with _ will prevent issues, 
 especially on Windows. After entering the command, run the cell. This will 
 generate the GUI shown in figure 2.
 
-**TODO: Update this figure**
 ![New Run Figure](newrun.png)
 
 **Figure 2**: Image of the GUI for setting up a data collection run.
@@ -110,7 +109,8 @@ generate the GUI shown in figure 2.
 4. Once all your traces are set up decide whether they should be displayed in 
    multiple stacked graphs or all on the same graph. Uncheck the box to 
    display all on one graph.
-5. Select the data collection rate (3 Hz is currently the maximum rate).
+5. Select the data collection rate (20 Hz is currently the maximum rate, but 
+   on a Raspberry Pi you may not be able to sustain more than 5 Hz).
 6. When everything is set the way you wish, click on the "Set Parameters" 
    button. The collection parameters will be displayed and a button to 
    start the data collection will appear.
@@ -132,7 +132,8 @@ generate the GUI shown in figure 2.
 
 Selecting the "Show data in table..." option in the "DAQ Command" menu will 
 insert a cell immediately below the currently selected cell displaying a 
-widget in which you can select which data set to display.
+widget in which you can select which data set to display. The command 
+equivalent is `showDataTable()`.
 
 #### Plotting data
 
@@ -140,7 +141,8 @@ Selecting the "Insert new plot after selection..." option in the menu will
 insert two cells immediately below the currently selected cell. The first cell
 will be used to generate a GUI to lead you through creation of the code to
 generate the plot. The second cell is where the plot creation code is 
-generated. The first tab of this GUI looks like figure 3.
+generated. The first tab of this GUI looks like figure 3. The command 
+equivalent is `newPlot()`.
 
 ![Plot GUI](plot_GUI.png)
 
@@ -166,7 +168,8 @@ The GUI destroys itself once you complete step 4.
 Selecting "Calculate new column..." from the menu will add two cells
 immediately below the selected cell. The first cell will create the GUI to
 lead you through creation of the code to calculate the new column. The second
-cell is where the code is built. The first tab of the GUI looks like figure 4.
+cell is where the code is built. The first tab of the GUI looks like 
+figure 4. The command equivalent is `newCalculatedColumn()`.
 
 ![New Column GUI](new_col_GUI.png)
 
@@ -185,7 +188,7 @@ A GUI for defining simple fits (linear, polynomial, exponential decay, sine
 and Gaussian) can be launched by selecting "Insert new Fit after selection..
 ." from the menu. This will create the GUI to lead you through selecting 
 and fitting the data. The code is created in the cell immediately below the 
-GUI.
+GUI. The command equivalent is `newFit()`.
 
 ![Fit Pandas GUI](fit_gaussian_tab1.png)
 

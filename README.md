@@ -7,7 +7,7 @@
 This software allows realtime collection and plotting of 
 digitized data inside  a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
-the Raspberry Pi.  However, it now works on other hardware. 
+the Raspberry Pi.  __However, it now also works on other hardware__. 
 Presently the working combinations are:
 
 __on Raspberry Pis__ 
