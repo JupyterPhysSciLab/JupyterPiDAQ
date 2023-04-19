@@ -93,7 +93,7 @@ jupyterpidaq    </h1>
 digitized data in  a Jupyter notebook using the following A-to-D
 interfaces:</p>
 
-<p>__on a Raspberry Pi:__</p>
+<p><strong>on a Raspberry Pi:</strong></p>
 
 <ul>
 <li>Adafruit compliant ADS1115 boards 
@@ -102,13 +102,13 @@ also available from other vendors);</li>
 <li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>.</li>
 </ul>
 
-<p>__on MacOS (probably Windows):__</p>
+<p><strong>on MacOS (probably Windows):</strong></p>
 
 <ul>
 <li><a href="https://www.vernier.com">Vernier</a> LabQuest USB A-to-Ds.</li>
 </ul>
 
-<p>__demo mode on anything Jupyter runs on__</p>
+<p><strong>demo mode on anything Jupyter runs on</strong></p>
 
 <ul>
 <li>A demo mode will run on any computer with a Jupyter notebook install and
@@ -196,7 +196,7 @@ string you want for this run. Replacing spaces with _ will prevent issues,
 especially on Windows. After entering the command, run the cell. This will 
 generate the GUI shown in figure 2.</p>
 
-<p><img src="newrun.png" alt="New Run Figure" /></p>
+<p><img src="newrun.png" alt="New Run Figure" style="width:100%;"></p>
 
 <p><strong>Figure 2</strong>: Image of the GUI for setting up a data collection run.</p>
 
@@ -626,7 +626,7 @@ it does not work, pull the release.</li>
 <li>Replaced <code>NewRun()</code> command with <code>Run()</code> command. This version works in 
 Jupyter Lab and removes the need for the <code>DisplayRun()</code> command because 
 <code>Run()</code> will load an already collected dataset or start a new one.</li>
-<li>Now, when multiple traces are assigned to the same board and channel the 
+<li>Now, when multiple traces are assigned to the same channel of a board the 
 channel is only read one time. If the units are different the two 
 traces will be displayed with different units.</li>
 <li>Can read data from <a href="https://www.vernier.com">Vernier</a> LabQuest USB 

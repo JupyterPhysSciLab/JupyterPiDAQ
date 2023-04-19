@@ -9,16 +9,16 @@ This software allows realtime collection and plotting of
 digitized data in  a Jupyter notebook using the following A-to-D
 interfaces:
 
-__on a Raspberry Pi:__
+**on a Raspberry Pi:**
 * Adafruit compliant ADS1115 boards 
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
 
-__on MacOS (probably Windows):__
+**on MacOS (probably Windows):**
 * [Vernier](https://www.vernier.com) LabQuest USB A-to-Ds.
 
-__demo mode on anything Jupyter runs on__
+**demo mode on anything Jupyter runs on**
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. Example notebooks can be found in the "usage_examples" folder.
 
@@ -95,7 +95,7 @@ string you want for this run. Replacing spaces with _ will prevent issues,
 especially on Windows. After entering the command, run the cell. This will 
 generate the GUI shown in figure 2.
 
-![New Run Figure](newrun.png)
+<img src="newrun.png" alt="New Run Figure" style="width:100%;">
 
 **Figure 2**: Image of the GUI for setting up a data collection run.
 1. Give the run a title/name using the first textbox.

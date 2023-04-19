@@ -3,7 +3,7 @@
   * Replaced `NewRun()` command with `Run()` command. This version works in 
     Jupyter Lab and removes the need for the `DisplayRun()` command because 
     `Run()` will load an already collected dataset or start a new one.
-  * Now, when multiple traces are assigned to the same board and channel the 
+  * Now, when multiple traces are assigned to the same channel of a board the 
     channel is only read one time. If the units are different the two 
     traces will be displayed with different units.
   * Can read data from [Vernier](https://www.vernier.com) LabQuest USB 
