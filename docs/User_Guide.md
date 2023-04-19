@@ -5,13 +5,20 @@
 
 ## Introduction
 
- This software allows realtime collection and plotting of 
-digitized data in  a Jupyter notebook using either of the following two
-interface boards on a Raspberry Pi:
+This software allows realtime collection and plotting of 
+digitized data in  a Jupyter notebook using the following A-to-D
+interfaces:
+
+__on a Raspberry Pi:__
 * Adafruit compliant ADS1115 boards 
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
 also available from other vendors);
-* The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
+* The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
+
+__on MacOS (probably Windows):__
+* [Vernier](https://www.vernier.com) LabQuest USB A-to-Ds.
+
+__demo mode on anything Jupyter runs on__
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. Example notebooks can be found in the "usage_examples" folder.
 
@@ -35,7 +42,7 @@ up, that lead to slightly different steps for starting the software:
    [Installation Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation)). 
    * In this case launch
    Jupyter, in whichever directory you want to work, using the 
-   command: `jupyter notebook`.
+   command: `jupyter notebook` or `jupyter lab`.
    * Open a new notebook and choose the kernel 
    for `JupyterPiDAQ`. The kernel name will depend upon what was chosen 
    during installation.
@@ -47,7 +54,7 @@ up, that lead to slightly different steps for starting the software:
    * Then enter the virtual environment with the command `pipenv shell`. 
        This assumes you set up `pipenv` as described in the 
        [Installation instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation).
-   * Launch Jupyter using the command: `jupyter notebook`.
+   * Launch Jupyter using the command: `jupyter notebook` or `jupyter lab`.
    * Open a new python notebook.
 
 ### Initialize the Data Acquisition Tools
@@ -64,13 +71,14 @@ When setup is done a new menu appears at the end of the menubar (figure 1).
 ![DAQ Menu](DAQmenu.png)
 
 **Figure 1**: The menu created once the data acquisition software is 
-initialized.
+initialized. Currently unavailable in Jupyter Lab.
 
 The menu options insert jupyter widget based GUIs for starting a run,
 displaying the data as tables or plots, composing an expression to calculate
 a new column in a DataFrame, or fitting data.
 
 ### Collecting data
+**Using the Menu**
 
 From the "DAQ Commands" menu select "Insert New Run After Selection..." or 
 "Append New Run to End...". The first will insert and start the code to set up 
@@ -79,6 +87,15 @@ The second will append this to the end of the notebook. This will generate
 a GUI that looks like the figure 2, below. Fill in the information to define 
 what you wish to do (see below figure 2 for more details).
 
+**Using a Command**
+
+In the cell you wish to collect the data enter the command `Run
+("desired_dataset_name")`, where you replace desired_dataset_name with the 
+string you want for this run. Replacing spaces with _ will prevent issues, 
+especially on Windows. After entering the command, run the cell. This will 
+generate the GUI shown in figure 2.
+
+**TODO: Update this figure**
 ![New Run Figure](newrun.png)
 
 **Figure 2**: Image of the GUI for setting up a data collection run.

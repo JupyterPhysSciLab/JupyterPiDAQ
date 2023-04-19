@@ -19,7 +19,8 @@ also available from other vendors);
   information on how to define the code interface for a board.
 
 OS specific: [Ubuntu on Pi](#*ubuntu-on-pi*) | 
-[Raspberrian on Pi](#*raspberrian-on-pi*)
+[Raspberrian on Pi](#*raspberrian-on-pi*) |
+[MacOS](#macos) | [Windows](#windows)
 
 ### *Ubuntu on Pi*
 
@@ -75,8 +76,22 @@ development files for your platform. To get them on most *nix platforms use the
 command `$ sudo apt install python3-dev`.
 
 ### *MacOS*
+Currently, the LabQuest A-to-Ds are only working on intel based macs. When 
+Vernier recompiles their interface communication library for the M1 series 
+cpus this will change.
+1. Install the latest version of Python, by following the instructions on 
+   the [Python website](https://www.python.org/).
+2. Make sure a virtual environment tool such as `pipenv` is installed. In a 
+   terminal window try `python -m pip install --user pipenv`.
 
-### *Windows (Please, no.....)*
+### *Windows*
+Not well tested but should work as long a LoggerPro software has been 
+installed as that provides the compiled `.dll` necessary to communicate with 
+the LabQuest interface.
+1. Install the latest version of Python, by following the instructions on 
+   the [Python website](https://www.python.org/).
+2. Make sure a virtual environment tool such as `pipenv` is installed. In a 
+   terminal window try `python -m pip install --user pipenv`. 
 
 ## Final Set Up
 
@@ -102,13 +117,14 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
    the environment you can issue the `$ exit` command on the command line.
 5. While still in the shell install the latest JupyterPiDAQ and all its
  requirements
-   `$ pip install -U JupyterPiDAQ`. This can take a long time, especially on a
+   `pip install -U JupyterPiDAQ`. This can take a long time, especially on a
    Raspberry Pi. On a Pi 3B+ (minimum requirement) it will probably not run
    without at least 1 GB of swap. See: [Build Jupyter on a Pi](
    https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian)
    for a discussion of adding swap space on a Pi.
 6. Still within the environment shell test
-   this by starting jupyter `$ jupyter notebook`. Jupyter should launch in your browser.
+   this by starting jupyter `jupyter notebook` or `jupyter lab`. Jupyter should 
+   launch in your browser.
     1. Open a new notebook using the default (Python 3) kernel.
     2. In the first cell import all from DAQinstance.py: 
        `from jupyterpidaq.DAQinstance import *`.

@@ -5,17 +5,21 @@
 
 ### Introduction:
 This software allows realtime collection and plotting of 
-digitized data in  a Jupyter notebook. The package was initially developed
+digitized data inside  a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
-the Raspberry Pi.  However, as the development has progressed the data
-acquisition board drivers have been separated out of the user interface,
-so that the software has potential to work on other computers running Jupyter
-with A-to-D board specific connector code. Presently the compatible A-to-Ds are
-for Raspberry Pis: 
+the Raspberry Pi.  However, it now works on other hardware. 
+Presently the working combinations are:
+
+__on Raspberry Pis__ 
 * Adafruit compliant ADS1115 boards 
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
 also available from other vendors);
-* The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/). 
+* The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
+
+__on Macs (and probably Windows)__
+* [Vernier](https://www.vernier.com) LabQuest USB A-to-Ds.
+
+__demo mode on anything Jupyter runs on__
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. You can try the demo mode without installing on your own 
   computer by launching an instance on the MyBinder servers:
@@ -38,6 +42,7 @@ code may provide additional sensors not listed here:
    range +/-3.3 V.
   * built-in thermistor (V, mV, K, C, F).
   * Vernier SS temperature probe (V, mV, K, C, F).
+  
 * __DAQC2 compatible__ (board can provide 5.0 V of power/reference to sensors):
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 12 V.
@@ -47,9 +52,20 @@ code may provide additional sensors not listed here:
   * Vernier flat (tris compatible) pH probe (V, mV, pH).
   * Compatible with standard Vernier analog probes. Default calibrations
   being added as time and sensors become available.
-
-You can also hook up your own sensors and manually convert the raw voltage
-readings or write and submit a new sensor definition to the project.
+  
+* __LabQuest compatible__ (board provides 5.0 V of power/reference to sensors):
+  * voltage reading (V, mV) from any sensor that puts out a voltage in the
+   range +/- 10 V.
+  * Vernier SS temperature probe (V, mV, K, C, F).
+  * Vernier old and new pressure sensors (V, Pa, kPa, Bar, Torr, mmHg, atm)  
+  * Vernier standard pH probe (V, mV, pH).
+  * Vernier flat (tris compatible) pH probe (V, mV, pH).
+  * Compatible with standard Vernier analog probes. Default calibrations
+  being added as time and sensors become available.
+  
+With any of these interfaces, you can hook up your own sensors and 
+manually convert the raw voltage readings or write and submit a new sensor 
+definition to the project.
 
 ### License:
 [This software is distributed under the GNU V3 license](https://gnu.org/licenses).
