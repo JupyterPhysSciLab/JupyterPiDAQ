@@ -7,7 +7,7 @@ setuptools.setup(
     name="JupyterPiDAQ",
     url = "https://github.com/JupyterPhysSciLab/JupyterPiDAQ",
     version="0.8.0dev",
-    description="Data Acquisition in Jupyter notebook on Raspberry Pi",
+    description="Live Data Acquisition in Jupyter notebooks",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Jonathan Gutow",

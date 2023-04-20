@@ -16,7 +16,7 @@ try:
     for k in range(3):
         samples.append(Value('i',0))
 except Exception as e:
-    print("LabQuest: "+str(e))
+    print("\nLabQuest: "+str(e))
     labquestdrvs = False
 
 from jupyterpidaq.Boards import Board
@@ -39,26 +39,29 @@ def find_boards():
     # needs to be reinstantiated on the new thread. I think the best option
     # is to upon discovery spawn a process and then just communicate with it.
     if labquestdrvs:
-        LabQuests = labquest.LabQuest()
-        if LabQuests.open() == 0:
-            # Count number of boards
-            nboards = len(labquest.config.hDevice)
-            # Close things
-            LabQuests.close()
-            # launch a process to talk to, need Pipes to communicate.
-            from multiprocessing import Process, Pipe
-            cmdsend, cmdrcv = Pipe()
-            datasend, datarcv = Pipe()
-            LQ = Process(target = LQProc,
-                         args = (cmdrcv, datasend, starttime, samples))
-            LQ.start()
-            # append an object for each board that knows how to talk to the
-            # process and get information from that particular device
-            addr = 0
-            for addr in range(nboards):
-                # TODO what to pass to each Board_LQ
-                boards.append(Board_LQ(addr, cmdsend, datarcv))
-                addr+=1
+        try:
+            LabQuests = labquest.LabQuest()
+            if LabQuests.open() == 0:
+                # Count number of boards
+                nboards = len(labquest.config.hDevice)
+                # Close things
+                LabQuests.close()
+                # launch a process to talk to, need Pipes to communicate.
+                from multiprocessing import Process, Pipe
+                cmdsend, cmdrcv = Pipe()
+                datasend, datarcv = Pipe()
+                LQ = Process(target = LQProc,
+                             args = (cmdrcv, datasend, starttime, samples))
+                LQ.start()
+                # append an object for each board that knows how to talk to the
+                # process and get information from that particular device
+                addr = 0
+                for addr in range(nboards):
+                    boards.append(Board_LQ(addr, cmdsend, datarcv))
+                    addr+=1
+        except Exception as e:
+            print ("\nLabQuest(s) not found.", end='')
+            logger.debug(e)
     return boards
 
 class Board_LQ(Board):

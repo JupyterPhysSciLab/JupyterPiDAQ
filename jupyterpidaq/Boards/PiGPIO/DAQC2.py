@@ -10,7 +10,7 @@ import logging
 try:
     from piplates import DAQC2plate
 except Exception as e:
-    print("DAQC2plate: "+str(e))
+    print("\nDAQC2plate: "+str(e), end='')
     DAQC2plate = None
 
 from jupyterpidaq.Boards import Board

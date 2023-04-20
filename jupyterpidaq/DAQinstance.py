@@ -19,7 +19,7 @@ import JPSLUtils
 
 logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
                                          time.localtime()) + '.log'
-logging.basicConfig(filename=logname, level=logging.INFO)
+logging.basicConfig(filename=logname, level=logging.WARN)
 
 # below is equivalent to %matplotlib notebook in a Jupyter cell
 from IPython import get_ipython
