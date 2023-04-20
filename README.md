@@ -4,8 +4,9 @@
 ### [Website/Documentation](https://jupyterphysscilab.github.io/JupyterPiDAQ/)
 
 ### Introduction:
-This software allows realtime collection and plotting of 
-digitized data inside  a Jupyter notebook. The package was initially developed
+This software allows GUI (Graphical User Interface) driven live collection, 
+plotting and analysis of 
+digitized data inside a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
 the Raspberry Pi.  __However, it now also works on other hardware__. 
 Presently the working combinations are:

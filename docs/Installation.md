@@ -85,13 +85,19 @@ cpus this will change.
    terminal window try `python -m pip install --user pipenv`.
 
 ### *Windows*
-Not well tested but should work as long a LoggerPro software has been 
+Note: LoggerPro software may need to be 
 installed because that provides the compiled `.dll` necessary to communicate 
-with the LabQuest interface.
-1. Install the latest version of Python, by following the instructions on 
-   the [Python website](https://www.python.org/).
+with the LabQuest interface. In theory will work without this.
+1. Install the latest version of Python, by *following the instructions on 
+   the [Python website](https://www.python.org/)*. **WARNING**: Do Not use 
+   Windows automatic installation. It may work on a plain vanilla system 
+   with one user, but in multiuser systems it badly messes up the ability to 
+   use virtual environments.
 2. Make sure a virtual environment tool such as `pipenv` is installed. In a 
-   terminal window try `python -m pip install --user pipenv`. 
+   terminal window try `python -m pip install --user pipenv`.
+3. You may have to set or add to your user `PATH` environment variable. See 
+   the warnings generated during the installation. Then search for the 
+   latest instructions on how to set `PATH`.
 
 ## Final Set Up
 
@@ -113,7 +119,7 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
 2. Create a directory for the virtual environment you will be installing
    into (example: `mkdir JupyterPiDAQ`).
 3. Navigate into the directory `cd JupyterPiDAQ`.
-4. Create the virtual environment and enter it `$ pipenv shell`. To get out of
+4. Create the virtual environment and enter it `pipenv shell`. To get out of
    the environment you can issue the `exit` command on the command line.
 5. While still in the shell install the latest JupyterPiDAQ and all its
  requirements
@@ -128,18 +134,18 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
     1. Open a new notebook using the default (Python 3) kernel.
     2. In the first cell import all from DAQinstance.py: 
        `from jupyterpidaq.DAQinstance import *`.
-        When run this cell should load the DAQmenu at the end of the Jupyter
-        notebook menu/icon bar. If you do not have an appropriate A-to-D
-        board installed you will get a message and the software
+        When run in jupyter notebook this cell should load the DAQmenu at the 
+        end of the Jupyter notebook menu/icon bar. Currently, no convenience 
+        menu is available in Jupyter lab. If you do not have an appropriate
+        A-to-D board installed you will get a message and the software
         will default to demo mode, substituting a random number
-        generator for the A-to-D. Because of the demo mode it is
-        possible to run this on any computer, not just a Pi.
+        generator for the A-to-D.
 7. If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
     1. Make sure you are running in your virtual environment `pipenv shell` 
        in the directory for  virtual environment will do that.
     2. Issue the command to add this as a kernel to your personal space: 
     `python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
-    3. More information is available in the Jupyter/Ipython documentation. 
+    3. More information is available in the Jupyter/IPython documentation. 
     A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 

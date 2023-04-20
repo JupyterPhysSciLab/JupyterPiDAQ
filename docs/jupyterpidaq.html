@@ -68,7 +68,7 @@
     </ul>
 
 
-            <footer>JupyterPiDAQ v0.8.0dev</footer>
+            <footer>JupyterPiDAQ v0.8.0</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -89,9 +89,9 @@ jupyterpidaq    </h1>
 
 <h2 id="introduction">Introduction</h2>
 
-<p>This software allows realtime collection and plotting of 
-digitized data in  a Jupyter notebook using the following A-to-D
-interfaces:</p>
+<p>This software allows GUI (Graphical User Interface) driven live collection, 
+plotting and analysis of digitized data inside a Jupyter notebook using the 
+following A-to-D interfaces:</p>
 
 <p><strong>on a Raspberry Pi:</strong></p>
 
@@ -102,7 +102,7 @@ also available from other vendors);</li>
 <li>The <a href="https://pi-plates.com/daqc2r1/">&pi;-Plates DAQC2 plate</a>.</li>
 </ul>
 
-<p><strong>on MacOS (probably Windows):</strong></p>
+<p><strong>on MacOS and Windows:</strong></p>
 
 <ul>
 <li><a href="https://www.vernier.com">Vernier</a> LabQuest USB A-to-Ds.</li>
@@ -126,8 +126,8 @@ Python 3.6+. Example notebooks can be found in the "usage_examples" folder.</li>
 
 <h3 id="starting-jupyterpidaq">Starting JupyterPiDAQ</h3>
 
-<p>A working Jupyter notebook installation with JupyterPiDAQ installed is
-required. If you need to install the software see the <a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation">Installation 
+<p>A working Jupyter notebook or Jupyter lab installation with JupyterPiDAQ 
+installed is required. If you need to install the software see the <a href="https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation">Installation 
 Instructions</a>. There are two common ways this may be set 
 up, that lead to slightly different steps for starting the software:</p>
 
@@ -171,7 +171,7 @@ In demo mode the A-to-D board is simulated by a random number generator.</p>
 <p><img src="DAQmenu.png" alt="DAQ Menu" /></p>
 
 <p><strong>Figure 1</strong>: The menu created once the data acquisition software is 
-initialized. Currently unavailable in Jupyter Lab.</p>
+initialized. Currently NOT available in Jupyter Lab.</p>
 
 <p>The menu options insert jupyter widget based GUIs for starting a run,
 displaying the data as tables or plots, composing an expression to calculate
@@ -182,9 +182,10 @@ a new column in a DataFrame, or fitting data.</p>
 <p><strong>Using the Menu</strong></p>
 
 <p>From the "DAQ Commands" menu select "Insert New Run After Selection..." or 
-"Append New Run to End...". The first will insert and start the code to set up 
+"Append New Run to End...". The first will insert the code to set up 
 data collection for a run in the cell below the currently selected cell. 
-The second will append this to the end of the notebook. This will generate 
+The second will append this to the end of the notebook. When the cell is 
+run it will generate 
 a GUI that looks like the figure 2, below. Fill in the information to define 
 what you wish to do (see below figure 2 for more details).</p>
 
@@ -216,7 +217,8 @@ display all on one graph.</li>
 on a Raspberry Pi you may not be able to sustain more than 5 Hz).</li>
 <li>When everything is set the way you wish, click on the "Set Parameters" 
 button. The collection parameters will be displayed and a button to 
-start the data collection will appear.</li>
+start the data collection will appear. You may have to scroll back up to 
+the display as Jupyter sometimes jumps too far down when a cell is updated.</li>
 <li>The "start" button will convert to a "stop" button once data collection 
 is started. The data graph(s) will update at roughly 1 Hz, so you can 
 monitor the progress of the data collection.</li>
@@ -226,8 +228,9 @@ display of the data.</li>
 <li>Once collection is stopped you will see a plot or plots of the completed 
 data collection and the name of the .html file the raw data has been 
 backed up to.</li>
-<li>Should you accidentally clear the output of the collection results cell,
-rerunning it will regenerate the display.</li>
+<li>Should you accidentally clear the output of a completed collection cell,
+rerunning it will regenerate the display as long as you have not moved 
+the raw data backup file.</li>
 </ol>
 
 <h3 id="displaying-data">Displaying data</h3>
@@ -399,15 +402,21 @@ terminal window try <code>python -m pip install --user pipenv</code>.</li>
 
 <h3 id="windows"><em>Windows</em></h3>
 
-<p>Not well tested but should work as long a LoggerPro software has been 
+<p>Note: LoggerPro software may need to be 
 installed because that provides the compiled <code>.dll</code> necessary to communicate 
-with the LabQuest interface.</p>
+with the LabQuest interface. In theory will work without this.</p>
 
 <ol>
-<li>Install the latest version of Python, by following the instructions on 
-the <a href="https://www.python.org/">Python website</a>.</li>
+<li>Install the latest version of Python, by <em>following the instructions on 
+the <a href="https://www.python.org/">Python website</a></em>. <strong>WARNING</strong>: Do Not use 
+Windows automatic installation. It may work on a plain vanilla system 
+with one user, but in multiuser systems it badly messes up the ability to 
+use virtual environments.</li>
 <li>Make sure a virtual environment tool such as <code>pipenv</code> is installed. In a 
-terminal window try <code>python -m pip install --user pipenv</code>. </li>
+terminal window try <code>python -m pip install --user pipenv</code>.</li>
+<li>You may have to set or add to your user <code>PATH</code> environment variable. See 
+the warnings generated during the installation. Then search for the 
+latest instructions on how to set <code>PATH</code>.</li>
 </ol>
 
 <h2 id="final-set-up">Final Set Up</h2>
@@ -434,7 +443,7 @@ Python</a>.</li>
 <li>Create a directory for the virtual environment you will be installing
 into (example: <code>mkdir JupyterPiDAQ</code>).</li>
 <li>Navigate into the directory <code>cd JupyterPiDAQ</code>.</li>
-<li>Create the virtual environment and enter it <code>$ pipenv shell</code>. To get out of
+<li>Create the virtual environment and enter it <code>pipenv shell</code>. To get out of
 the environment you can issue the <code>exit</code> command on the command line.</li>
 <li>While still in the shell install the latest JupyterPiDAQ and all its
 requirements
@@ -449,12 +458,12 @@ launch in your browser.
 <li>Open a new notebook using the default (Python 3) kernel.</li>
 <li>In the first cell import all from DAQinstance.py: 
 <code>from <a href="jupyterpidaq/DAQinstance.html">jupyterpidaq.DAQinstance</a> import *</code>.
- When run this cell should load the DAQmenu at the end of the Jupyter
- notebook menu/icon bar. If you do not have an appropriate A-to-D
- board installed you will get a message and the software
+ When run in jupyter notebook this cell should load the DAQmenu at the 
+ end of the Jupyter notebook menu/icon bar. Currently, no convenience 
+ menu is available in Jupyter lab. If you do not have an appropriate
+ A-to-D board installed you will get a message and the software
  will default to demo mode, substituting a random number
- generator for the A-to-D. Because of the demo mode it is
- possible to run this on any computer, not just a Pi.</li>
+ generator for the A-to-D.</li>
 </ol></li>
 <li>If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
@@ -463,7 +472,7 @@ install as a special kernel when you are the user.
 in the directory for  virtual environment will do that.</li>
 <li>Issue the command to add this as a kernel to your personal space: 
 <code>python -m ipykernel install --user --name=&lt;name-you-want-for-kernel&gt;</code>.</li>
-<li>More information is available in the Jupyter/Ipython documentation. 
+<li>More information is available in the Jupyter/IPython documentation. 
 A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
 found <a href="https://janakiev.com/til/jupyter-virtual-envs/">here</a>. </li>
 </ol></li>
@@ -621,7 +630,7 @@ it does not work, pull the release.</li>
 <h1 id="change-log">Change Log</h1>
 
 <ul>
-<li>0.8.0dev ()
+<li>0.8.0 (Apr. 20, 2023)
 <ul>
 <li>Replaced <code>NewRun()</code> command with <code>Run()</code> command. This version works in 
 Jupyter Lab and removes the need for the <code>DisplayRun()</code> command because 

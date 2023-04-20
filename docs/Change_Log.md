@@ -1,5 +1,5 @@
 # Change Log
-* 0.8.0a ()
+* 0.8.0 (Apr. 20, 2023)
   * Replaced `NewRun()` command with `Run()` command. This version works in 
     Jupyter Lab and removes the need for the `DisplayRun()` command because 
     `Run()` will load an already collected dataset or start a new one.

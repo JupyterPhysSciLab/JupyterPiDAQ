@@ -5,9 +5,9 @@
 
 ## Introduction
 
-This software allows realtime collection and plotting of 
-digitized data in  a Jupyter notebook using the following A-to-D
-interfaces:
+This software allows GUI (Graphical User Interface) driven live collection, 
+plotting and analysis of digitized data inside a Jupyter notebook using the 
+following A-to-D interfaces:
 
 **on a Raspberry Pi:**
 * Adafruit compliant ADS1115 boards 
@@ -15,7 +15,7 @@ interfaces:
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
 
-**on MacOS (probably Windows):**
+**on MacOS and Windows:**
 * [Vernier](https://www.vernier.com) LabQuest USB A-to-Ds.
 
 **demo mode on anything Jupyter runs on**
@@ -33,8 +33,8 @@ Python 3.6+. Example notebooks can be found in the "usage_examples" folder.
 
 ### Starting JupyterPiDAQ
 
-A working Jupyter notebook installation with JupyterPiDAQ installed is
-required. If you need to install the software see the [Installation 
+A working Jupyter notebook or Jupyter lab installation with JupyterPiDAQ 
+installed is required. If you need to install the software see the [Installation 
 Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation). There are two common ways this may be set 
 up, that lead to slightly different steps for starting the software:
 1. *A special kernel* may be set up that can be used in any Jupyter notebook 
@@ -71,7 +71,7 @@ When setup is done a new menu appears at the end of the menubar (figure 1).
 ![DAQ Menu](DAQmenu.png)
 
 **Figure 1**: The menu created once the data acquisition software is 
-initialized. Currently unavailable in Jupyter Lab.
+initialized. Currently NOT available in Jupyter Lab.
 
 The menu options insert jupyter widget based GUIs for starting a run,
 displaying the data as tables or plots, composing an expression to calculate
@@ -81,9 +81,10 @@ a new column in a DataFrame, or fitting data.
 **Using the Menu**
 
 From the "DAQ Commands" menu select "Insert New Run After Selection..." or 
-"Append New Run to End...". The first will insert and start the code to set up 
+"Append New Run to End...". The first will insert the code to set up 
 data collection for a run in the cell below the currently selected cell. 
-The second will append this to the end of the notebook. This will generate 
+The second will append this to the end of the notebook. When the cell is 
+run it will generate 
 a GUI that looks like the figure 2, below. Fill in the information to define 
 what you wish to do (see below figure 2 for more details).
 
@@ -113,7 +114,8 @@ generate the GUI shown in figure 2.
    on a Raspberry Pi you may not be able to sustain more than 5 Hz).
 6. When everything is set the way you wish, click on the "Set Parameters" 
    button. The collection parameters will be displayed and a button to 
-   start the data collection will appear.
+   start the data collection will appear. You may have to scroll back up to 
+   the display as Jupyter sometimes jumps too far down when a cell is updated.
 7. The "start" button will convert to a "stop" button once data collection 
    is started. The data graph(s) will update at roughly 1 Hz, so you can 
    monitor the progress of the data collection.
@@ -123,8 +125,9 @@ generate the GUI shown in figure 2.
 9. Once collection is stopped you will see a plot or plots of the completed 
    data collection and the name of the .html file the raw data has been 
    backed up to.
-10. Should you accidentally clear the output of the collection results cell,
-    rerunning it will regenerate the display.
+10. Should you accidentally clear the output of a completed collection cell,
+    rerunning it will regenerate the display as long as you have not moved 
+    the raw data backup file.
 
 ### Displaying data
 
