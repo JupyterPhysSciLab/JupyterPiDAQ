@@ -141,6 +141,10 @@ class DAQinstance():
         self.ignore_skew = kwargs.pop('ignore_skew',True)
         self.idno = idno
         self.livefig = go.FigureWidget(layout_template='simple_white')
+        self.PLTconn, self.DAQconn = Pipe()
+        self.DAQCTL, self.PLTCTL = Pipe()
+        self.pltthread = threading.Thread(target=self.updatingplot, args=(
+                                        self.PLTconn, self.PLTCTL))
         self.title = str(title)
         self.svname = title + '.jpidaq.html'
         self.averaging_time = 0.1  # seconds adjusted based on collection rate
@@ -446,8 +450,6 @@ class DAQinstance():
             self.setupbtn.tooltip = 'Parameters locked. The run has started.'
             self.rateinp.disabled = True
             self.timelbl.disabled = True
-            PLTconn, DAQconn = Pipe()
-            DAQCTL, PLTCTL = Pipe()
             nactive = 0
             for k in self.traces:
                 if k.isactive:
@@ -477,17 +479,16 @@ class DAQinstance():
             DAQ = Process(target=DAQProc,
                           args=(
                               whichchn, gains, self.averaging_time, self.delta,
-                              DAQconn, DAQCTL))
+                              self.DAQconn, self.DAQCTL))
             DAQ.start()
-            thread = threading.Thread(target=self.updatingplot, args=(
-                                        PLTconn, PLTCTL))
-            thread.start()
+            self.pltthread.start()
             # self.updatingplot() hangs up user interface
         else:
             btn.description = 'Done'
             btn.button_style = ''
             btn.tooltip = ''
-            time.sleep(3)  # wait a few seconds for end of data collection
+            # wait a plotting thread to terminate
+            self.pltthread.join()
             self.data = data
             self.timestamp = timestamp
             self.stdev = stdev
