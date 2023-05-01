@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 # Optimized for Pi 3B+ for an installed ADS1115 ADC PiHAT. This is
 # actually ignored by this board, but necessary for ADC call
 # compatibility.
-RATE = 10000 #maximum 10 kHz
+RATE = 500 #maximum 10 kHz
 
 def find_boards():
     """
@@ -299,19 +299,17 @@ def LQProc(cmdrcv, datasend, starttime, samples):
                     running = False
                 if cmd[0] == 'start':
                     # restart data collection to get good zero
-                    #lqs.stop()
-                    #lqs.start(PERIOD)
-                    print("Reached start.")
-                    labquest.buf.buffer_clear()
-                    now = time.time()
-                    starttime.value = now
+                    lqs.stop()
+                    lqs.start(PERIOD)
+                    starttime.value = time.time()
                     for k in range(3):
                         samples[k].value = 0
-                    print("  Time should set to: "+str(now))
                 if cmd[0] == 'send':
                     # return requested amount of data for the channel
                     chan = 'ch'+str(cmd[2])
-                    data = lqs.read_multi_pt(chan,cmd[3],device=cmd[1])
+                    data = []
+                    for k in range(cmd[3]):
+                        data.append(lqs.read(chan, device=cmd[1]))
                     datasend.send(data)
         lqs.close()
         return
