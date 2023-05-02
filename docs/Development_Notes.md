@@ -9,7 +9,7 @@ pip and a Jupyter notebook.
 See: [python.org](https://python.org) and
 [Jupyter.org](https://jupyter.org).
 
-1. If not installed, install pipenv:`$ pip3 install --user pipenv`. You may
+1. If not installed, install pipenv:`pip3 install --user pipenv`. You may
 need to add `~/.local/bin` to your `PATH` to make `pipenv`
 available in your command shell. More discussion: 
 [The Hitchhiker's Guide to Python](https://docs.python-guide.org/dev/virtualenvs/).
@@ -17,21 +17,21 @@ available in your command shell. More discussion:
 or has been downloaded to. Use `pipenv`to install an 
 ["editable" package](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs) 
 inside the directory as described below:
-    1. Start a shell in the environment `$ pipenv shell`.
+    1. Start a shell in the environment `pipenv shell`.
     1. Install using pip.
         1. If you downloaded the git repository named "JupyterPiDAQ"
         and have used that directory to build your virtual
-        environment: `$ pip install -e ../JupyterPiDAQ/`.
+        environment: `pip install -e ../JupyterPiDAQ/`.
         1. If you are downloading from PyPi
-        `$ pip install -e JupyterPiDAQ`
+        `pip install -e JupyterPiDAQ`
         1. Either should install all the additional packages this
         package depends upon. On a Raspberry Pi this will take
         a long time. It probably will not run without at least 1 GB of swap. See: 
         [Build Jupyter on a Pi
         ](https://www.uwosh.edu/facstaff/gutow/computer-and-programming-how-tos/installing-jupyter-on-raspberrian).
-    1. Still within the environment shell test
-       this by starting jupyter `$ jupyter notebook`. Jupyter should launch in
-       your browser.
+    1. Still within the environment shell test this by starting jupyter 
+       `jupyter nbclassic` or `jupyter lab`. Jupyter should launch in your 
+       browser.
         1. Open a new notebook using the default (Python 3) kernel.
         1. In the first cell import all from DAQinstance.py: 
         `from jupyterpidaq.DAQinstance import *`.
@@ -43,10 +43,10 @@ inside the directory as described below:
         possible to run this on any computer, not just a Pi.
 1. If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
-    1. Make sure you are running in your virtual environment `$ pipenv shell` 
+    1. Make sure you are running in your virtual environment `pipenv shell` 
        in the directory for  virtual environment will do that.
     1. Issue the command to add this as a kernel to your personal space: 
-    `$ python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
+    `python -m ipykernel install --user --name=<name-you-want-for-kernel>`.
     1. More information is available in the Jupyter/Ipython documentation. 
     A simple tutorial from Nikolai Jankiev (_Parametric Thoughts_) can be
      found [here](https://janakiev.com/til/jupyter-virtual-envs/). 
