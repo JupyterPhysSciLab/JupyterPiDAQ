@@ -8,19 +8,19 @@ This software allows GUI (Graphical User Interface) driven live collection,
 plotting and analysis of 
 digitized data inside a Jupyter notebook. The package was initially developed
 to provide an inexpensive laboratory system for teaching based on
-the Raspberry Pi.  __However, it now also works on other hardware__. 
+the Raspberry Pi.  **However, it now works on other hardware**. 
 Presently the working combinations are:
 
-__on Raspberry Pis__ 
+**on Raspberry Pis** 
 * Adafruit compliant ADS1115 boards 
 ([example](https://www.amazon.com/KNACRO-4-Channel-Raspberry-ADS1115-Channel/dp/B07149WH7P),
 also available from other vendors);
 * The [&pi;-Plates DAQC2 plate](https://pi-plates.com/daqc2r1/).
 
-__on Macs (and probably Windows)__
+**on Macs and Windows**
 * [Vernier](https://www.vernier.com) LabQuest USB A-to-Ds.
 
-__demo mode on anything Jupyter runs on__
+**demo mode on anything Jupyter runs on**
 * A demo mode will run on any computer with a Jupyter notebook install and
 Python 3.6+. You can try the demo mode without installing on your own 
   computer by launching an instance on the MyBinder servers:
@@ -37,14 +37,14 @@ appropriate for the sensor, in addition to the raw voltage signal returned
 by the sensor. Not all sensors are compatible with all boards.
 The developer(s) attempt to keep this list of known sensors up-to-date, but the
 code may provide additional sensors not listed here:
-* __ADS1115 compatible__ (board can provide 3.3 V of power/reference to
+* **ADS1115 compatible** (board can provide 3.3 V of power/reference to
  sensors):
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/-3.3 V.
   * built-in thermistor (V, mV, K, C, F).
   * Vernier SS temperature probe (V, mV, K, C, F).
   
-* __DAQC2 compatible__ (board can provide 5.0 V of power/reference to sensors):
+* **DAQC2 compatible** (board can provide 5.0 V of power/reference to sensors):
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 12 V.
   * Vernier SS temperature probe (V, mV, K, C, F).
@@ -54,7 +54,7 @@ code may provide additional sensors not listed here:
   * Compatible with standard Vernier analog probes. Default calibrations
   being added as time and sensors become available.
   
-* __LabQuest compatible__ (board provides 5.0 V of power/reference to sensors):
+* **LabQuest compatible** (board provides 5.0 V of power/reference to sensors):
   * voltage reading (V, mV) from any sensor that puts out a voltage in the
    range +/- 10 V.
   * Vernier SS temperature probe (V, mV, K, C, F).

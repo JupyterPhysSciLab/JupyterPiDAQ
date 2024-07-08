@@ -1,7 +1,12 @@
 # Change Log
-* X.X.X (July, X, 2024)
+* * X.X.X (July, X, 2024)
   * BUG FIX: Increased checking to avoid javascript errors in Jupyter Lab 
     and Notebook >= 7, while maintaining NBClassic capabilities.
+* 0.8.1 (May 2, 2023)
+  * BUG FIX: Now always waits for all data to be transferred to plot before 
+    writing backup to a file.
+  * More rapid update of display when using LabQuests.
+  * Docs now recommend launching `jupyter nbclassic` for old notebook interface.
 * 0.8.0 (Apr. 20, 2023)
   * Replaced `NewRun()` command with `Run()` command. This version works in 
     Jupyter Lab and removes the need for the `DisplayRun()` command because 

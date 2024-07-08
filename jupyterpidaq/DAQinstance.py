@@ -20,6 +20,7 @@ import JPSLUtils
 logname = 'DAQinstance_' + time.strftime('%y-%m-%d_%H%M%S',
                                          time.localtime()) + '.log'
 logging.basicConfig(filename=logname, level=logging.WARN)
+# logging.basicConfig(filename=logname, level=logging.DEBUG)
 
 # below is equivalent to %matplotlib notebook in a Jupyter cell
 from IPython import get_ipython
@@ -700,6 +701,7 @@ class DAQinstance():
         for k in range(len(self.livefig.data)):
             self.livefig.data[k].x = toplotx[k]
             self.livefig.data[k].y = toploty[k]
+        return
 
 # TODO delete newRun once sure not needed.
 # def newRun(livefig):

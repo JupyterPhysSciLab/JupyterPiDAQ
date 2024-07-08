@@ -42,7 +42,8 @@ up, that lead to slightly different steps for starting the software:
    [Installation Instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation)). 
    * In this case launch
    Jupyter, in whichever directory you want to work, using the 
-   command: `jupyter notebook` or `jupyter lab`.
+   command: `jupyter nbclassic` (for the old notebook interface) or `jupyter 
+     lab` (for the newer lab interface).
    * Open a new notebook and choose the kernel 
    for `JupyterPiDAQ`. The kernel name will depend upon what was chosen 
    during installation.
@@ -54,7 +55,8 @@ up, that lead to slightly different steps for starting the software:
    * Then enter the virtual environment with the command `pipenv shell`. 
        This assumes you set up `pipenv` as described in the 
        [Installation instructions](https://jupyterphysscilab.github.io/JupyterPiDAQ/jupyterpidaq.html#installation).
-   * Launch Jupyter using the command: `jupyter notebook` or `jupyter lab`.
+   * Launch Jupyter using the command: `jupyter nbclassic` (for the old 
+     notebook interface) or `jupyter lab` (for the newer lab interface).
    * Open a new python notebook.
 
 ### Initialize the Data Acquisition Tools
