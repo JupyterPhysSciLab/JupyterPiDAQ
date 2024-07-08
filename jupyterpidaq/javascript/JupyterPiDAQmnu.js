@@ -96,6 +96,10 @@ function protect_selected_cells(){
 }
 
 function createCmdMenu(){
+    if(JPSLUtils.env !='NBClassic'){
+        console.log('Not in classic notebook. DAQ_commands classic menu skipped.');
+        return;
+    }
     if(!document.getElementById('DAQ_commands')){
         var instrun = {'type':'action',
                             'title':'Insert New Run after selection...',
