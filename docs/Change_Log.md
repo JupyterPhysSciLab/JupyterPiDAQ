@@ -1,7 +1,8 @@
 # Change Log
-* * X.X.X (July, X, 2024)
+* 0.8.2 (July, 10, 2024)
   * BUG FIX: Increased checking to avoid javascript errors in Jupyter Lab 
     and Notebook >= 7, while maintaining NBClassic capabilities.
+  * Documentation updates and improvements.
 * 0.8.1 (May 2, 2023)
   * BUG FIX: Now always waits for all data to be transferred to plot before 
     writing backup to a file.

@@ -129,16 +129,16 @@ Python](https://docs.python-guide.org/dev/virtualenvs/).
    https://cms.gutow.uwosh.edu/Gutow/useful-chemistry-links/software-tools-and-coding/computer-and-coding-how-tos/installing-jupyter-on-raspberrian)
    for a discussion of adding swap space on a Pi.
 6. Still within the environment shell test
-   this by starting jupyter `jupyter notebook` or `jupyter lab`. Jupyter should 
-   launch in your browser.
+   this by starting jupyter `jupyter notebook`, `jupyter lab` or `jupyter 
+   nbclassic`. Jupyter should launch in your browser.
     1. Open a new notebook using the default (Python 3) kernel.
     2. In the first cell import all from DAQinstance.py: 
        `from jupyterpidaq.DAQinstance import *`.
-        When run in jupyter notebook this cell should load the DAQmenu at the 
-        end of the Jupyter notebook menu/icon bar. Currently, no convenience 
-        menu is available in Jupyter lab. If you do not have an appropriate
-        A-to-D board installed you will get a message and the software
-        will default to demo mode, substituting a random number
+        In classic notebook this cell should load the DAQmenu at the 
+        end of the Jupyter notebook menu/icon bar. In Notebook and Lab DAQ 
+       Commands menu should appear on launch of Jupyter. If you do not 
+       have an appropriate A-to-D board installed you will get a message and 
+       the software will default to demo mode, substituting a random number
         generator for the A-to-D.
 7. If you wish, you can make this environment available to an alternate Jupyter
 install as a special kernel when you are the user.
