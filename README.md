@@ -79,4 +79,4 @@ This program is free software: you can redistribute it and/or modify
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-Copyright - Jonathan Gutow, 2021, 2022, 2023.
+Copyright - Jonathan Gutow, 2021 - 2024.

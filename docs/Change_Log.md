@@ -1,7 +1,9 @@
 # Change Log
 * 0.8.2 (July, 10, 2024)
   * BUG FIX: Increased checking to avoid javascript errors in Jupyter Lab 
-    and Notebook >= 7, while maintaining NBClassic capabilities.
+    and Notebook 7+, while maintaining NBClassic capabilities.
+  * Added version of "DAQ Commands" menu that works in Jupyter Lab and 
+    Notebook 7+.
   * Documentation updates and improvements.
 * 0.8.1 (May 2, 2023)
   * BUG FIX: Now always waits for all data to be transferred to plot before 

@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 setuptools.setup(
     name="JupyterPiDAQ",
     url = "https://github.com/JupyterPhysSciLab/JupyterPiDAQ",
-    version="0.8.1",
+    version="0.8.2",
     description="Live Data Acquisition in Jupyter notebooks",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -37,6 +37,7 @@ setuptools.setup(
         'jupyter-pandas-GUI>=0.7.0',
         'JPSLMenus>=0.5.0',
         'JPSLUtils>=0.7.0',
+        'jupyterpidaq-menu>=0.1.0',
         'AdvancedHTMLParser>=9.0.1'
     ],
     classifiers=[
